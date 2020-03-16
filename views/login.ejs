@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta A Dog | Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../imgs/rover.png" alt="" style="width: 100px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/register" class="pr-4">Sign Up</a>
+                    <a href="/login">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 6rem;">
+        <div class="card" style="width: 70%; margin-left: 10rem;">
+            <h5 class="card-header text-center">Sign In for Pet A Dog</h5>
+            <div class="card-body">
+                <% if (messages.error) { %>
+                <p class="text-danger">
+                    <%= messages.error %>
+                </p>
+                <% } %>
+                <form action="/login" method="POST">
+                    <div class="form-group row">
+                        <label for="Email" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Password" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control form-control-lg" id="password" name="password"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group row text-center mt-3">
+                        <label for="#" class="col-sm-2 col-form-label col-form-label-lg"></label>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <h2 class="displaty-4 lead text-center">
+                <a href="/forget-password">Forgot your Password ?</a>
+            </h2>
+            <h2 class="displaty-4 lead text-center mt-3">
+                Don't have an Account ?
+                <a href="/register">Sign Up Now</a>
+            </h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card bg-dark mt-5">
+            <img src="../imgs/banner.jpg" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <div class="card bg-light mb-3" style="max-width: 25rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">We are the dog people</h5>
+                        <h4 class="card-text">Jaane ka he but bulati nai - Prathmesh Pathak</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 text-center">
+        <h2>We’re the treat-your-dog-like-family dog people</h2>
+        <div class="card-deck mt-4">
+            <div class="card">
+                <img src="../imgs/medal.png" class="card-img-top ml-5 mt-3" alt="..." style="width: 250px;">
+                <div class="card-body">
+                    <h5 class="card-title">Discover nearby, trusted sitters</h5>
+                    <p class="card-text">Get matched with one of our on-demand dog walkers, or browse for an overnight
+                        or day care sitter.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../imgs/phone.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Book & pay on PetADog</h5>
+                    <p class="card-text">Book and pay securely through the website or app.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../imgs/relax.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Relax</h5>
+                    <p class="card-text">Get the Rover Guarantee, 24/7 support, and reservation protection.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-5">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
+    <!--  -->
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
