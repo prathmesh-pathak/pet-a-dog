@@ -75,9 +75,19 @@ router.get('/tips-tricks', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-    res.render('profile.ejs', {
-        userData: req.user
-    });
+    if (typeof dog == "undefined" || dog == null || dog.length == 0) {
+        res.render('profile.ejs', {
+            userData: req.user
+        });
+    }
+    else {
+        res.render('profile-dog.ejs', {
+            userData: req.user,
+            dogData: dog
+        });
+        console.log(req.user);
+        console.log(dog);
+    }
 });
 
 router.get('/profile/add', (req, res) => {
@@ -97,18 +107,7 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
         children: req.body.children,
         isTrained: req.body.trained
     });
-
-    console.log(users);
-    console.log(dog);
-
-    res.redirect('/profile/add-dog');
-});
-
-router.get('/profile/add-dog', (req, res) => {
-    res.render('profile-dog.ejs', {
-        userData: users,
-        dogData: dog
-    });
+    res.redirect('/profile');
 });
 
 function checkAuthenticated(req, res, next) {
