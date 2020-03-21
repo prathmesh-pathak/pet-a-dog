@@ -9,54 +9,111 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
-    <form action="/profile/add" method="POST">
-        Name:
-        <input type="text" name="dogName" id="dog-name"><br>
-        <label for="breeds">Breed:</label>
-        <select id="dogBreed" name="dogBreed">
-            <option value="pug">Pug</option>
-            <option value="Brittany">Brittany</option>
-            <option value="Doberman">Doberman</option>
-            <option value="Siberian Husky">Siberian Husky</option>
-        </select><br>
-        Weight (lbs)
-        <input type="text" name="weight" id="weight"><br>
-        Age (years)
-        <input type="text" name="ageYears" id="ageYears"><br>
-        Age (months)
-        <input type="text" name="ageMonths" id="ageMonths"><br>
-        Gender :
-        <input type="radio" id="male" name="gender" value="male">
-        <label for="male">Male</label>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">Female</label><br>
+<body style="background-color: rgb(244, 245, 246);">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container" style="font-size: 1rem;">
+            <a class="navbar-brand" href="/home">
+                <img src="../imgs/rover.png" alt="" style="width: 100px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        Is your dog microchipped?<br>
-        <input type="radio" id="microchippedYes" name="microchipped" value="Yes">
-        <label for="microchippedYes">Yes</label><br>
-        <input type="radio" id="microchippedNo" name="microchipped" value="No">
-        <label for="microchippedNo">No</label><br>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item pr-4">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item pr-4 active">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
 
-        Does your dog get along well with other dogs?<br>
-        <input type="radio" id="natureYes" name="nature" value="Yes">
-        <label for="natureYes">Yes</label><br>
-        <input type="radio" id="natureNo" name="nature" value="No">
-        <label for="natureNo">No</label><br>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
 
-        Does your dog get along well with children? <br>
-        <input type="radio" id="childrenYes" name="children" value="Yes">
-        <label for="childrenYes">Yes</label><br>
-        <input type="radio" id="childrenNo" name="children" value="No">
-        <label for="childrenNo">No</label><br>
+                    <li class="nav-item pr-4">
+                        <a class="nav-link" href="/tips-tricks">Dog Care</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="margin-top: 6rem;">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tell us a bit about your dog.</h5>
+                    <form action="/profile/add" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Name">Name</label>
+                                <input type="text" class="form-control" name="dogName" id="dog-name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Weight">Weight (lbs)</label>
+                                <input type="text" class="form-control" name="weight" id="weight">
+                            </div>
+                        </div>
 
-        Is your dog housetrained?<br>
-        <input type="radio" id="trainedYes" name="trained" value="Yes">
-        <label for="trainedYes">Yes</label><br>
-        <input type="radio" id="trainedNo" name="trained" value="No">
-        <label for="trainedNo">No</label><br>
+                        <div class="form-group">
+                            <label for="inputAddress2">Breed(s)</label>
+                            <p class="card-text"><small class="text-muted">Enter all breeds that apply. If your dog is a
+                                    mixed breed, add ‘Mixed’ as well.</small></p>
+                            <select id="dogBreed" class="custom-select my-1 mr-sm-2" name="dogBreed">
+                                <option selected>Breeds</option>
+                                <option value="pug">Pug</option>
+                                <option value="Brittany">Brittany</option>
+                                <option value="Doberman">Doberman</option>
+                                <option value="Siberian Husky">Siberian Husky</option>
+                            </select>
+                        </div>
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-    </form>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="age">Age (Years)</label>
+                                <input type="text" class="form-control" name="ageYears" id="ageYears">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="age">Age (Months)</label>
+                                <input type="text" class="form-control" name="ageMonths" id="ageMonths">
+                            </div>
+                            <div class="form-group col-md-3 form-check">
+                                <label for="sex">Sex</label>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="male" name="gender" value="male">
+                                        Male
+                                    </div>
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="female" name="gender" value="female">
+                                        Female
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+</body>
 
 </html>
