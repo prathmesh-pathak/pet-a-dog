@@ -65,6 +65,7 @@ router.get('/search-sitter', checkAuthenticated, (req, res) => {
         let sitter = JSON.parse(data);
         console.log(sitter);
         res.render('sitter.ejs', {
+            userData: req.user,
             sitterData: sitter
         });
     });
@@ -85,8 +86,6 @@ router.get('/profile', (req, res) => {
             userData: req.user,
             dogData: dog
         });
-        console.log(req.user);
-        console.log(dog);
     }
 });
 
@@ -99,14 +98,17 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
         id: Date.now().toString(),
         name: req.body.dogName,
         weight: req.body.weight,
+        breed: req.body.dogBreed,
         ageYears: req.body.ageYears,
         ageMonths: req.body.ageMonths,
         gender: req.body.gender,
+        cats: req.body.cats,
         isMicrochipped: req.body.microchipped,
         nature: req.body.nature,
         children: req.body.children,
         isTrained: req.body.trained
     });
+    console.log(dog);
     res.redirect('/profile');
 });
 

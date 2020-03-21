@@ -67,7 +67,7 @@
                                     mixed breed, add ‘Mixed’ as well.</small></p>
                             <select id="dogBreed" class="custom-select my-1 mr-sm-2" name="dogBreed">
                                 <option selected>Breeds</option>
-                                <option value="pug">Pug</option>
+                                <option value="Pug">Pug</option>
                                 <option value="Brittany">Brittany</option>
                                 <option value="Doberman">Doberman</option>
                                 <option value="Siberian Husky">Siberian Husky</option>
@@ -87,11 +87,11 @@
                                 <label for="sex">Sex</label>
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-lg-6 mt-1">
-                                        <input type="radio" id="male" name="gender" value="male">
+                                        <input type="radio" id="male" name="gender" value="Male">
                                         Male
                                     </div>
                                     <div class="form-group col-xs-12 col-lg-6 mt-1">
-                                        <input type="radio" id="female" name="gender" value="female">
+                                        <input type="radio" id="female" name="gender" value="Female">
                                         Female
                                     </div>
                                 </div>
@@ -107,6 +107,22 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-lg-6 mt-1">
                                         <input type="radio" id="microchippedNo" name="microchipped" value="No">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="microchipped">Does your dog get along well with cats ?
+                                </label>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="catsYes" name="cats" value="Yes">
+                                        Yes
+                                    </div>
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="catsNo" name="cats" value="No">
                                         No
                                     </div>
                                 </div>
@@ -167,6 +183,35 @@
             </div>
         </div>
     </div>
+
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-5">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"

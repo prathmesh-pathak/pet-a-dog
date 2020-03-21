@@ -38,9 +38,10 @@
                     </li>
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
-                    <!-- <a href="/register" class="pr-4">Sign Up</a>
-                    <a href="/login">Sign In</a> -->
-                    <a href="/profile">View Profile</a>
+                    <a href="/profile"><%= userData.firstName %></a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button id="log-out-btn" class="btn btn-primary ml-4" type="submit">Log out</button>
+                    </form>
                 </div>
             </div>
         </div>

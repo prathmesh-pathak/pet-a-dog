@@ -37,18 +37,16 @@
                         <a class="nav-link" href="/tips-tricks">Dog Care</a>
                     </li>
                 </ul>
-                <!-- <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> -->
                 <div class="form-inline my-2 my-lg-0">
-                    <!-- <a href="/register" class="pr-4">Sign Up</a>
-                    <a href="/login">Sign In</a> -->
                     <a href="/profile"><%= name %></a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button id="log-out-btn" class="btn btn-primary ml-4" type="submit">Log out</button>
+                    </form>
                 </div>
             </div>
         </div>
     </nav>
+
     <div class="jumbotron jumbotron-fluid bg-info text-white">
         <div class="container mt-4">
             <h1 class="display-3 text-center">Local, Loving Pet Care</h1>
@@ -60,9 +58,9 @@
                         <h1>Hi <%= name %> </h1>
                     </div>
                     <div class="col">
-                        <form action="/logout?_method=DELETE" method="POST">
+                        <!-- <form action="/logout?_method=DELETE" method="POST">
                             <button class="btn btn-primary" type="submit">Log out</button>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>
