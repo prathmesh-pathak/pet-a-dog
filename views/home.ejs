@@ -4,11 +4,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pet A Dog</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
-    this is home
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="../imgs/rover.png" alt="" style="width: 100px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tips-tricks">Dog Care</a>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/register" class="pr-4">Sign Up</a>
+                    <a href="/login">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid bg-info text-white">
+        <div class="container mt-4">
+            <h1 class="display-3 text-center">Local, Loving Pet Care</h1>
+            <h2 class="displaty-4 lead text-center">Book trusted sitters and dog walkers who'll treat your pets like
+                family.</h2>
+            <div class="card mt-2 bg-dark">
+                <h5 class="card-header lead">I'm looking for service for my dog</h5>
+                <div class="card-body">
+                    <h5 class="card-title displaty-5">What services do you need ?</h5>
+                    <div class="card-deck">
+                        <div class="card bg-dark" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Dog Boarding</h5>
+                                <p class="card-text">Perfect if you need overnight pet care.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                        <div class="card bg-dark" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">House Sitting</h5>
+                                <p class="card-text">Great if you need overnight pet or house-sitting services.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                        <div class="card bg-dark" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Drop-In Visits</h5>
+                                <p class="card-text">Whenever your dog needs a walk.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                        <div class="card bg-dark" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Doggy Day Care</h5>
+                                <p class="card-text">Daytime pet care in your sitter’s dog-friendly home.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="display-4 lead  text-center">Services for every dog</h2>
+        <div class="row">
+            <div class="col text-center">
+                <div class="card mb-3">
+                    <div class=" row no-gutters">
+                        <div class="col-md-4">
+                            <img src="../imgs/boarding.png" class="card-img" alt="..." style="width: 100px;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Dog Boarding</h5>
+                                <p class="card-text">Perfect if you need overnight pet care.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="../imgs/house.png" class="card-img pt-2" alt="..." style="width: 100px;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">House Sitting</h5>
+                                <p class="card-text">Great if you need overnight pet or house-sitting services.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="../imgs/paws.png" class="card-img pt-2" alt="..." style="width: 100px;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">NEW! Rover Now Dog Walking </h5>
+                                <p class="card-text">Whenever your dog needs a walk.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="../imgs/sun.png" class="card-img pt-2" alt="..." style="width: 100px;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Doggy Day Care</h5>
+                                <p class="card-text">Daytime pet care in your sitter’s dog-friendly home.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="../imgs/food.png" class="card-img pt-2" alt="..." style="width: 100px;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Drop-In Visits</h5>
+                                <p class="card-text">For check-ins and play dates.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white bg-info mb-3" style="max-width: 100%; margin-top: 5rem;">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="ml-5" src="../imgs/badge.png" alt="" style="width: 50px;">
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="displaty-4 lead mt-3">Book with pet sitters you can trust</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="#"
+                                class="list-group-item list-group-item-action flex-column align-items-start active mt-3">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">All new sitters pass a basic background check</h5>
+                                </div>
+                            </a>
+                            <a href="#"
+                                class="list-group-item list-group-item-action flex-column align-items-start active mt-3">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">All sitters provide a detailed profile and personal information
+                                    </h5>
+                                </div>
+                            </a>
+                            <a href="#"
+                                class="list-group-item list-group-item-action flex-column align-items-start active mt-3">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">All sitters are approved by our team of sitter specialists</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <button type="button" class="mt-3 btn btn-light btn-lg btn-block">Book your next sitter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card bg-dark mt-5">
+            <img src="../imgs/banner.jpg" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <div class="card bg-light mb-3" style="max-width: 25rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">We are the dog people</h5>
+                        <h4 class="card-text">Jaane ka he but bulati nai - Prathmesh Pathak</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 text-center">
+        <h2>We’re the treat-your-dog-like-family dog people</h2>
+        <div class="card-deck mt-4">
+            <div class="card">
+                <img src="../imgs/medal.png" class="card-img-top ml-5 mt-3" alt="..." style="width: 250px;">
+                <div class="card-body">
+                    <h5 class="card-title">Discover nearby, trusted sitters</h5>
+                    <p class="card-text">Get matched with one of our on-demand dog walkers, or browse for an overnight
+                        or day care sitter.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../imgs/phone.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Book & pay on PetADog</h5>
+                    <p class="card-text">Book and pay securely through the website or app.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../imgs/relax.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Relax</h5>
+                    <p class="card-text">Get the Rover Guarantee, 24/7 support, and reservation protection.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-5">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

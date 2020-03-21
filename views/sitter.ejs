@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet a Dog | Sitters</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        #more,
+        #more1,
+        #more2 {
+            display: none;
+        }
+
+        .myBtn {
+            background: none !important;
+            border: none;
+            padding: 0 !important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color: #069;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        #map {
+            height: 100%;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+</head>
+
+<body style="background-color: rgb(244, 245, 246);">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container-fluid" style="font-size: 1rem;">
+            <a class="navbar-brand" href="/home">
+                <img src="../imgs/rover.png" alt="" style="width: 100px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item pr-4">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item pr-4 active">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
+
+                    <li class="nav-item pr-4">
+                        <a class="nav-link" href="/tips-tricks">Dog Care</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 4.5rem;">
+        <div class="row" style="margin: 0; padding: 0;">
+            <div class="col-3">
+                <div class="card" style="max-width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Service type</h5>
+                        <select class="form-control form-control-lg">
+                            <option>Dog Boarding</option>
+                            <option>House Sitting</option>
+                            <option>NEW! Rover Now Dog Walking</option>
+                            <option>Doggy Day Care</option>
+                            <option>Drop-In Visits</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Dog Boarding near</h5>
+                        <input type="text" class="form-control form-control-lg" id="zipcode" name="zipcode"
+                            value="07306">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Dates</h5>
+                        <div class="row">
+                            <div class="col">
+                                <p class="card-text">Drop Off</p>
+                                <input type="date" class="form-control form-control-lg" id="start" name="trip-start"
+                                    value="Drop Off" style="font-size: 1.2rem; width: 9.8rem;">
+                            </div>
+                            <div class="col">
+                                <p class="card-text">Pick Up</p>
+                                <input type="date" class="form-control form-control-lg" id="start" name="trip-start"
+                                    value="Drop Off" style="font-size: 1.2rem; width: 9.5rem;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Dog Sizes (lbs)</h5>
+                        <table class="table table-bordered"
+                            style="font-size: 1.2rem; text-align: center; padding: 1rem;">
+                            <tbody>
+                                <tr>
+                                    <td>0-15</td>
+                                    <td>16-40</td>
+                                    <td>41-100</td>
+                                    <td>101+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">How Many Pets ?</h5>
+                        <table class="table table-bordered"
+                            style="font-size: 1.2rem; text-align: center; padding: 1rem;">
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Rate per night ? </h5>
+                        <div class="slidecontainer">
+                            <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+                            <p class="card-text">Cost: $ <span id="demo"></span></p>
+                        </div>
+                        <script>
+                            var slider = document.getElementById("myRange");
+                            var output = document.getElementById("demo");
+                            output.innerHTML = slider.value;
+
+                            slider.oninput = function () {
+                                output.innerHTML = this.value;
+                            }
+                        </script>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Housing Conditions</p>
+                        <hr style="width: 100%; height: 1px; background: black;">
+                        <div class="container">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Has house (excludes apartments)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Has fenced yard
+                                </label>
+                            </div>
+                            <span id="dots"></span>
+                            <span id="more">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Dog first-aid certified
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Dogs allowed on bed
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Dogs allowed on furniture
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Non-smoking home
+                                    </label>
+                                </div>
+                            </span>
+                            <button onclick="myFunction()" class="myBtn" id="myBtn">More</button>
+                            <script>
+                                function myFunction() {
+                                    var dots = document.getElementById("dots");
+                                    var moreText = document.getElementById("more");
+                                    var btnText = document.getElementById("myBtn");
+
+                                    if (dots.style.display === "none") {
+                                        dots.style.display = "inline";
+                                        btnText.innerHTML = "More";
+                                        moreText.style.display = "none";
+                                    } else {
+                                        dots.style.display = "none";
+                                        btnText.innerHTML = "Less";
+                                        moreText.style.display = "inline";
+                                    }
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Pets in the home</p>
+                        <hr style="width: 100%; height: 1px; background: black;">
+                        <div class="container">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Accepts only one client at a time
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Doesn't own a dog
+                                </label>
+                            </div>
+                            <span id="dots1"></span>
+                            <span id="more1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Doesn't own a cat
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Does not own caged pets
+                                    </label>
+                                </div>
+                            </span>
+                            <button onclick="myFunction1()" class="myBtn" id="myBtn1">More</button>
+                            <script>
+                                function myFunction1() {
+                                    var dots = document.getElementById("dots1");
+                                    var moreText = document.getElementById("more1");
+                                    var btnText = document.getElementById("myBtn1");
+
+                                    if (dots.style.display === "none") {
+                                        dots.style.display = "inline";
+                                        btnText.innerHTML = "More";
+                                        moreText.style.display = "none";
+                                    } else {
+                                        dots.style.display = "none";
+                                        btnText.innerHTML = "Less";
+                                        moreText.style.display = "inline";
+                                    }
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Children in the home</p>
+                        <hr style="width: 100%; height: 1px; background: black;">
+                        <div class="container">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    No children 0-5 years old
+                                </label>
+                            </div>
+                            <span id="dots2"></span>
+                            <span id="more2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        No children 6-12 years old
+                                    </label>
+                                </div>
+                            </span>
+                            <button onclick="myFunction2()" class="myBtn" id="myBtn2">More</button>
+                            <script>
+                                function myFunction2() {
+                                    var dots = document.getElementById("dots2");
+                                    var moreText = document.getElementById("more2");
+                                    var btnText = document.getElementById("myBtn2");
+
+                                    if (dots.style.display === "none") {
+                                        dots.style.display = "inline";
+                                        btnText.innerHTML = "More";
+                                        moreText.style.display = "none";
+                                    } else {
+                                        dots.style.display = "none";
+                                        btnText.innerHTML = "Less";
+                                        moreText.style.display = "inline";
+                                    }
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" style="margin: 0; padding: 0;">
+                <% for (var i of sitterData) { %>
+                <a href="#" style="text-decoration: none; color: black">
+                    <div class="card mb-3" style="max-width: 100%;" data-toggle="tooltip" data-placement="right"
+                        title="Click to know more about <%= i.name %>">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="../imgs/profile.png" class="card-img" style="padding: 1rem;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= i.name %></h5>
+                                    <p class="card-text">Profession : <%= i.about %></p>
+                                    <p class="card-text">From : <%= i.address %></p>
+                                    <p class="card-text"><%= i.reviews %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <% } %>
+            </div>
+            <div class="col">
+                <div id="map"></div>
+                <script>
+                    // Initialize and add the map
+                    function initMap() {
+                        // The location of Uluru
+                        var uluru = { lat: -25.344, lng: 131.036 };
+                        // The map, centered at Uluru
+                        var map = new google.maps.Map(
+                            document.getElementById('map'), { zoom: 4, center: uluru });
+                        // The marker, positioned at Uluru
+                        var marker = new google.maps.Marker({ position: uluru, map: map });
+                    }
+                </script>
+                <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+                <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsq8AWAStG6mvQQt0AEtDNgPc6HMwosx8&callback=initMap">
+                    </script>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-2">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

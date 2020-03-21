@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet a Dog | User Info</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <form action="/profile/add" method="POST">
+        Name:
+        <input type="text" name="dogName" id="dog-name"><br>
+        <label for="breeds">Breed:</label>
+        <select id="dogBreed" name="dogBreed">
+            <option value="pug">Pug</option>
+            <option value="Brittany">Brittany</option>
+            <option value="Doberman">Doberman</option>
+            <option value="Siberian Husky">Siberian Husky</option>
+        </select><br>
+        Weight (lbs)
+        <input type="text" name="weight" id="weight"><br>
+        Age (years)
+        <input type="text" name="ageYears" id="ageYears"><br>
+        Age (months)
+        <input type="text" name="ageMonths" id="ageMonths"><br>
+        Gender :
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br>
+
+        Is your dog microchipped?<br>
+        <input type="radio" id="microchippedYes" name="microchipped" value="Yes">
+        <label for="microchippedYes">Yes</label><br>
+        <input type="radio" id="microchippedNo" name="microchipped" value="No">
+        <label for="microchippedNo">No</label><br>
+
+        Does your dog get along well with other dogs?<br>
+        <input type="radio" id="natureYes" name="nature" value="Yes">
+        <label for="natureYes">Yes</label><br>
+        <input type="radio" id="natureNo" name="nature" value="No">
+        <label for="natureNo">No</label><br>
+
+        Does your dog get along well with children? <br>
+        <input type="radio" id="childrenYes" name="children" value="Yes">
+        <label for="childrenYes">Yes</label><br>
+        <input type="radio" id="childrenNo" name="children" value="No">
+        <label for="childrenNo">No</label><br>
+
+        Is your dog housetrained?<br>
+        <input type="radio" id="trainedYes" name="trained" value="Yes">
+        <label for="trainedYes">Yes</label><br>
+        <input type="radio" id="trainedNo" name="trained" value="No">
+        <label for="trainedNo">No</label><br>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+    </form>
+
+</html>

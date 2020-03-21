@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet a Dog | User Profile</title>
+</head>
+
+<body>
+    <% for (var i of userData) { %>
+    <%= i.firstName %>
+    <% } %>
+    <% for (var i of dogData) { %>
+    <%= i.name %>
+    <% } %>
+</body>
+
+</html>

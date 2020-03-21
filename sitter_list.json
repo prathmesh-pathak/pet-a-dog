@@ -1,0 +1,65 @@
+[
+    {
+        "id": "1",
+        "name": "Kuntal Surwade",
+        "price": "$23.95",
+        "address": "Shiganshina",
+        "about": "Designer / Project Manager",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {
+        "id": "2",
+        "name": "Harivatsav S.R",
+        "price": "$23.95",
+        "address": "Wall Maria",
+        "about": "Lead Developer / Product Owner",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {
+        "id": "3",
+        "name": "Soham Save",
+        "price": "$23.95",
+        "address": "Shinjuku",
+        "about": "Backend Developer / Lead Quality Analyst",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {
+        "id": "4",
+        "name": "Khalid Francis",
+        "price": "$23.95",
+        "address": "New York",
+        "about": "Team Lead / Database Administrator",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {
+        "id": "5",
+        "name": "Aditya Aduri",
+        "price": "$23.95",
+        "address": "New York",
+        "about": "Frontend Developer / Lead Tester",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {
+        "id": "6",
+        "name": "Bhakti Shastri",
+        "price": "$23.95",
+        "address": "Ikebukuro",
+        "about": "Security Engineer / Lead Business Analyst",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {
+        "id": "7",
+        "name": "Prathmesh Pathak",
+        "price": "$1",
+        "address": "Imagination",
+        "about": "Clerk / Janitor",
+        "available": "",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    }
+]
