@@ -13,6 +13,7 @@ initializePassport(
 
 const users = [];
 const dog = [];
+var loginFlag = false;
 
 router.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.firstName });
@@ -47,6 +48,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
             email: req.body.email,
             password: hashedPassword
         })
+        loginFlag = true;
         res.redirect('/login');
     }
     catch {
@@ -56,6 +58,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 
 router.delete('/logout', (req, res) => {
     req.logOut();
+    loginFlag = false;
     res.redirect('/login');
 });
 
@@ -63,7 +66,6 @@ router.get('/search-sitter', checkAuthenticated, (req, res) => {
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
-        console.log(sitter);
         res.render('sitter.ejs', {
             userData: req.user,
             sitterData: sitter
@@ -71,11 +73,15 @@ router.get('/search-sitter', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/tips-tricks', (req, res) => {
-    res.render('dog-care.ejs');
+router.get('/dog-care', (req, res) => {
+    res.render('dog-care.ejs', {
+        isLogin: loginFlag,
+        userData: req.user
+    });
+    console.log(loginFlag);
 });
 
-router.get('/profile', (req, res) => {
+router.get('/profile', checkAuthenticated, (req, res) => {
     if (typeof dog == "undefined" || dog == null || dog.length == 0) {
         res.render('profile.ejs', {
             userData: req.user
@@ -89,7 +95,7 @@ router.get('/profile', (req, res) => {
     }
 });
 
-router.get('/profile/add', (req, res) => {
+router.get('/profile/add', checkAuthenticated, (req, res) => {
     res.render('user-dog.ejs');
 });
 
