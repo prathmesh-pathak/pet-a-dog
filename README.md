@@ -1,22 +1,4 @@
 # pet-a-dog
 College Project
-In this deliverable I have completed the login and logout module.
 
-I have not used database I am just storing the user credentials in a global variables
-
-Download the files
-run npm install to get all the dependencies 
-
-Then run node server. This command will start the server.
-
-In your browser enter localhost:8000
-
-You will see a login screen. First you have register with your email enter all the fields all the fields have constraints.
-
-After you register it will redirect you to login page then login with email and password that you used for registration.
-
-After you login it will take you to the home page of the application.
-
-There you will see a greet message and a button for logout.
-
-If you click on logout it will take you to the login screen and you cannot see the home page as a guest user.
+Steps to run the project: Take the checkout of the project. Do npm install to get the dependencies. Run node server to start the server. In browser go to localhost:8000. You will see the Login screen. First you have to register with a valid email ID. After registration, login with your credentials. You will see the site's Home page and data that are listed there are static. There are 4 navigation options Home, Search Sitter, Our Services and Dog Care. Search sitter will show the list of sitters, again all the data that you see is static. Our services option is not implemented yet. Dog Care tab will show the necessary option to take care of your dog. Another section is the User's profile where user can see his details and also can enter the details about their dogs. One user can have multiple dogs user can enter N number of dog data. Information about a dog includes breed, age in years and month weight etc. All the information will be available on the user profile page. After this user have the option of logging out.
