@@ -5,8 +5,36 @@
         "price": "$23.95",
         "address": "Shiganshina",
         "about": "Designer / Project Manager",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Tom",
+                "date": "Nov 26, 2019",
+                "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
+            },
+            {
+                "userName": "Jerry",
+                "date": "Nov 4, 2019",
+                "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
+            },
+            {
+                "userName": "Mr. Bean",
+                "date": "Aug 27, 2019",
+                "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "Dog Walking",
+                "serviceCharge": "30"
+            },
+            {
+                "serviceName": "Dog Boarding",
+                "serviceCharge": "50"
+            }
+        ],
+        "preferences": "41 - 100",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
         "id": "2",
@@ -14,8 +42,36 @@
         "price": "$23.95",
         "address": "Wall Maria",
         "about": "Lead Developer / Product Owner",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Tom",
+                "date": "Nov 26, 2019",
+                "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
+            },
+            {
+                "userName": "Jerry",
+                "date": "Nov 4, 2019",
+                "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
+            },
+            {
+                "userName": "Mr. Bean",
+                "date": "Aug 27, 2019",
+                "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "House Sitting",
+                "serviceCharge": "45"
+            },
+            {
+                "serviceName": "Doggy Day Care",
+                "serviceCharge": "39"
+            }
+        ],
+        "preferences": "0 - 15",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
         "id": "3",
@@ -23,8 +79,36 @@
         "price": "$23.95",
         "address": "Shinjuku",
         "about": "Backend Developer / Lead Quality Analyst",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Tom",
+                "date": "Nov 26, 2019",
+                "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
+            },
+            {
+                "userName": "Jerry",
+                "date": "Nov 4, 2019",
+                "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
+            },
+            {
+                "userName": "Mr. Bean",
+                "date": "Aug 27, 2019",
+                "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "Drop-In Visits",
+                "serviceCharge": "50"
+            },
+            {
+                "serviceName": "House Sitting",
+                "serviceCharge": "55"
+            }
+        ],
+        "preferences": "16 - 40",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
         "id": "4",
@@ -32,8 +116,36 @@
         "price": "$23.95",
         "address": "New York",
         "about": "Team Lead / Database Administrator",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Tom",
+                "date": "Nov 26, 2019",
+                "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
+            },
+            {
+                "userName": "Jerry",
+                "date": "Nov 4, 2019",
+                "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
+            },
+            {
+                "userName": "Mr. Bean",
+                "date": "Aug 27, 2019",
+                "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "Dog Boarding",
+                "serviceCharge": "40"
+            },
+            {
+                "serviceName": "Dog Walking",
+                "serviceCharge": "45"
+            }
+        ],
+        "preferences": "41 - 100",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
         "id": "5",
@@ -41,8 +153,36 @@
         "price": "$23.95",
         "address": "New York",
         "about": "Frontend Developer / Lead Tester",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Tom",
+                "date": "Nov 26, 2019",
+                "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
+            },
+            {
+                "userName": "Jerry",
+                "date": "Nov 4, 2019",
+                "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
+            },
+            {
+                "userName": "Mr. Bean",
+                "date": "Aug 27, 2019",
+                "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "House Sitting",
+                "serviceCharge": "50"
+            },
+            {
+                "serviceName": "Dog Walking",
+                "serviceCharge": "55"
+            }
+        ],
+        "preferences": "0 - 15",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
         "id": "6",
@@ -50,16 +190,72 @@
         "price": "$23.95",
         "address": "Ikebukuro",
         "about": "Security Engineer / Lead Business Analyst",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Tom",
+                "date": "Nov 26, 2019",
+                "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
+            },
+            {
+                "userName": "Jerry",
+                "date": "Nov 4, 2019",
+                "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
+            },
+            {
+                "userName": "Mr. Bean",
+                "date": "Aug 27, 2019",
+                "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "Dog Boarding",
+                "serviceCharge": "50"
+            },
+            {
+                "serviceName": "House Sitting",
+                "serviceCharge": "45"
+            }
+        ],
+        "preferences": "16 - 40",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
         "id": "7",
         "name": "Prathmesh Pathak",
         "price": "$1",
         "address": "Imagination",
-        "about": "Clerk / Janitor",
-        "available": "",
-        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "about": "Clerk / Cleaner",
+        "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "feedback": [
+            {
+                "userName": "Levi Ackerman",
+                "date": "Nov 26, 2019",
+                "comment": "Really pathetic service. This guy don't even know how to write hello world program."
+            },
+            {
+                "userName": "Edward Elric",
+                "date": "Nov 4, 2019",
+                "comment": "Worst service. Only watches animes. Never choose this guy for your servcie. Trust he don't know anything."
+            },
+            {
+                "userName": "Roy Mustang",
+                "date": "Aug 27, 2019",
+                "comment": "Real joke. go back wherever you came from."
+            }
+        ],
+        "services": [
+            {
+                "serviceName": "Dog Boarding",
+                "serviceCharge": "0.5"
+            },
+            {
+                "serviceName": "House Sitting",
+                "serviceCharge": "1"
+            }
+        ],
+        "preferences": "0 - 15",
+        "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     }
 ]
