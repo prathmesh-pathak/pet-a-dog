@@ -48,10 +48,47 @@
     </nav>
 
     <div class="container" style="margin-top: 5rem;">
-        <h2><%= sitterData.name %></h2>
+        <div class="row">
+            <div class="col-4">
+                <img src="../imgs/profile.png" class="card-img" style="padding: 1rem;">
+            </div>
+            <div class="col-8">
+                <h1 class="display-4 mt-4"><%= sitterData.name %></h1>
+                <p class="h4 pt-2">From : <%= sitterData.address %></p>
+                <p class="h4 pt-2">About : <%= sitterData.about %></p>
+                <a href="/contact/<%= sitterData.name %>" class="btn btn-primary btn-lg mt-4">Contact
+                    <%= sitterData.name %></a>
+            </div>
+        </div>
     </div>
 
-    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-5">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-6 col-md-4" style="background-color: rgb(244, 245, 246); padding: 1rem;">
+                <p class="h2">Services</p>
+                <% for (var service of services) { %>
+                <div class="row mt-3">
+                    <div class="col">
+                        <p class="h5"><%= service.serviceName %></p>
+                    </div>
+                    <div class="col">
+                        <p class="h4" style="margin-left: 6rem;">$ <%= service.serviceCharge %></p>
+                    </div>
+                </div>
+                <% } %>
+                <blockquote class="blockquote mt-4" class="mb-0" style="text-align: center;">
+                    <a href="#">
+                        <p class="mb-0" style="text-align: center;">See Additional Services & Rates</p>
+                    </a>
+                    <footer class="footer">Cat care, pick-up & drop-off, bathing / grooming
+                    </footer>
+                </blockquote>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-4">
         <div class="container text-center text-md-left">
             <div class="row">
                 <div class="col-md-6 mt-md-0 mt-3">
