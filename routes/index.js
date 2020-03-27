@@ -56,6 +56,12 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
     }
 })
 
+router.get('/services', (req, res) => {
+    res.render('service.ejs', {
+        isLogin: loginFlag
+    });
+});
+
 router.delete('/logout', (req, res) => {
     req.logOut();
     loginFlag = false;
