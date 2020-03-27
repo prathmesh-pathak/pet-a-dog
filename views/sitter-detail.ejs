@@ -7,6 +7,14 @@
     <title>Pet a Dog | Sitter Info</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +30,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -50,12 +58,24 @@
     <div class="container" style="margin-top: 5rem;">
         <div class="row">
             <div class="col-4">
-                <img src="../imgs/profile.png" class="card-img" style="padding: 1rem;">
+                <img src="../imgs/profile.png" class="card-img center" style="padding: 1rem; width: 250px;">
             </div>
             <div class="col-8">
                 <h1 class="display-4 mt-4"><%= sitterData.name %></h1>
                 <p class="h4 pt-2">From : <%= sitterData.address %></p>
                 <p class="h4 pt-2">About : <%= sitterData.about %></p>
+                <div class="row mt-3" style="text-align: center;">
+                    <div class="col-3">
+                        <img src="../imgs/stars.jpg" style="width: 100px;">
+                        (<%= feedback.length %>)
+                    </div>
+                    <div class="col-4">
+                        Response Rate: 100%
+                    </div>
+                    <div class="col">
+                        Response Time: under half an hour
+                    </div>
+                </div>
                 <a href="/contact/<%= sitterData.name %>" class="btn btn-primary btn-lg mt-4">Contact
                     <%= sitterData.name %></a>
             </div>
@@ -83,7 +103,97 @@
                     <footer class="footer">Cat care, pick-up & drop-off, bathing / grooming
                     </footer>
                 </blockquote>
+                <div class="card mt-4" style="width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Hosting Preferences</h5>
+                        <div class="row">
+                            <div class="col-5">
+                                <img src="../imgs/small.jpg" style="width: 100px;">
+                                <h6 class="card-subtitle mb-2 text-muted mt-3 mr-3" style="text-align: center;">
+                                    <%= sitterData.preferences %></h6>
+                                <h6 class="card-subtitle mb-2 text-muted mr-3" style="text-align: center;">
+                                    (lbs)</h6>
+                            </div>
+                            <div class="col-5">
+                                <img src="../imgs/small.jpg" style="width: 100px;">
+                                <h6 class="card-subtitle mb-2 text-muted mt-3 mr-3" style="text-align: center;">
+                                    <%= sitterData.preferences1 %></h6>
+                                <h6 class="card-subtitle mb-2 text-muted mr-3" style="text-align: center;">
+                                    (lbs)</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Availability</h5>
+                        <img src="../imgs/calendar.png" class="img-thumbnail rounded float-left mt-2 mb-4">
+                        <h6 class="card-title" style="text-align: center;">Calendar last updated 4 months ago</h6>
+                        <p class="card-text" style="padding: 5px; text-align: center;">
+                            <%= sitterData.name %> can host up to 2 dogs per night.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="card" style="width: 100%;">
+                    <img src="../imgs/dog-review.jpg" class="card-img-top img-fluid" style="margin: 1rem;">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">Reviews</h4>
+                        <% for (var review of feedback) { %>
+                        <div class="row mt-4">
+                            <div class="col-2">
+                                <img src="../imgs/review.png" class="img-thumbnail ml-3"
+                                    style="width: 75px; border-radius: 50%;">
+                            </div>
+                            <div class="col">
+                                <p class="card-text mt-1">
+                                    <%= review.userName %>
+                                </p>
+                                <p>
+                                    <%= review.date %>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="card-text mt-2" style="margin: 1rem">
+                            <%= review.comment %>
+                        </p>
+                        <a href="#" class="card-link">Know More</a>
+                        <a href="#" class="card-link">Was this review helpful ?</a>
+                        <% } %>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">About <%= sitterData.name %></h5>
+                        <h6 class="card-title mt-4">I’ll give your dog love</h6>
+                        <p class="card-text" style="margin: 1rem;">
+                            <%= sitterData.aboutSitter %>
+                        </p>
+                        <h6 class="card-title mt-4">What <%= sitterData.name %> would like to know about your dog</h6>
+                        <p class="card-text" style="margin: 1rem;">
+                            Please let me know the mannerisms of your dog I should pay special attention to, for
+                            example, will they let me know they need to go out for a potty break. I love all dogs and
+                            have no preferences as to breeds.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">About <%= sitterData.name %>'s Home</h5>
+                        <div class="row">
+                            <div class="col">
+                                <li class="list-group-item list-group-item-light">Lives in a House
+                                </li>
+                                <li class="list-group-item list-group-item-light">Non-Smoking Household
+                                </li>
+                                <li class="list-group-item list-group-item-light">No Children Present
+                                </li>
+                            </div>
+                            <div class="col">
+                                <li class="list-group-item list-group-item-light">Has a Fenced Yard
+                                </li>
+                                <li class="list-group-item list-group-item-light">Has No Dogs
+                                </li>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
