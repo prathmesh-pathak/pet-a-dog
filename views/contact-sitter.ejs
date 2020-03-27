@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet a Dog | Sitter Info</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="../imgs/rover.png" alt="Pet a Dog" style="width: 100px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dog-care">Dog Care</a>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/profile">View Profile</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button id="log-out-btn" class="btn btn-primary ml-4" type="submit">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="max-width: 80%;">
+        <div class="card" style="width: 100%; margin-top: 6rem;">
+            <div class="card-body">
+                <h4 class="card-title">Contact <%= sitterData.name %></h4>
+                <form action="/search-sitter/<%= sitterData.name %>/contact" class="mt-4" method="POST">
+                    <div class="form-group">
+                        <label for="inputAddress2"><strong>Select Service</strong></label>
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeFrom">
+                            <option selected>Select</option>
+                            <% for (var service of services) { %>
+                            <option value="<%= service.serviceName %>"><%= service.serviceName %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="form-row mt-5">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"><strong>When would you like to drop off?</strong></label>
+                            <input type="date" class="form-control" id="inputEmail4" name="dropOff">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time From</strong></label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeFrom">
+                                <option selected>From</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                                <option value="6:00 PM">6:00 PM</option>
+                                <option value="7:00 PM">7:00 PM</option>
+                                <option value="8:00 PM">8:00 PM</option>
+                                <option value="9:00 PM">9:00 PM</option>
+                                <option value="10:00 PM">10:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time To</strong></label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeTo">
+                                <option selected>To</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                                <option value="6:00 PM">6:00 PM</option>
+                                <option value="7:00 PM">7:00 PM</option>
+                                <option value="8:00 PM">8:00 PM</option>
+                                <option value="9:00 PM">9:00 PM</option>
+                                <option value="10:00 PM">10:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row mt-5">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"><strong>When would you like to pick up?</strong></label>
+                            <input type="date" class="form-control" id="inputEmail4" name="pickUp">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time From</strong></label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectPickTimeFrom">
+                                <option selected>From</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                                <option value="6:00 PM">6:00 PM</option>
+                                <option value="7:00 PM">7:00 PM</option>
+                                <option value="8:00 PM">8:00 PM</option>
+                                <option value="9:00 PM">9:00 PM</option>
+                                <option value="10:00 PM">10:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time To</strong></label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectPickTimeTo">
+                                <option selected>To</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                                <option value="6:00 PM">6:00 PM</option>
+                                <option value="7:00 PM">7:00 PM</option>
+                                <option value="8:00 PM">8:00 PM</option>
+                                <option value="9:00 PM">9:00 PM</option>
+                                <option value="10:00 PM">10:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-5">
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4"><strong>What is your email?</strong></label>
+                            <input type="email" class="form-control" id="inputEmail4" name="sitterEmail">
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        For your safety & security, Rover will not expose your
+                        phone number until
+                        you've booked your stay. Messages from Dawn will come from (858) 375-1820, a number owned by
+                        Rover.
+                    </p>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mt-4">
+                            <label for="inputEmail4">
+                                <h4><strong>Pets</strong></h4>
+                            </label>
+                            <% if (dogData.length == 0) { %>
+                            <p class="card-text">
+                                <a href="/profile/add" class="card-link">Add your Dog</a>
+                            </p>
+                            <% } else { %>
+                            <div class="card">
+                                <div class="card-body">
+                                    <% for (var dog of dogData) { %>
+                                    <p class="card-text">
+                                        <%= dog.name %>
+                                        (<%= dog.breed %>)
+                                    </p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="card-body">
+                            <label for="inputEmail4">
+                                <h4><strong>Message</strong></h4>
+                            </label>
+                            <h6 class="card-subtitle mb-2">
+                                Share a little info about your dog and why they'd have a great time with
+                                <%= sitterData.name %>
+                            </h6>
+                            <textarea name="message" rows="10" cols="100%"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <button type="submit" class="btn btn-success">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid page-footer font-small bg-info pt-4" style="margin-top: 2rem;">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

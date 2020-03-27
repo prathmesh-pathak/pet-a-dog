@@ -95,6 +95,23 @@ router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
     });
 });
 
+router.get('/search-sitter/:name/contact/', checkAuthenticated, (req, res) => {
+    fs.readFile('sitter_list.json', (err, data) => {
+        if (err) console.log(err);
+        let sitter = JSON.parse(data);
+        for (var i = 0; i < sitter.length; i++) {
+            if (sitter[i].name === req.params.name) {
+                res.render('contact-sitter.ejs', {
+                    sitterData: sitter[i],
+                    feedback: sitter[i].feedback,
+                    services: sitter[i].services,
+                    dogData: dog
+                });
+            }
+        }
+    });
+});
+
 router.get('/dog-care', (req, res) => {
     res.render('dog-care.ejs', {
         isLogin: loginFlag,
