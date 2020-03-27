@@ -34,6 +34,7 @@
             }
         ],
         "preferences": "41 - 100",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
@@ -71,6 +72,7 @@
             }
         ],
         "preferences": "0 - 15",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
@@ -108,6 +110,7 @@
             }
         ],
         "preferences": "16 - 40",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
@@ -145,6 +148,7 @@
             }
         ],
         "preferences": "41 - 100",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
@@ -182,6 +186,7 @@
             }
         ],
         "preferences": "0 - 15",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
@@ -193,17 +198,17 @@
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
-                "userName": "Tom",
+                "userName": "Bill Gates",
                 "date": "Nov 26, 2019",
                 "comment": "Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!"
             },
             {
-                "userName": "Jerry",
+                "userName": "Jeff Bezos",
                 "date": "Nov 4, 2019",
                 "comment": "Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!"
             },
             {
-                "userName": "Mr. Bean",
+                "userName": "Elon Musk",
                 "date": "Aug 27, 2019",
                 "comment": "Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers"
             }
@@ -219,6 +224,7 @@
             }
         ],
         "preferences": "16 - 40",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
@@ -256,6 +262,7 @@
             }
         ],
         "preferences": "0 - 15",
+        "preferences1": "16-40",
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     }
 ]
