@@ -15,6 +15,7 @@ const dog = [];
 const booking = [];
 var loginFlag = false;
 var userEmail = '';
+var sitterEmail = '';
 
 const initializePassport = require('../passport-config');
 initializePassport(
@@ -93,6 +94,7 @@ router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
         let sitter = JSON.parse(data);
         for (var i = 0; i < sitter.length; i++) {
             if (sitter[i].name === req.params.name) {
+                sitterEmail = sitter[i].sitterEmail;
                 res.render('sitter-detail.ejs', {
                     sitterData: sitter[i],
                     feedback: sitter[i].feedback,
@@ -140,6 +142,7 @@ router.post('/search-sitter/:name/contact', checkAuthenticated, (req, res) => {
         message: req.body.message
     });
     userEmail = req.body.userEmail;
+    console.log(sitterEmail);
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -150,13 +153,15 @@ router.post('/search-sitter/:name/contact', checkAuthenticated, (req, res) => {
     const data = ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, dogData: booking.pets }, (err, data) => {
         let mailOtions = {
             from: 'petadogapp@gmail.com',
-            to: userEmail,
+            to: sitterEmail,
             subject: 'Booking confirmation from Pet a Dog',
-            html: data
+            html: data,
+            cc: userEmail
         }
         transporter.sendMail(mailOtions, (err, data) => {
             if (err) {
                 console.log(err);
+                res.send(err);
             }
             else {
                 console.log("Email Sent");
