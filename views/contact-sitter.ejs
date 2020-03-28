@@ -61,12 +61,22 @@
                 <form action="/search-sitter/<%= sitterData.name %>/contact" class="mt-4" method="POST">
                     <div class="form-group">
                         <label for="inputAddress2"><strong>Select Service</strong></label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeFrom">
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectedService">
                             <option selected>Select</option>
                             <% for (var service of services) { %>
                             <option value="<%= service.serviceName %>"><%= service.serviceName %></option>
                             <% } %>
                         </select>
+                    </div>
+                    <div class="form-row mt-5">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"><strong>First Name</strong></label>
+                            <input type="text" class="form-control" id="inputEmail4" name="firstName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"><strong>Last Name</strong></label>
+                            <input type="text" class="form-control" id="inputEmail4" name="lastName">
+                        </div>
                     </div>
                     <div class="form-row mt-5">
                         <div class="form-group col-md-6">
@@ -132,7 +142,7 @@
                     <div class="form-row mt-5">
                         <div class="form-group col-md-4">
                             <label for="inputEmail4"><strong>What is your email?</strong></label>
-                            <input type="email" class="form-control" id="inputEmail4" name="sitterEmail">
+                            <input type="email" class="form-control" id="inputEmail4" name="userEmail">
                         </div>
                     </div>
                     <p class="card-text">
