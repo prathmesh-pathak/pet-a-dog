@@ -47,8 +47,29 @@
         </div>
     </nav>
 
-    <div class="container">
-
+    <div class="container" style="margin-top: 5rem;">
+        <h2 style="text-align: center;">Booking Details</h2>
+        <table class="table table-hover table-responsive" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Booking ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Sitter Name</th>
+                    <th scope="col">Service Selected</th>
+                    <th scope="col">Customer Email</th>
+                </tr>
+            </thead>
+        </table>
+        <% for (var booking of bookingDetails) { %>
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+        <% } %>
     </div>
 
     <footer class="container-fluid page-footer font-small bg-info pt-4" style="margin-top: 2rem;">

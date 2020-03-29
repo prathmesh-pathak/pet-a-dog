@@ -105,7 +105,7 @@ router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/search-sitter/:name/contact', checkAuthenticated, (req, res) => {
+router.get('/:name/contact', checkAuthenticated, (req, res) => {
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -122,7 +122,7 @@ router.get('/search-sitter/:name/contact', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/search-sitter/:name/contact', checkAuthenticated, (req, res) => {
+router.post('/:name/contact', checkAuthenticated, (req, res) => {
     const today = new Date();
     booking.push({
         id: Date.now().toString(),
@@ -165,13 +165,13 @@ router.post('/search-sitter/:name/contact', checkAuthenticated, (req, res) => {
             }
             else {
                 console.log("Email Sent");
-                res.redirect('/search-sitter/:name/booking-details');
+                res.redirect('/:name/booking-details');
             }
         });
     });
 });
 
-router.get('/search-sitter/:name/booking-details', checkAuthenticated, (req, res) => {
+router.get('/:name/booking-details', checkAuthenticated, (req, res) => {
     res.render('booking-confirmed.ejs', {
         bookingDetails: booking
     });
