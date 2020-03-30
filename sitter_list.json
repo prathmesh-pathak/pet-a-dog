@@ -6,6 +6,7 @@
         "address": "Shiganshina",
         "about": "Designer / Project Manager",
         "sitterEmail": "surwadekun@gmail.com",
+        "img": "../imgs/kuntal.jpeg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
@@ -45,6 +46,7 @@
         "address": "Wall Maria",
         "about": "Lead Developer / Product Owner",
         "sitterEmail": "harivatsav36@gmail.com",
+        "img": "../imgs/hari.jpeg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
@@ -84,6 +86,7 @@
         "address": "Shinjuku",
         "about": "Backend Developer / Lead Quality Analyst",
         "sitterEmail": "sohamsave44@gmail.com",
+        "img": "../imgs/soham.jpg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
@@ -123,6 +126,7 @@
         "address": "New York",
         "about": "Team Lead / Database Administrator",
         "sitterEmail": "Omari.slr69@gmail.com",
+        "img": "../imgs/khalid2.jpeg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
@@ -162,6 +166,7 @@
         "address": "New York",
         "about": "Frontend Developer / Lead Tester",
         "sitterEmail": "springcsproject1@gmail.com",
+        "img": "../imgs/aditya.jpg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
@@ -201,6 +206,7 @@
         "address": "Ikebukuro",
         "about": "Security Engineer / Lead Business Analyst",
         "sitterEmail": "bhaktishastri2021@gmail.com",
+        "img": "../imgs/bhakti.jpeg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
@@ -240,6 +246,7 @@
         "address": "Imagination",
         "about": "Clerk / Cleaner",
         "sitterEmail": "pp61021n@gmail.com",
+        "img": "../imgs/prathmesh.jpg",
         "reviews": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         "feedback": [
             {
