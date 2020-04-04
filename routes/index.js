@@ -13,9 +13,12 @@ const ejs = require('ejs');
 const users = [];
 const dog = [];
 const booking = [];
+const dogCare = [];
 var loginFlag = false;
 var userEmail = '';
 var sitterEmail = '';
+var dogBreed = '';
+
 
 const initializePassport = require('../passport-config');
 initializePassport(
@@ -185,6 +188,46 @@ router.get('/dog-care', (req, res) => {
     console.log(loginFlag);
 });
 
+router.post('/dog-care/add', (req, res) => {
+    dog.push({
+        id: Date.now().toString(),
+        name: req.body.guestGogName,
+        weight: req.body.guestWeight,
+        breed: req.body.guestDogBreed,
+        ageYears: req.body.guestAgeYears,
+        ageMonths: req.body.guestAgeMonths,
+        gender: req.body.guestGender,
+        cats: req.body.guestCats,
+        isMicrochipped: req.body.guestMicrochipped,
+        nature: req.body.guestNature,
+        children: req.body.guestChildren,
+        isTrained: req.body.guestTrained
+    });
+    dogBreed = req.body.guestDogBreed;
+    fs.readFile('tips.json', (err, data) => {
+        if (err) console.log(err);
+        let tips = JSON.parse(data);
+        for (var i = 0; i < tips.length; i++) {
+            if (tips[i].breed === dogBreed) {
+                dogCare.push({
+                    breed: tips[i].breed,
+                    info: tips[i].info,
+                    dogTips: tips[i].tips
+                });
+                res.redirect('/info');
+            }
+        }
+    });
+});
+
+router.get('/info', (req, res) => {
+    console.log(dogCare);
+    res.render('guest-dog-info.ejs', {
+        dogData: dog,
+        tipData: dogCare
+    });
+});
+
 router.get('/profile', checkAuthenticated, (req, res) => {
     if (typeof dog == "undefined" || dog == null || dog.length == 0) {
         res.render('profile.ejs', {
@@ -194,7 +237,8 @@ router.get('/profile', checkAuthenticated, (req, res) => {
     else {
         res.render('profile-dog.ejs', {
             userData: req.user,
-            dogData: dog
+            dogData: dog,
+            tipData: dogCare
         });
     }
 });
