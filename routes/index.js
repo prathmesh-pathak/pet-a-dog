@@ -75,8 +75,8 @@ router.get('/services', (req, res) => {
 });
 
 router.delete('/logout', (req, res) => {
-    req.logOut();
     loginFlag = false;
+    req.logOut();
     res.redirect('/login');
 });
 
@@ -224,6 +224,7 @@ router.get('/info', (req, res) => {
     console.log(dogCare);
     res.render('guest-dog-info.ejs', {
         dogData: dog,
+        isLogin: loginFlag,
         tipData: dogCare
     });
 });
