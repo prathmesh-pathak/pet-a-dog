@@ -19,6 +19,7 @@ var loginFlag = false;
 var userEmail = '';
 var sitterEmail = '';
 var dogBreed = '';
+var userName = '';
 
 const initializePassport = require('../passport-config');
 initializePassport(
@@ -144,6 +145,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
         pets: dog,
         message: req.body.message
     });
+    userName = req.body.firstName;
     userEmail = req.body.userEmail;
     let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -152,7 +154,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
             pass: 'cSPROJECT#1'
         }
     });
-    const data = ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, dogData: booking.pets }, (err, data) => {
+    const data = ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
         let mailOtions = {
             from: 'petadogapp@gmail.com',
             to: sitterEmail,
