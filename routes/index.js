@@ -19,6 +19,7 @@ var loginFlag = false;
 var userEmail = '';
 var sitterEmail = '';
 var dogBreed = '';
+var userName = '';
 
 const initializePassport = require('../passport-config');
 initializePassport(
@@ -144,8 +145,8 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
         pets: dog,
         message: req.body.message
     });
+    userName = req.body.firstName;
     userEmail = req.body.userEmail;
-    console.log(sitterEmail);
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -153,7 +154,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
             pass: 'cSPROJECT#1'
         }
     });
-    const data = ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, dogData: booking.pets }, (err, data) => {
+    const data = ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
         let mailOtions = {
             from: 'petadogapp@gmail.com',
             to: sitterEmail,
@@ -224,8 +225,20 @@ router.post('/dog-care/add', (req, res) => {
             if (tips[i].breed === dogBreed) {
                 dogCare.push({
                     breed: tips[i].breed,
-                    info: tips[i].info,
-                    dogTips: tips[i].tips
+                    step1: tips[i].step1,
+                    step2: tips[i].step2,
+                    step3: tips[i].step3,
+                    step4: tips[i].step4,
+                    step5: tips[i].step5,
+                    step6: tips[i].step6,
+                    tip1: tips[i].tip1,
+                    tip2: tips[i].tip2,
+                    tip3: tips[i].tip3,
+                    tip4: tips[i].tip4,
+                    tip5: tips[i].tip5,
+                    tip6: tips[i].tip6,
+                    tip7: tips[i].tip7,
+                    tip8: tips[i].tip8,
                 });
                 res.redirect('/info');
             }
@@ -234,7 +247,6 @@ router.post('/dog-care/add', (req, res) => {
 });
 
 router.get('/info', (req, res) => {
-    console.log(dogCare);
     res.render('guest-dog-info.ejs', {
         dogData: dog,
         isLogin: loginFlag,
