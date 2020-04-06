@@ -55,9 +55,46 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title"><%= userData.firstName %></h5>
-                        <p class="card-text">Email: <%= userData.email %></p>
-                        <p class="card-text"><a href="/profile/add">Add your Dog</a></p>
+                        <h5 class="card-title"><%= userData.firstName %> <%= userData.lastName %></h5>
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="card-text">Email</p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text"><%= userData.email %></p>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-2">
+                                <p class="card-text">Address</p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text">
+                                    <%= housingCondition.address %>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-2">
+                                <p class="card-text">City</p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text">
+                                    <%= housingCondition.city %>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-2">
+                                <p class="card-text">State</p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text">
+                                    <%= housingCondition.state %>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="card-text mt-2"><a class="card-link" href="/profile/add">Add your Dog</a></p>
                     </div>
                 </div>
             </div>

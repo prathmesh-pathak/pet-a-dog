@@ -14,11 +14,11 @@ const users = [];
 const dog = [];
 const booking = [];
 const dogCare = [];
+const housing = [];
 var loginFlag = false;
 var userEmail = '';
 var sitterEmail = '';
 var dogBreed = '';
-
 
 const initializePassport = require('../passport-config');
 initializePassport(
@@ -183,7 +183,8 @@ router.get('/:name/booking-details', checkAuthenticated, (req, res) => {
 router.get('/dog-care', (req, res) => {
     res.render('dog-care.ejs', {
         isLogin: loginFlag,
-        userData: req.user
+        userData: req.user,
+        housingCondition: housing
     });
     console.log(loginFlag);
 });
@@ -202,6 +203,18 @@ router.post('/dog-care/add', (req, res) => {
         nature: req.body.guestNature,
         children: req.body.guestChildren,
         isTrained: req.body.guestTrained
+    });
+    housing.push({
+        id: Date.now().toString(),
+        address: req.body.guestAddress,
+        city: req.body.city,
+        state: req.body.guestState,
+        aptNumber: req.body.aptNumber,
+        zipcode: req.body.zipcode,
+        houseCondition: req.body.isHouseGood,
+        living: req.body.isLivingQuater,
+        heating: req.body.isVentilated,
+        fenced: req.body.isFenced
     });
     dogBreed = req.body.guestDogBreed;
     fs.readFile('tips.json', (err, data) => {
@@ -232,14 +245,16 @@ router.get('/info', (req, res) => {
 router.get('/profile', checkAuthenticated, (req, res) => {
     if (typeof dog == "undefined" || dog == null || dog.length == 0) {
         res.render('profile.ejs', {
-            userData: req.user
+            userData: req.user,
+            housingCondition: housing[0]
         });
     }
     else {
         res.render('profile-dog.ejs', {
             userData: req.user,
             dogData: dog,
-            tipData: dogCare
+            tipData: dogCare,
+            housingCondition: housing[0]
         });
     }
 });
