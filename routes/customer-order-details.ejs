@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet a Dog | Booking Summary</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h1 class="card-title">You made a booking request for <%= sitter %></h1>
+                <% for (var booking of bookingDetails) { %>
+                Booking ID : <%= booking.id %><br>
+                Customer Name : <%= booking.userFirstName %> <%= booking.userLastName %><br>
+                Sitter Name : <%= booking.sitterName %><br>
+                Booking Date : <%= booking.bookingDate %><br>
+                Service Selected : <%= booking.serviceSelected %><br>
+                Drop Off Date : <%= booking.dropOffDate %><br>
+                Drop Off time from : <%= booking.dropOffTimeFrom %><br>
+                Drop Off time to : <%= booking.dropOffTimeTo %><br>
+                Pick Up date : <%= booking.pickUpDate %><br>
+                Pick Up time from: <%= booking.pickUpTimeFrom %><br>
+                Additional Message : <%= booking.message %><br>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

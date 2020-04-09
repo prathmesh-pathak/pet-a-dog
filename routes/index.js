@@ -20,6 +20,7 @@ var userEmail = '';
 var sitterEmail = '';
 var dogBreed = '';
 var userName = '';
+var sitterName = '';
 
 const initializePassport = require('../passport-config');
 initializePassport(
@@ -147,6 +148,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
     });
     userName = req.body.firstName;
     userEmail = req.body.userEmail;
+    sitterName = req.params.name;
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -154,13 +156,13 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
             pass: 'cSPROJECT#1'
         }
     });
-    const data = ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
+
+    ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
         let mailOtions = {
             from: 'petadogapp@gmail.com',
             to: sitterEmail,
             subject: 'Booking confirmation from Pet a Dog',
-            html: data,
-            cc: userEmail
+            html: data
         }
         transporter.sendMail(mailOtions, (err, data) => {
             if (err) {
@@ -168,7 +170,26 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
                 res.send(err);
             }
             else {
-                console.log("Email Sent");
+                console.log("Email Sent to sitter");
+                res.redirect('/:name/booking-details');
+            }
+        });
+    });
+
+    ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
+        let mailOtions = {
+            from: 'petadogapp@gmail.com',
+            to: userEmail,
+            subject: 'Booking confirmation from Pet a Dog',
+            html: data
+        }
+        transporter.sendMail(mailOtions, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.send(err);
+            }
+            else {
+                console.log("Email Sent to user");
                 res.redirect('/:name/booking-details');
             }
         });
