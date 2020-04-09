@@ -15,17 +15,17 @@
             <div class="card-body">
                 <h1 class="card-title">There is a booking request for you from <%= user %></h1>
                 <% for (var booking of bookingDetails) { %>
-                Booking ID : <%= booking.id %><br>
-                Customer Name : <%= booking.userFirstName %> <%= booking.userLastName %><br>
-                Sitter Name : <%= booking.sitterName %><br>
-                Booking Date : <%= booking.bookingDate %><br>
-                Service Selected : <%= booking.serviceSelected %><br>
-                Drop Off Date : <%= booking.dropOffDate %><br>
-                Drop Off time from : <%= booking.dropOffTimeFrom %><br>
-                Drop Off time to : <%= booking.dropOffTimeTo %><br>
-                Pick Up date : <%= booking.pickUpDate %><br>
-                Pick Up time from: <%= booking.pickUpTimeFrom %><br>
-                Additional Message : <%= booking.message %><br>
+                <p>Booking ID : <%= booking.id %></p>
+                <p>Customer Name : <%= booking.userFirstName %> <%= booking.userLastName %></p>
+                <p>Sitter Name : <%= booking.sitterName %></p>
+                <p>Booking Date : <%= booking.bookingDate %></p>
+                <p>Service Selected : <%= booking.serviceSelected %></p>
+                <p>Drop Off Date : <%= booking.dropOffDate %></p>
+                <p>Drop Off Date : <%= booking.dropOffDate %></p>
+                <p>Drop Off time to : <%= booking.dropOffTimeTo %></p>
+                <p>Pick Up date : <%= booking.pickUpDate %></p>
+                <p>Pick Up time from: <%= booking.pickUpTimeFrom %></p>
+                <p>Additional Message : <%= booking.message %></p>
                 <% } %>
             </div>
         </div>
