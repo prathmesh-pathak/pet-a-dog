@@ -196,32 +196,32 @@
                     </div>
 
                     <% if (housingCondition.length == 0) { %>
-                    <h5 class="card-title mt-3">Housing Condition (Optional)</h5>
+                    <h5 class="card-title mt-3">Housing Condition</h5>
                     <h6 class="card-subtitle mb-2 text-muted">We provide best recommendations for making your house pet
                         friendly.</h6>
                     <div class="form-row mt-4">
                         <div class="form-group col-md-4">
                             <label for="address">Address</label>
-                            <input type="text" class="form-control" name="guestAddress" id="guestAddress">
+                            <input type="text" class="form-control" name="guestAddress" id="guestAddress" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="city">City</label>
-                            <input type="text" class="form-control" name="guestCity" id="guestCity">
+                            <input type="text" class="form-control" name="guestCity" id="guestCity" required>
                         </div>
                         <div class="form-group col-md-4 form-check">
                             <label for="state">State</label>
-                            <input type="text" class="form-control" name="guestState" id="guestState">
+                            <input type="text" class="form-control" name="guestState" id="guestState" required>
                         </div>
                     </div>
 
                     <div class="form-row mt-4">
                         <div class="form-group col-md-4">
                             <label for="aptNumber">Name of Apartment Complex</label>
-                            <input type="text" class="form-control" name="aptNumber" id="aptNumber">
+                            <input type="text" class="form-control" name="aptNumber" id="aptNumber" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="zipcode">Zipcode</label>
-                            <input type="text" class="form-control" name="zipcode" id="zipcode">
+                            <input type="text" class="form-control" name="zipcode" id="zipcode" required>
                         </div>
                     </div>
 
@@ -230,7 +230,7 @@
                             <label for="nature">Is home in good condition, clean & neat? </label>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
-                                    <input type="radio" id="isHouseGoodYes" name="isHouseGood" value="Yes">
+                                    <input type="radio" id="isHouseGoodYes" name="isHouseGood" value="Yes" required>
                                     Yes
                                 </div>
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
@@ -247,7 +247,8 @@
                                 reach)</label>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
-                                    <input type="radio" id="isLivingQuaterYes" name="isLivingQuater" value="Yes">
+                                    <input type="radio" id="isLivingQuaterYes" name="isLivingQuater" value="Yes"
+                                        required>
                                     Yes
                                 </div>
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
@@ -263,7 +264,7 @@
                             <label for="nature">Does the home have central heat/air and adequate ventilation?</label>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
-                                    <input type="radio" id="isVentilatedYes" name="isVentilated" value="Yes">
+                                    <input type="radio" id="isVentilatedYes" name="isVentilated" value="Yes" required>
                                     Yes
                                 </div>
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
@@ -279,7 +280,7 @@
                             <label for="nature">Is the yard fenced?</label>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
-                                    <input type="radio" id="isFencedYes" name="isFenced" value="Yes">
+                                    <input type="radio" id="isFencedYes" name="isFenced" value="Yes" required>
                                     Yes
                                 </div>
                                 <div class="form-group col-xs-12 col-lg-6 mt-1">
