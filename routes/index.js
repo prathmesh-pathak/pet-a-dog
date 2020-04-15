@@ -229,7 +229,7 @@ router.post('/dog-care/add', (req, res) => {
     housing.push({
         id: Date.now().toString(),
         address: req.body.guestAddress,
-        city: req.body.city,
+        city: req.body.guestCity,
         state: req.body.guestState,
         aptNumber: req.body.aptNumber,
         zipcode: req.body.zipcode,
@@ -278,8 +278,7 @@ router.get('/info', (req, res) => {
 router.get('/profile', checkAuthenticated, (req, res) => {
     if (typeof dog == "undefined" || dog == null || dog.length == 0) {
         res.render('profile.ejs', {
-            userData: req.user,
-            housingCondition: housing[0]
+            userData: req.user
         });
     }
     else {
@@ -293,7 +292,12 @@ router.get('/profile', checkAuthenticated, (req, res) => {
 });
 
 router.get('/profile/add', checkAuthenticated, (req, res) => {
-    res.render('user-dog.ejs');
+    res.render('user-dog.ejs', {
+        dogData: dog,
+        isLogin: loginFlag,
+        tipData: dogCare,
+        housingCondition: housing
+    });
 });
 
 router.post('/profile/add', checkAuthenticated, (req, res) => {
@@ -311,6 +315,46 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
         children: req.body.children,
         isTrained: req.body.trained
     });
+    housing.push({
+        id: Date.now().toString(),
+        address: req.body.guestAddress,
+        city: req.body.guestCity,
+        state: req.body.guestState,
+        aptNumber: req.body.aptNumber,
+        zipcode: req.body.zipcode,
+        houseCondition: req.body.isHouseGood,
+        living: req.body.isLivingQuater,
+        heating: req.body.isVentilated,
+        fenced: req.body.isFenced
+    });
+    dogBreed = req.body.dogBreed;
+    fs.readFile('tips.json', (err, data) => {
+        if (err) console.log(err);
+        let tips = JSON.parse(data);
+        for (var i = 0; i < tips.length; i++) {
+            if (tips[i].breed === dogBreed) {
+                dogCare.push({
+                    breed: tips[i].breed,
+                    step1: tips[i].step1,
+                    step2: tips[i].step2,
+                    step3: tips[i].step3,
+                    step4: tips[i].step4,
+                    step5: tips[i].step5,
+                    step6: tips[i].step6,
+                    tip1: tips[i].tip1,
+                    tip2: tips[i].tip2,
+                    tip3: tips[i].tip3,
+                    tip4: tips[i].tip4,
+                    tip5: tips[i].tip5,
+                    tip6: tips[i].tip6,
+                    tip7: tips[i].tip7,
+                    tip8: tips[i].tip8,
+                });
+            }
+        }
+    });
+    console.log(dogBreed);
+    console.log(dogCare);
     res.redirect('/profile');
 });
 

@@ -11,7 +11,7 @@
 
 <body style="background-color: rgb(244, 245, 246);">
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-        <div class="container" style="font-size: 1rem;">
+        <div class="container">
             <a class="navbar-brand" href="/home">
                 <img src="../imgs/rover.png" alt="" style="width: 100px;">
             </a>
@@ -22,10 +22,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item pr-4">
-                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
                     </li>
-                    <li class="nav-item pr-4 active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/search-sitter">Search a Sitter</a>
                     </li>
 
@@ -33,17 +33,27 @@
                         <a class="nav-link" href="/services">Our Services</a>
                     </li>
 
-                    <li class="nav-item pr-4">
-                        <a class="nav-link" href="/dog-care">Dog Care</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dog-care">Dog Care</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <% if (isLogin == true) { %>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/profile">View Profile</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button id="log-out-btn" class="btn btn-primary ml-4" type="submit">Log out</button>
+                    </form>
+                </div>
+                <% } else { %>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/register" class="pr-4">Sign Up</a>
+                    <a href="/login">Sign In</a>
+                </div>
+                <% } %>
             </div>
         </div>
     </nav>
+
     <div class="container" style="margin-top: 6rem;">
         <div class="container">
             <div class="card">
@@ -173,6 +183,109 @@
                                 </div>
                             </div>
                         </div>
+
+                        <% if (housingCondition.length == 0) { %>
+                        <h5 class="card-title mt-3">Housing Condition</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">We provide best recommendations for making your house
+                            pet
+                            friendly.</h6>
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-4">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" name="guestAddress" id="guestAddress" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" name="guestCity" id="guestCity" required>
+                            </div>
+                            <div class="form-group col-md-4 form-check">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control" name="guestState" id="guestState" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-4">
+                                <label for="aptNumber">Name of Apartment Complex</label>
+                                <input type="text" class="form-control" name="aptNumber" id="aptNumber" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="zipcode">Zipcode</label>
+                                <input type="text" class="form-control" name="zipcode" id="zipcode" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="nature">Is home in good condition, clean & neat? </label>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isHouseGoodYes" name="isHouseGood" value="Yes" required>
+                                        Yes
+                                    </div>
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isHouseGoodNo" name="isHouseGood" value="No">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="nature">Are the living quarter’s dog friendly? (medications, etc. out of
+                                    reach)</label>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isLivingQuaterYes" name="isLivingQuater" value="Yes"
+                                            required>
+                                        Yes
+                                    </div>
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isLivingQuaterNo" name="isLivingQuater" value="No">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="nature">Does the home have central heat/air and adequate
+                                    ventilation?</label>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isVentilatedYes" name="isVentilated" value="Yes"
+                                            required>
+                                        Yes
+                                    </div>
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isVentilatedNo" name="isVentilated" value="No">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="nature">Is the yard fenced?</label>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isFencedYes" name="isFenced" value="Yes" required>
+                                        Yes
+                                    </div>
+                                    <div class="form-group col-xs-12 col-lg-6 mt-1">
+                                        <input type="radio" id="isFencedNo" name="isFenced" value="No">
+                                        No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } else { %>
+                        <p></p>
+                        <% } %>
+
                         <div class="form-row" style="text-align: center;">
                             <div class="form-group col">
                                 <button type="submit" class="btn btn-success">Save</button>
@@ -183,6 +296,7 @@
             </div>
         </div>
     </div>
+
 
     <footer class="container-fluid page-footer font-small bg-info pt-4 mt-5">
         <div class="container text-center text-md-left">
