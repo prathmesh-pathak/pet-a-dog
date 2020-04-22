@@ -37,20 +37,24 @@ router.get('/home', checkNotAuthenticated, (req, res) => {
     res.render('home.ejs');
 });
 
+//login get route
 router.get('/login', checkNotAuthenticated, (req, res) => {
     res.render('login.ejs');
 })
 
+//Login Post route
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }))
 
+//Register Get Route
 router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs');
 })
 
+//Register Post Route
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -76,6 +80,7 @@ router.get('/services', (req, res) => {
     });
 });
 
+//Logout Route
 router.delete('/logout', (req, res) => {
     loginFlag = false;
     req.logOut();
