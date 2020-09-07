@@ -9,6 +9,15 @@ const passport = require('passport');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
+const mysql = require('mysql');
+
+var mysqlConnect = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'petADog',
+    multipleStatements: true
+});
 
 const users = [];
 const dog = [];
@@ -52,21 +61,31 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 //Register Get Route
 router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs');
-    
+
 })
 
 //Register Post Route
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        users.push({
-            id: Date.now().toString(),
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            zipcode: req.body.zip,
-            email: req.body.email,
-            password: hashedPassword
-        })
+        let user = req.body;
+        var sql = "SET @first_name = ?;SET @last_name = ?;SET @zipcode = ?; SET @email = ?;SET @password = ?; \
+        CALL AddUser(@first_name,@last_name,@zipcode,@email,@password);";
+        mysqlConnect.query(sql, [user.firstName, user.lastName, user.zip, user.email, hashedPassword], (err, rows, fields) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('inserted successfully...');
+            }
+        });
+        // users.push({
+        //     id: Date.now().toString(),
+        //     firstName: req.body.firstName,
+        //     lastName: req.body.lastName,
+        //     zipcode: req.body.zip,
+        //     email: req.body.email,
+        //     password: hashedPassword
+        // })
         loginFlag = true;
         res.redirect('/login');
     }
