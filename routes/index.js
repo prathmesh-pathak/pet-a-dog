@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
@@ -31,61 +32,78 @@ var dogBreed = '';
 var userName = '';
 var sitterName = '';
 
-const initializePassport = require('../passport-config');
-initializePassport(
-    passport,
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id)
-);
+// const initializePassport = require('../passport-config');
+// initializePassport(
+//     passport,
+//     email => users.find(user => user.email === email),
+//     id => users.find(user => user.id === id)
+// );
 
-router.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', { name: req.user.firstName });
+router.get('/', (req, res) => { //checkAuthenticated
+    res.render('index.ejs');
 })
 
-router.get('/home', checkNotAuthenticated, (req, res) => {
+router.get('/home', (req, res) => { //checkNotAuthenticated
     res.render('home.ejs');
 });
 
 //login get route
-router.get('/login', checkNotAuthenticated, (req, res) => {
+router.get('/login', (req, res) => { //checkNotAuthenticated
     res.render('login.ejs');
 })
 
 //Login Post route
-router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
+// router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: true
+// }))
+
+router.post('/login', (req, res) => { //checkNotAuthenticated
+    let user = req.body;
+    sql = "select * from subcribed_user where email = ?";
+    mysqlConnect.query(sql, [user.email], async (error, results) => {
+        if (!results || !(await bcrypt.compare(user.password, results[0].password))) {
+            console.log("Inside IF");
+            alert("Please provide a valid username and password.");
+        }
+        else {
+            const id = results[0].id;
+            const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+                expiresIn: process.env.JWT_EXPIRES_IN
+            });
+
+            const cookieOptions = {
+                expires: new Date(
+                    Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                ),
+                httpOnly: true
+            }
+            res.cookie('jwt', token, cookieOptions)
+            res.status(200).redirect("/");
+        }
+    });
+});
 
 //Register Get Route
-router.get('/register', checkNotAuthenticated, (req, res) => {
+router.get('/register', (req, res) => {
     res.render('register.ejs');
-
 })
 
 //Register Post Route
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        let user = req.body;
+        let users = req.body;
         var sql = "SET @first_name = ?;SET @last_name = ?;SET @zipcode = ?; SET @email = ?;SET @password = ?; \
         CALL AddUser(@first_name,@last_name,@zipcode,@email,@password);";
-        mysqlConnect.query(sql, [user.firstName, user.lastName, user.zip, user.email, hashedPassword], (err, rows, fields) => {
+        mysqlConnect.query(sql, [users.firstName, users.lastName, users.zip, users.email, hashedPassword], (err, rows, fields) => {
             if (err) {
                 console.log(err);
             } else {
                 console.log('inserted successfully...');
             }
         });
-        // users.push({
-        //     id: Date.now().toString(),
-        //     firstName: req.body.firstName,
-        //     lastName: req.body.lastName,
-        //     zipcode: req.body.zip,
-        //     email: req.body.email,
-        //     password: hashedPassword
-        // })
         loginFlag = true;
         res.redirect('/login');
     }
@@ -107,7 +125,7 @@ router.delete('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-router.get('/search-sitter', checkAuthenticated, (req, res) => {
+router.get('/search-sitter', (req, res) => { //checkAuthenticated
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -118,7 +136,7 @@ router.get('/search-sitter', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
+router.get('/search-sitter/:name', (req, res) => { //checkAuthenticated
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -135,7 +153,7 @@ router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/:name/contact', checkAuthenticated, (req, res) => {
+router.get('/:name/contact', (req, res) => { //checkAuthenticated
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -152,7 +170,7 @@ router.get('/:name/contact', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/:name/contact', checkAuthenticated, (req, res) => {
+router.post('/:name/contact', (req, res) => { //checkAuthenticated
     const today = new Date();
     booking.push({
         id: Date.now().toString(),
@@ -221,7 +239,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/:name/booking-details', checkAuthenticated, (req, res) => {
+router.get('/:name/booking-details', (req, res) => { //checkAuthenticated
     res.render('booking-confirmed.ejs', {
         bookingDetails: booking
     });
@@ -300,7 +318,7 @@ router.get('/info', (req, res) => {
     });
 });
 
-router.get('/profile', checkAuthenticated, (req, res) => {
+router.get('/profile', (req, res) => { //checkAuthenticated
     if (typeof dog == "undefined" || dog == null || dog.length == 0) {
         res.render('profile.ejs', {
             userData: req.user
@@ -316,7 +334,7 @@ router.get('/profile', checkAuthenticated, (req, res) => {
     }
 });
 
-router.get('/profile/add', checkAuthenticated, (req, res) => {
+router.get('/profile/add', (req, res) => { //checkAuthenticated
     res.render('user-dog.ejs', {
         dogData: dog,
         isLogin: loginFlag,
@@ -325,7 +343,7 @@ router.get('/profile/add', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/profile/add', checkAuthenticated, (req, res) => {
+router.post('/profile/add', (req, res) => { //checkAuthenticated
     dog.push({
         id: Date.now().toString(),
         name: req.body.dogName,
@@ -394,7 +412,10 @@ function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/');
     }
-    next();
+    else {
+        console.log("NEXT");
+        next();
+    }
 }
 
 module.exports = router;
