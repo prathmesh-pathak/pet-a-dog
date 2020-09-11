@@ -95,17 +95,27 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         let users = req.body;
-        var sql = "SET @first_name = ?;SET @last_name = ?;SET @zipcode = ?; SET @email = ?;SET @password = ?; \
-        CALL AddUser(@first_name,@last_name,@zipcode,@email,@password);";
-        mysqlConnect.query(sql, [users.firstName, users.lastName, users.zip, users.email, hashedPassword], (err, rows, fields) => {
+        mysqlConnect.query("select * from subcribed_user where email = ?", [users.email], (err, rows, fields) => {
             if (err) {
                 console.log(err);
-            } else {
-                console.log('inserted successfully...');
+            }
+            if (rows) {
+                console.log(rows.length);
+            }
+            else {
+                var sql = "SET @first_name = ?;SET @last_name = ?;SET @zipcode = ?; SET @email = ?;SET @password = ?; \
+                CALL AddUser(@first_name,@last_name,@zipcode,@email,@password);";
+                mysqlConnect.query(sql, [users.firstName, users.lastName, users.zip, users.email, hashedPassword], (err, rows, fields) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('inserted successfully...');
+                    }
+                });
+                loginFlag = true;
+                res.redirect('/login');
             }
         });
-        loginFlag = true;
-        res.redirect('/login');
     }
     catch {
         res.redirect('/register');
