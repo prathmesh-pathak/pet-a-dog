@@ -103,7 +103,6 @@ router.post('/register', async (req, res) => { //checkNotAuthenticated
                 console.log(err);
             }
             if (rows.length >= 1) {
-                console.log(rows.length);
                 res.render('register.ejs', {
                     errorFlag: true,
                     errorMessage: "Email already registered. Please try again with different email address."
