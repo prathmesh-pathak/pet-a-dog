@@ -48,7 +48,7 @@ router.get('/home', (req, res) => { //checkNotAuthenticated
 });
 
 //login get route
-router.get('/login', (req, res) => { //checkNotAuthenticated
+router.get('/login', checkNotAuthenticated, (req, res) => { //checkNotAuthenticated
     res.render('login.ejs', {
         errorFlag: false,
         errorMessage: ''
@@ -62,7 +62,7 @@ router.get('/login', (req, res) => { //checkNotAuthenticated
 //     failureFlash: true
 // }))
 
-router.post('/login', (req, res) => { //checkNotAuthenticated
+router.post('/login', checkNotAuthenticated, (req, res) => { //checkNotAuthenticated
     let user = req.body;
     sql = "select * from subcribed_user where email = ?";
     mysqlConnect.query(sql, [user.email], async (error, results) => {
@@ -99,7 +99,7 @@ router.get('/register', (req, res) => {
 })
 
 //Register Post Route
-router.post('/register', async (req, res) => { //checkNotAuthenticated
+router.post('/register', checkNotAuthenticated, async (req, res) => { //checkNotAuthenticated
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         let users = req.body;
@@ -434,7 +434,6 @@ function checkNotAuthenticated(req, res, next) {
         return res.redirect('/');
     }
     else {
-        console.log("NEXT");
         next();
     }
 }
