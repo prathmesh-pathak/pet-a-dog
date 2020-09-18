@@ -49,7 +49,10 @@ router.get('/home', (req, res) => { //checkNotAuthenticated
 
 //login get route
 router.get('/login', (req, res) => { //checkNotAuthenticated
-    res.render('login.ejs');
+    res.render('login.ejs', {
+        errorFlag: false,
+        errorMessage: ''
+    });
 })
 
 //Login Post route
@@ -64,8 +67,10 @@ router.post('/login', (req, res) => { //checkNotAuthenticated
     sql = "select * from subcribed_user where email = ?";
     mysqlConnect.query(sql, [user.email], async (error, results) => {
         if (!results || !(await bcrypt.compare(user.password, results[0].password))) {
-            console.log("Inside IF");
-            alert("Please provide a valid username and password.");
+            res.render('login.ejs', {
+                errorFlag: true,
+                errorMessage: 'Please provide a valid username and password.'
+            });
         }
         else {
             const id = results[0].id;
