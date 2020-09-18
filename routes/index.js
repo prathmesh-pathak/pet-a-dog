@@ -146,7 +146,7 @@ router.delete('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-router.get('/search-sitter', (req, res) => { //checkAuthenticated
+router.get('/search-sitter', checkAuth, (req, res) => { //checkAuthenticated
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -421,6 +421,10 @@ router.post('/profile/add', (req, res) => { //checkAuthenticated
     console.log(dogCare);
     res.redirect('/profile');
 });
+
+function checkAuth() {
+
+}
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
