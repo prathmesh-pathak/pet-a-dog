@@ -89,6 +89,12 @@
                             <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
                         </div>
                     </div>
+                    <% if(errorFlag == true) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= errorMessage %>
+                    </div>
+                    <% } %>
+
                 </form>
             </div>
             <h2 class="displaty-4 lead text-center">

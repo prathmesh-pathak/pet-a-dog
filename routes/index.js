@@ -87,11 +87,14 @@ router.post('/login', (req, res) => { //checkNotAuthenticated
 
 //Register Get Route
 router.get('/register', (req, res) => {
-    res.render('register.ejs');
+    res.render('register.ejs', {
+        errorFlag: false,
+        errorMessage: ''
+    });
 })
 
 //Register Post Route
-router.post('/register', checkNotAuthenticated, async (req, res) => {
+router.post('/register', async (req, res) => { //checkNotAuthenticated
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         let users = req.body;
@@ -99,8 +102,12 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
             if (err) {
                 console.log(err);
             }
-            if (rows) {
+            if (rows.length >= 1) {
                 console.log(rows.length);
+                res.render('register.ejs', {
+                    errorFlag: true,
+                    errorMessage: "Email already registered. Please try again with different email address."
+                })
             }
             else {
                 var sql = "SET @first_name = ?;SET @last_name = ?;SET @zipcode = ?; SET @email = ?;SET @password = ?; \
