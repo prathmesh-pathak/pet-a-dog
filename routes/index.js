@@ -160,51 +160,63 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
         cvv: req.body.cvv
     });
 
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'petadogapp@gmail.com',
-            pass: 'cSPROJECT#1'
+    fs.readFile('cardInfo.json', (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        let cardDetails = JSON.parse(data);
+        for (let i = 0; i < cardDetails.length; i++) {
+            if (cardDetails[i].name_on_card == cardInfo.userName) {
+                console.log(cardDetails[i].name_on_card);
+            }
         }
     });
 
-    ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
-        let mailOtions = {
-            from: 'petadogapp@gmail.com',
-            to: sitterEmail,
-            subject: 'Booking confirmation from Pet a Dog',
-            html: data
-        }
-        transporter.sendMail(mailOtions, (err, data) => {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-            else {
-                console.log("Email Sent to sitter");
-                res.redirect('/:name/booking-details');
-            }
-        });
-    });
+    // let transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //         user: 'petadogapp@gmail.com',
+    //         pass: 'cSPROJECT#1'
+    //     }
+    // });
 
-    ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
-        let mailOtions = {
-            from: 'petadogapp@gmail.com',
-            to: userEmail,
-            subject: 'Booking confirmation from Pet a Dog',
-            html: data
-        }
-        transporter.sendMail(mailOtions, (err, data) => {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-            else {
-                console.log("Email Sent to user");
-                res.redirect('/:name/booking-details');
-            }
-        });
-    });
+    // ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
+    //     let mailOtions = {
+    //         from: 'petadogapp@gmail.com',
+    //         to: sitterEmail,
+    //         subject: 'Booking confirmation from Pet a Dog',
+    //         html: data
+    //     }
+    //     transporter.sendMail(mailOtions, (err, data) => {
+    //         if (err) {
+    //             console.log(err);
+    //             res.send(err);
+    //         }
+    //         else {
+    //             console.log("Email Sent to sitter");
+    //             res.redirect('/:name/booking-details');
+    //         }
+    //     });
+    // });
+
+    // ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
+    //     let mailOtions = {
+    //         from: 'petadogapp@gmail.com',
+    //         to: userEmail,
+    //         subject: 'Booking confirmation from Pet a Dog',
+    //         html: data
+    //     }
+    //     transporter.sendMail(mailOtions, (err, data) => {
+    //         if (err) {
+    //             console.log(err);
+    //             res.send(err);
+    //         }
+    //         else {
+    //             console.log("Email Sent to user");
+    //             res.redirect('/:name/booking-details');
+    //         }
+    //     });
+    // });
 });
 
 router.get('/:name/booking-details', checkAuthenticated, (req, res) => {
