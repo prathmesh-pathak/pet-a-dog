@@ -15,6 +15,7 @@ const dog = [];
 const booking = [];
 const dogCare = [];
 const housing = [];
+const cardInfo = [];
 var loginFlag = false;
 var userEmail = '';
 var sitterEmail = '';
@@ -150,6 +151,15 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
     userName = req.body.firstName;
     userEmail = req.body.userEmail;
     sitterName = req.params.name;
+
+    cardInfo.push({
+        userName: req.body.username,
+        cardNumber: req.body.cardNumber,
+        expiration_month: req.body.exp_month,
+        expiration_year: req.body.exp_year,
+        cvv: req.body.cvv
+    });
+
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
