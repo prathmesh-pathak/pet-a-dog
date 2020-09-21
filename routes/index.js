@@ -49,7 +49,7 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs');
-    
+
 })
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
