@@ -27,6 +27,12 @@
                 <p>Pick Up time from: <%= booking.pickUpTimeFrom %></p>
                 <p>Additional Message : <%= booking.message %></p>
                 <% } %>
+                <h1>Payment Information</h1>
+                <% for (var card of creditCradDetails) { %>
+                <p>Payment Method: <%= card.paymentMethod %></p>
+                <p>Name on Card: <%= card.userName %></p>
+                <p>Credit Card Number: <%= card.cardNumber %></p>
+                <% } %>
             </div>
         </div>
     </div>

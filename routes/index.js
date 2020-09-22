@@ -220,7 +220,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
             });
         });
 
-        ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
+        ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName, creditCradDetails: cardInfo }, (err, data) => {
             let mailOtions = {
                 from: 'petadogapp@gmail.com',
                 to: userEmail,
