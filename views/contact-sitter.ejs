@@ -78,7 +78,7 @@
                             <input type="text" class="form-control" id="inputEmail4" name="lastName">
                         </div>
                     </div>
-                    <!-- <div class="form-row mt-5">
+                    <div class="form-row mt-5">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4"><strong>When would you like to drop off?</strong></label>
                             <input type="date" class="form-control" id="inputEmail4" name="dropOff">
@@ -107,8 +107,8 @@
                                 <option value="10:00 PM">10:00 PM</option>
                             </select>
                         </div>
-                    </div> -->
-                    <!-- <div class="form-row mt-5">
+                    </div>
+                    <div class="form-row mt-5">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4"><strong>When would you like to pick up?</strong></label>
                             <input type="date" class="form-control" id="inputEmail4" name="pickUp">
@@ -137,7 +137,7 @@
                                 <option value="10:00 PM">10:00 PM</option>
                             </select>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="form-row mt-5">
                         <div class="form-group col-md-4">
@@ -246,6 +246,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <% if (cardDetailsErrorFlag == true) { %>
+                                        <div class="alert alert-danger" role="alert">
+                                            <%= cardDetailsErrorMessage %>
+                                        </div>
+                                        <% } else { %>
+                                        <%= cardDetailsErrorMessage %>
+                                        <% } %>
                                         <!-- <button type="button"
                                                 class="subscribe btn btn-primary btn-block rounded-pill shadow-sm">
                                                 Confirm

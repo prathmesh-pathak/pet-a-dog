@@ -122,7 +122,9 @@ router.get('/:name/contact', checkAuthenticated, (req, res) => {
                     sitterData: sitter[i],
                     feedback: sitter[i].feedback,
                     services: sitter[i].services,
-                    dogData: dog
+                    dogData: dog,
+                    cardDetailsErrorFlag: false,
+                    cardDetailsErrorMessage: ""
                 });
             }
         }
@@ -166,6 +168,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
             console.log(err);
         }
         let cardDetails = JSON.parse(data);
+        let flag = -1;
         for (let i = 0; i < cardDetails.length; i++) {
             for (let j = 0; j < cardInfo.length; j++) {
                 if (cardDetails[i].name_on_card == cardInfo[j].userName &&
@@ -174,12 +177,18 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
                     cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
                     cardDetails[i].cvv == cardInfo[j].cvv &&
                     cardDetails[i].amount > 30) {
-                    sendEmail();
+                    flag = 1;
                 }
                 else {
-                    sendError();
+                    flag = 0;
                 }
             }
+        }
+        if (flag == 1) {
+            sendEmail();
+        }
+        else {
+            sendError(req, res);
         }
     });
 
@@ -232,8 +241,24 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
 
     }
 
-    sendError = () => {
-        console.log("Bhakti is sad... :-(");
+    sendError = (req, res) => {
+        console.log("Error Occured...");
+        fs.readFile('sitter_list.json', (err, data) => {
+            if (err) console.log(err);
+            let sitter = JSON.parse(data);
+            for (var i = 0; i < sitter.length; i++) {
+                if (sitter[i].name === req.params.name) {
+                    res.render('contact-sitter.ejs', {
+                        sitterData: sitter[i],
+                        feedback: sitter[i].feedback,
+                        services: sitter[i].services,
+                        dogData: dog,
+                        cardDetailsErrorFlag: true,
+                        cardDetailsErrorMessage: "Invalid card details."
+                    });
+                }
+            }
+        });
     }
 });
 
