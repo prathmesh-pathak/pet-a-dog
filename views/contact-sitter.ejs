@@ -261,18 +261,20 @@
 
                                     <div id="nav-tab-paypal" class="tab-pane fade">
                                         <p>Paypal is easiest way to pay online</p>
+                                        <input type="hidden" name="paymentMethod" value="Paypal">
                                         <p>
-                                            <button type="button" class="btn btn-primary rounded-pill"><i
-                                                    class="fa fa-paypal mr-2"></i> Log into my
-                                                Paypal</button>
+                                            <a href="/pay" type="button" class="btn btn-primary rounded-pill"
+                                                onclick="hello()">
+                                                <i class="fa fa-paypal mr-2">Log into my Paypal</i>
+                                            </a>
                                         </p>
                                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                             sed do eiusmod tempor
                                             incididunt ut labore et dolore magna aliqua.
                                         </p>
                                     </div>
-
                                     <div id="nav-tab-bank" class="tab-pane fade">
+                                        <input type="hidden" name="paymentMethod" value="Net Banking">
                                         <h6>Bank account details</h6>
                                         <dl>
                                             <dt>Bank</dt>
@@ -293,19 +295,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="card-body">
-                            <label for="inputEmail4">
-                                <h4><strong>Message</strong></h4>
-                            </label>
-                            <h6 class="card-subtitle mb-2">
-                                Share a little info about your dog and why they'd have a great time with
-                                <%= sitterData.name %>
-                            </h6>
-                            <textarea name="message" rows="10" cols="100%"></textarea>
                         </div>
                     </div>
                     <div class="form-row">
