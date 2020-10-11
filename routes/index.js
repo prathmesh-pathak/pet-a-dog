@@ -212,68 +212,12 @@ router.post('/credit-card', checkAuthenticated, (req, res) => {
             }
         }
         if (flag == 1) {
-            sendEmail();
+            sendEmail(req, res);
         }
         if (flag == 0) {
             sendError(req, res);
         }
     });
-
-    sendEmail = () => {
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'petadogapp@gmail.com',
-                pass: 'cSPROJECT#1'
-            }
-        });
-
-        ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
-            let mailOtions = {
-                from: 'petadogapp@gmail.com',
-                to: sitterEmail,
-                subject: 'Booking confirmation from Pet a Dog',
-                html: data
-            }
-            transporter.sendMail(mailOtions, (err, data) => {
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                }
-                else {
-                    console.log("Email Sent to sitter");
-                    res.redirect('/:name/booking-details');
-                }
-            });
-        });
-
-        ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName, creditCradDetails: cardInfo }, (err, data) => {
-            let mailOtions = {
-                from: 'petadogapp@gmail.com',
-                to: userEmail,
-                subject: 'Booking confirmation from Pet a Dog',
-                html: data
-            }
-            transporter.sendMail(mailOtions, (err, data) => {
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                }
-                else {
-                    console.log("Email Sent to user");
-                    res.redirect('/:name/booking-details');
-                }
-            });
-        });
-    }
-
-    sendError = (req, res) => {
-        res.render('payment.ejs', {
-            bookingDetails: booking[0],
-            cardDetailsErrorFlag: true,
-            cardDetailsErrorMessage: "Invalid card details."
-        });
-    }
 });
 
 router.get('/pay', (req, res) => {
@@ -337,7 +281,7 @@ router.get('/success', (req, res) => {
             throw error;
         } else {
             console.log(JSON.stringify(payment));
-            res.render('booking-confirmed-paypal.ejs');
+            sendEmail(req, res);
         }
     });
 });
@@ -504,6 +448,67 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
     console.log(dogCare);
     res.redirect('/profile');
 });
+
+
+sendEmail = (req, res) => {
+    userEmail = booking[0].userEmail;
+    userName = booking[0].userFirstName;
+    sitterName = booking[0].sitterName;
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'petadogapp@gmail.com',
+            pass: 'cSPROJECT#1'
+        }
+    });
+
+    ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
+        let mailOtions = {
+            from: 'petadogapp@gmail.com',
+            to: sitterEmail,
+            subject: 'Booking confirmation from Pet a Dog',
+            html: data
+        }
+        transporter.sendMail(mailOtions, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.send(err);
+            }
+            else {
+                console.log("Email Sent to sitter");
+                res.redirect('/:name/booking-details');
+            }
+        });
+    });
+
+    ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
+        let mailOtions = {
+            from: 'petadogapp@gmail.com',
+            to: userEmail,
+            subject: 'Booking confirmation from Pet a Dog',
+            html: data
+        }
+        transporter.sendMail(mailOtions, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.send(err);
+            }
+            else {
+                console.log("Email Sent to user");
+                res.redirect('/:name/booking-details');
+            }
+        });
+    });
+}
+
+sendError = (req, res) => {
+    res.render('payment.ejs', {
+        bookingDetails: booking[0],
+        cardDetailsErrorFlag: true,
+        cardDetailsErrorMessage: "Invalid card details."
+    });
+}
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
