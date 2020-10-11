@@ -55,7 +55,7 @@
         </div>
     </nav>
 
-    <div class="container" style="max-width: 80%;">
+    <div class="container">
         <div class="card" style="width: 100%; margin-top: 6rem;">
             <div class="card-body">
                 <div class="row">
@@ -179,6 +179,93 @@
                                         incididunt ut labore et dolore magna aliqua.
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h4 class="mb-3 mt-5 ml-3"><strong>Booking Information</strong></h4>
+                    <div class="mt-4 ml-5" style="width: 100%;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h2">Booking ID: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h2"><%= bookingDetails.id %></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Customer Name: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.userFirstName %>
+                                    <%= bookingDetails.userLastName %></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Sitter Name: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.sitterName %></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Service Selected: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.serviceSelected %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Date of Booking: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.bookingDate %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Drop Off Date: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.dropOffDate %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Drop off Time: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.dropOffTimeFrom %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Pick up Date: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.pickUpDate %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Pick up Time: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.pickUpTimeFrom %> </p>
                             </div>
                         </div>
                     </div>

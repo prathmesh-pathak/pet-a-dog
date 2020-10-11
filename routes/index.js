@@ -272,7 +272,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
 
 router.get('/payment', (req, res) => {
     res.render('payment.ejs', {
-        bookingDetails: booking
+        bookingDetails: booking[0]
     });
 });
 
