@@ -10,6 +10,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
+const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 
 const users = [];
 const dog = [];
@@ -158,114 +159,121 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
     });
     userName = req.body.firstName;
     userEmail = req.body.userEmail;
-    sitterName = req.params.name;
 
-    cardInfo.push({
-        paymentMethod: req.body.paymentMethod,
-        userName: req.body.username,
-        cardNumber: req.body.cardNumber,
-        expiration_month: req.body.exp_month,
-        expiration_year: req.body.exp_year,
-        cvv: req.body.cvv
-    });
+    res.redirect('/payment');
 
-    fs.readFile('cardInfo.json', (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        let cardDetails = JSON.parse(data);
-        let flag = -1;
-        for (let i = 0; i < cardDetails.length; i++) {
-            for (let j = 0; j < cardInfo.length; j++) {
-                if (cardDetails[i].name_on_card == cardInfo[j].userName &&
-                    cardDetails[i].card_number == cardInfo[j].cardNumber &&
-                    cardDetails[i].expiration_month == cardInfo[j].expiration_month &&
-                    cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
-                    cardDetails[i].cvv == cardInfo[j].cvv &&
-                    cardDetails[i].amount > 30) {
-                    flag = 1;
-                }
-                else {
-                    flag = 0;
-                }
-            }
-        }
-        if (flag == 1) {
-            sendEmail();
-        }
-        else {
-            sendError(req, res);
-        }
-    });
+    // cardInfo.push({
+    //     paymentMethod: req.body.paymentMethod,
+    //     userName: req.body.username,
+    //     cardNumber: req.body.cardNumber,
+    //     expiration_month: req.body.exp_month,
+    //     expiration_year: req.body.exp_year,
+    //     cvv: req.body.cvv
+    // });
+
+    // fs.readFile('cardInfo.json', (err, data) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     let cardDetails = JSON.parse(data);
+    //     let flag = -1;
+    //     for (let i = 0; i < cardDetails.length; i++) {
+    //         for (let j = 0; j < cardInfo.length; j++) {
+    //             if (cardDetails[i].name_on_card == cardInfo[j].userName &&
+    //                 cardDetails[i].card_number == cardInfo[j].cardNumber &&
+    //                 cardDetails[i].expiration_month == cardInfo[j].expiration_month &&
+    //                 cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
+    //                 cardDetails[i].cvv == cardInfo[j].cvv &&
+    //                 cardDetails[i].amount > 30) {
+    //                 flag = 1;
+    //             }
+    //             else {
+    //                 flag = 0;
+    //             }
+    //         }
+    //     }
+    //     if (flag == 1) {
+    //         sendEmail();
+    //     }
+    //     else {
+    //         sendError(req, res);
+    //     }
+    // });
 
     sendEmail = () => {
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'petadogapp@gmail.com',
-                pass: 'cSPROJECT#1'
-            }
-        });
+        // let transporter = nodemailer.createTransport({
+        //     service: 'gmail',
+        //     auth: {
+        //         user: 'petadogapp@gmail.com',
+        //         pass: 'cSPROJECT#1'
+        //     }
+        // });
 
-        ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
-            let mailOtions = {
-                from: 'petadogapp@gmail.com',
-                to: sitterEmail,
-                subject: 'Booking confirmation from Pet a Dog',
-                html: data
-            }
-            transporter.sendMail(mailOtions, (err, data) => {
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                }
-                else {
-                    console.log("Email Sent to sitter");
-                    res.redirect('/:name/booking-details');
-                }
-            });
-        });
+        // ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
+        //     let mailOtions = {
+        //         from: 'petadogapp@gmail.com',
+        //         to: sitterEmail,
+        //         subject: 'Booking confirmation from Pet a Dog',
+        //         html: data
+        //     }
+        //     transporter.sendMail(mailOtions, (err, data) => {
+        //         if (err) {
+        //             console.log(err);
+        //             res.send(err);
+        //         }
+        //         else {
+        //             console.log("Email Sent to sitter");
+        //             res.redirect('/:name/booking-details');
+        //         }
+        //     });
+        // });
 
-        ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName, creditCradDetails: cardInfo }, (err, data) => {
-            let mailOtions = {
-                from: 'petadogapp@gmail.com',
-                to: userEmail,
-                subject: 'Booking confirmation from Pet a Dog',
-                html: data
-            }
-            transporter.sendMail(mailOtions, (err, data) => {
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                }
-                else {
-                    console.log("Email Sent to user");
-                    res.redirect('/:name/booking-details');
-                }
-            });
-        });
+        // ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName, creditCradDetails: cardInfo }, (err, data) => {
+        //     let mailOtions = {
+        //         from: 'petadogapp@gmail.com',
+        //         to: userEmail,
+        //         subject: 'Booking confirmation from Pet a Dog',
+        //         html: data
+        //     }
+        //     transporter.sendMail(mailOtions, (err, data) => {
+        //         if (err) {
+        //             console.log(err);
+        //             res.send(err);
+        //         }
+        //         else {
+        //             console.log("Email Sent to user");
+        //             res.redirect('/:name/booking-details');
+        //         }
+        //     });
+        // });
 
     }
 
-    sendError = (req, res) => {
-        console.log("Error Occured...");
-        fs.readFile('sitter_list.json', (err, data) => {
-            if (err) console.log(err);
-            let sitter = JSON.parse(data);
-            for (var i = 0; i < sitter.length; i++) {
-                if (sitter[i].name === req.params.name) {
-                    res.render('contact-sitter.ejs', {
-                        sitterData: sitter[i],
-                        feedback: sitter[i].feedback,
-                        services: sitter[i].services,
-                        dogData: dog,
-                        cardDetailsErrorFlag: true,
-                        cardDetailsErrorMessage: "Invalid card details."
-                    });
-                }
-            }
-        });
-    }
+    // sendError = (req, res) => {
+    //     console.log("Error Occured...");
+    //     fs.readFile('sitter_list.json', (err, data) => {
+    //         if (err) console.log(err);
+    //         let sitter = JSON.parse(data);
+    //         for (var i = 0; i < sitter.length; i++) {
+    //             if (sitter[i].name === req.params.name) {
+    //                 res.render('contact-sitter.ejs', {
+    //                     sitterData: sitter[i],
+    //                     feedback: sitter[i].feedback,
+    //                     services: sitter[i].services,
+    //                     dogData: dog,
+    //                     cardDetailsErrorFlag: true,
+    //                     cardDetailsErrorMessage: "Invalid card details."
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
+});
+
+router.get('/payment', (req, res) => {
+    res.render('payment.ejs', {
+        bookingDetails: booking
+    });
 });
 
 router.get('/pay', (req, res) => {
