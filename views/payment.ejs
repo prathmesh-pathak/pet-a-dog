@@ -157,8 +157,42 @@
 
 
                                 <div id="nav-tab-bank" class="tab-pane fade">
-                                    <h6>Bank account details</h6>
-                                    <!-- <div class="form-group">
+                                    <form action="/charge" method="POST">
+                                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="pk_test_51Hb90tLQHcwjWBjS0IbR09uJTrqHbvxC1qvm5xlsS2eI2RG3yDO2GzKuIKU7GUFcjUrnw5CtVnCKsX93AG3jfDWW00uhs4iBJB"
+                                            data-amount="4500" data-name="<%= bookingDetails.serviceSelected %>"
+                                            data-image="/imgs/marketplace.png" data-locale="auto">
+                                            </script>
+                                        <script>
+                                            // Hide default stripe button
+                                            document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                                            function getBankName() {
+                                                var bankName = document.getElementById('bankName').value;
+                                            }
+                                        </script>
+                                        <p>
+                                        <dl>
+                                            <dt class="mb-3">Select Bank</dt>
+                                            <div class="form-group">
+                                                <select class="form-control" id="bankName" required>
+                                                    <option value="Bank of America Corp.">Bank of America Corp.</option>
+                                                    <option value="JPMorgan Chase & Co.">JPMorgan Chase & Co.</option>
+                                                    <option value="Wells Fargo & Co.">Wells Fargo & Co.</option>
+                                                    <option value="Bank of New York Mellon Corp.">Bank of New York
+                                                        Mellon Corp.</option>
+                                                    <option value="Goldman Sachs Group Inc.">Goldman Sachs Group Inc.
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </dl>
+                                        </p>
+                                        <p>
+                                            <button type="submit" class="btn btn-primary rounded-pill"
+                                                onclick="getBankName()">
+                                                <i class="fa fa-paypal mr-2">Proceed to pay</i>
+                                            </button>
+                                        </p>
+                                        <!-- <div class="form-group">
                                         <label for="exampleFormControlSelect1">Example select</label>
                                         <select class="form-control" id="exampleFormControlSelect1">
                                             <option>1</option>
@@ -168,22 +202,23 @@
                                             <option>5</option>
                                         </select>
                                     </div> -->
-                                    <dl>
-                                        <dt>Bank</dt>
-                                        <dd> THE WORLD BANK</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>Account number</dt>
-                                        <dd>7775877975</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>IBAN</dt>
-                                        <dd>CZ7775877975656</dd>
-                                    </dl>
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.
-                                    </p>
+                                        <!-- <dl>
+                                            <dt>Bank</dt>
+                                            <dd> THE WORLD BANK</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>Account number</dt>
+                                            <dd>7775877975</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>IBAN</dt>
+                                            <dd>CZ7775877975656</dd>
+                                        </dl> -->
+                                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                            sed do eiusmod tempor
+                                            incididunt ut labore et dolore magna aliqua.
+                                        </p>
+                                    </form>
                                 </div>
                             </div>
                         </div>

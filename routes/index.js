@@ -288,6 +288,23 @@ router.get('/success', (req, res) => {
 
 router.get('/cancel', (req, res) => res.send('Cancelled'));
 
+router.post('/charge', (req, res) => {
+    amount = 4500;
+    stripe.customers.create({
+        email: req.body.stripeEmail,
+        source: req.body.stripeToken
+    })
+        .then(customer => stripe.charges.create({
+            amount,
+            description: booking[0].serviceSelected,
+            currency: 'usd',
+            customer: customer.id
+        }))
+        .then(charge => {
+            sendEmail(req, res);
+        });
+});
+
 router.get('/:name/booking-details', checkAuthenticated, (req, res) => {
     res.render('booking-confirmed.ejs', {
         bookingDetails: booking
