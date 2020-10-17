@@ -10,6 +10,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
+const mysql = require('mysql');
 const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 
 const users = [];
@@ -24,6 +25,21 @@ var sitterEmail = '';
 var dogBreed = '';
 var userName = '';
 var sitterName = '';
+
+const mySqlConnection = mysql.createConnection({
+    host: 'petadog.c7vwszycan78.us-east-1.rds.amazonaws.com',
+    user: 'admin_786',
+    password: 'cSPROJECT#1',
+    databse: 'petadog',
+    port: 3306
+});
+
+mySqlConnection.connect((error) => {
+    if (error) {
+        console.log(error);
+    }
+    console.log("Connected to the database...");
+});
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
