@@ -8,20 +8,18 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const indexRouter = require('./routes/index');
-const cookieParser = require('cookie-parser');
-//const passport = require('passport');
+const passport = require('passport');
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(express.static("public"));
 

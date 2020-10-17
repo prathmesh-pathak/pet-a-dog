@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet a Dog | Sitter Info</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="../imgs/pet-a-dog.png" alt="" style="width: 30px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dog-care">Dog Care</a>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/profile">View Profile</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button id="log-out-btn" class="btn btn-primary ml-4" type="submit">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card" style="width: 100%; margin-top: 6rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <h4 class="mb-3 mt-4"><strong>Payment Information</strong></h4>
+                        <div class="bg-white rounded-lg pt-4 pl-3">
+                            <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
+                                <li class="nav-item">
+                                    <a data-toggle="pill" href="#nav-tab-card" class="nav-link active rounded-pill">
+                                        <i class="fa fa-credit-card"></i>
+                                        Credit Card
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="pill" href="#nav-tab-paypal" class="nav-link rounded-pill">
+                                        <i class="fa fa-paypal"></i>
+                                        Paypal
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="pill" href="#nav-tab-bank" class="nav-link rounded-pill">
+                                        <i class="fa fa-university"></i>
+                                        Bank Transfer
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="nav-tab-card" class="tab-pane fade show active">
+                                    <form action="/credit-card" method="post">
+                                        <div class="form-group">
+                                            <label for="username">Full name (on the card)</label>
+                                            <input type="text" name="username" placeholder="Enter Your Name..." required
+                                                class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cardNumber">Card number</label>
+                                            <div class="input-group">
+                                                <input type="text" name="cardNumber" placeholder="Your card number"
+                                                    class="form-control" required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-muted">
+                                                        <i class="fa fa-cc-visa mx-1"></i>
+                                                        <i class="fa fa-cc-amex mx-1"></i>
+                                                        <i class="fa fa-cc-mastercard mx-1"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label><span class="hidden-xs">Expiration</span></label>
+                                                    <div class="input-group">
+                                                        <input type="number" placeholder="MM" name="exp_month"
+                                                            class="form-control" required>
+                                                        <input type="number" placeholder="YY" name="exp_year"
+                                                            class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group mb-4">
+                                                    <label data-toggle="tooltip"
+                                                        title="Three-digits code on the back of your card">CVV
+                                                        <i class="fa fa-question-circle"></i>
+                                                    </label>
+                                                    <input type="password" name="cvv" required class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% if (cardDetailsErrorFlag == true) { %>
+                                        <div class="alert alert-danger" role="alert">
+                                            <%= cardDetailsErrorMessage %>
+                                        </div>
+                                        <% } else { %>
+                                        <p></p>
+                                        <% } %>
+                                        <button type="submit"
+                                            class="subscribe btn btn-primary btn-block rounded-pill shadow-sm">
+                                            Confirm
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div id="nav-tab-paypal" class="tab-pane fade">
+                                    <p>Paypal is easiest way to pay online</p>
+                                    <p>
+                                        <a href="/pay" type="button" class="btn btn-primary rounded-pill">
+                                            <i class="fa fa-paypal mr-2">Log into my Paypal</i>
+                                        </a>
+                                    </p>
+                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                        sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                </div>
+
+
+                                <div id="nav-tab-bank" class="tab-pane fade">
+                                    <form action="/charge" method="POST">
+                                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="pk_test_51Hb90tLQHcwjWBjS0IbR09uJTrqHbvxC1qvm5xlsS2eI2RG3yDO2GzKuIKU7GUFcjUrnw5CtVnCKsX93AG3jfDWW00uhs4iBJB"
+                                            data-amount="4500" data-name="<%= bookingDetails.serviceSelected %>"
+                                            data-image="/imgs/marketplace.png" data-locale="auto">
+                                            </script>
+                                        <script>
+                                            // Hide default stripe button
+                                            document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                                            function getBankName() {
+                                                var bankName = document.getElementById('bankName').value;
+                                            }
+                                        </script>
+                                        <p>
+                                        <dl>
+                                            <dt class="mb-3">Select Bank</dt>
+                                            <div class="form-group">
+                                                <select class="form-control" id="bankName" required>
+                                                    <option value="Bank of America Corp.">Bank of America Corp.</option>
+                                                    <option value="JPMorgan Chase & Co.">JPMorgan Chase & Co.</option>
+                                                    <option value="Wells Fargo & Co.">Wells Fargo & Co.</option>
+                                                    <option value="Bank of New York Mellon Corp.">Bank of New York
+                                                        Mellon Corp.</option>
+                                                    <option value="Goldman Sachs Group Inc.">Goldman Sachs Group Inc.
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </dl>
+                                        </p>
+                                        <p>
+                                            <button type="submit" class="btn btn-primary rounded-pill"
+                                                onclick="getBankName()">
+                                                <i class="fa fa-paypal mr-2">Proceed to pay</i>
+                                            </button>
+                                        </p>
+                                        <!-- <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Example select</label>
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div> -->
+                                        <!-- <dl>
+                                            <dt>Bank</dt>
+                                            <dd> THE WORLD BANK</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>Account number</dt>
+                                            <dd>7775877975</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>IBAN</dt>
+                                            <dd>CZ7775877975656</dd>
+                                        </dl> -->
+                                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                            sed do eiusmod tempor
+                                            incididunt ut labore et dolore magna aliqua.
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h4 class="mb-3 mt-5 ml-3"><strong>Booking Information</strong></h4>
+                    <div class="mt-4 ml-5" style="width: 100%;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h2">Booking ID: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h2"><%= bookingDetails.id %></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Customer Name: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.userFirstName %>
+                                    <%= bookingDetails.userLastName %></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Sitter Name: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.sitterName %></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Service Selected: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.serviceSelected %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Date of Booking: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.bookingDate %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Drop Off Date: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.dropOffDate %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Drop off Time: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.dropOffTimeFrom %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Pick up Date: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.pickUpDate %> </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="h4">Pick up Time: </p>
+                            </div>
+                            <div class="col-md">
+                                <p class="h4"><%= bookingDetails.pickUpTimeFrom %> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid page-footer font-small bg-info pt-4" style="margin-top: 2rem;">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
