@@ -85,9 +85,57 @@ create table services (
 	sitter_preference_2 varchar(200)
 );
 
+insert into services values
+(1001, 10, 'Kuntal Surwade', 'Dog Walking', 30, '41 - 100', '16 - 40'),
+(1002, 10, 'Kuntal Surwade', 'Dog Boarding', 50, '41 - 100', '16 - 40'),
+(1003, 20, 'Harivatsav S.R', 'House Sitting', 45, '0 - 15', '16 - 40'),
+(1004, 20, 'Harivatsav S.R', 'Doggy Day Care', 39, '0 - 15', '16 - 40'),
+(1005, 30, 'Soham Save', 'Drop-In Visits', 50, '16 - 40', '16 - 40'),
+(1006, 30, 'Soham Save', 'House Sitting', 55, '16 - 40', '16 - 40'),
+(1007, 40, 'Khalid Francis', 'Dog Boarding', 40, '41 - 100', '16 - 40'),
+(1008, 40, 'Khalid Francis', 'Dog Walking', 45, '41 - 100', '16 - 40'),
+(1009, 50, 'Aditya Aduri', 'House Sitting', 50, '0 - 15', '16 - 40'),
+(1010, 500, 'Aditya Aduri', 'Dog Walking', 55, '0 - 15', '16 - 40'),
+(1011, 60, 'Bhakti Shastri', 'Dog Boarding', 50, '16 - 40', '16 - 40'),
+(1012, 60, 'Bhakti Shastri', 'House Sitting', 45, '16 - 40', '16 - 40'),
+(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 0.5, '', '16 - 40'),
+(1014, 70, 'Prathmesh Pathak', 'House Sitting', 1, '', '16 - 40');
+
 create table reviews (
 	review_id int primary key,
+    sitter_name varchar(50),
 	customer_name varchar(2000),
     review_date varchar(200),
     review_comment varchar(2000)
 );
+
+insert into reviews values 
+(201, 'Kuntal Surwade', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(202, 'Kuntal Surwade', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(203, 'Kuntal Surwade', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
+(204, 'Harivatsav S.R', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(205, 'Harivatsav S.R', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(206, 'Harivatsav S.R', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
+(207, 'Soham Save', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(208, 'Soham Save', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(209, 'Soham Save', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
+(210, 'Khalid Francis', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(211, 'Khalid Francis', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(212, 'Khalid Francis', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
+(213, 'Aditya Aduri', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(214, 'Aditya Aduri', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(215, 'Aditya Aduri', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
+(216, 'Bhakti Shastri', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(217, 'Bhakti Shastri', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(218, 'Bhakti Shastri', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
+(219, 'Prathmesh Pathak', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
+(220, 'Prathmesh Pathak', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
+(221, 'Prathmesh Pathak', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers');
+
+
+
+
+
+
+
+
