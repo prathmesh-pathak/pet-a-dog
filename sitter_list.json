@@ -1,8 +1,7 @@
 [
     {
-        "id": "1",
+        "id": "10",
         "name": "Kuntal Surwade",
-        "price": "$23.95",
         "address": "Shiganshina",
         "about": "Designer / Project Manager",
         "sitterEmail": "surwadekun@gmail.com",
@@ -40,9 +39,8 @@
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
-        "id": "2",
+        "id": "20",
         "name": "Harivatsav S.R",
-        "price": "$23.95",
         "address": "Wall Maria",
         "about": "Lead Developer / Product Owner",
         "sitterEmail": "harivatsav36@gmail.com",
@@ -80,9 +78,8 @@
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
-        "id": "3",
+        "id": "30",
         "name": "Soham Save",
-        "price": "$23.95",
         "address": "Shinjuku",
         "about": "Backend Developer / Lead Quality Analyst",
         "sitterEmail": "sohamsave44@gmail.com",
@@ -120,9 +117,8 @@
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
-        "id": "4",
+        "id": "40",
         "name": "Khalid Francis",
-        "price": "$23.95",
         "address": "New York",
         "about": "Team Lead / Database Administrator",
         "sitterEmail": "Omari.slr69@gmail.com",
@@ -160,9 +156,8 @@
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
-        "id": "5",
+        "id": "50",
         "name": "Aditya Aduri",
-        "price": "$23.95",
         "address": "New York",
         "about": "Frontend Developer / Lead Tester",
         "sitterEmail": "springcsproject1@gmail.com",
@@ -200,9 +195,8 @@
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
-        "id": "6",
+        "id": "60",
         "name": "Bhakti Shastri",
-        "price": "$23.95",
         "address": "Ikebukuro",
         "about": "Security Engineer / Lead Business Analyst",
         "sitterEmail": "bhaktishastri2021@gmail.com",
@@ -240,9 +234,8 @@
         "aboutSitter": "I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking."
     },
     {
-        "id": "7",
+        "id": "70",
         "name": "Prathmesh Pathak",
-        "price": "$1",
         "address": "Imagination",
         "about": "Clerk / Cleaner",
         "sitterEmail": "pp61021n@gmail.com",
