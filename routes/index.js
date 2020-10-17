@@ -26,20 +26,20 @@ var dogBreed = '';
 var userName = '';
 var sitterName = '';
 
-const mySqlConnection = mysql.createConnection({
-    host: 'petadog.c7vwszycan78.us-east-1.rds.amazonaws.com',
-    user: 'admin_786',
-    password: 'cSPROJECT#1',
-    databse: 'petadog',
-    port: 3306
-});
+// const mySqlConnection = mysql.createConnection({
+//     host: 'petadog.c7vwszycan78.us-east-1.rds.amazonaws.com',
+//     user: 'admin_786',
+//     password: 'cSPROJECT#1',
+//     databse: 'petadog',
+//     port: 3306
+// });
 
-mySqlConnection.connect((error) => {
-    if (error) {
-        console.log(error);
-    }
-    console.log("Connected to the database...");
-});
+// mySqlConnection.connect((error) => {
+//     if (error) {
+//         console.log(error);
+//     }
+//     console.log("Connected to the database...");
+// });
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
