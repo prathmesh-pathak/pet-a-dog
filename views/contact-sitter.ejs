@@ -61,7 +61,8 @@
                 <form action="/<%= sitterData.name %>/contact" class="mt-4" method="POST">
                     <div class="form-group">
                         <label for="inputAddress2"><strong>Select Service</strong></label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectedService">
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectedService"
+                            required>
                             <option selected>Select</option>
                             <% for (var service of services) { %>
                             <option value="<%= service.serviceName %>"><%= service.serviceName %></option>
@@ -71,21 +72,22 @@
                     <div class="form-row mt-5">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4"><strong>First Name</strong></label>
-                            <input type="text" class="form-control" id="inputEmail4" name="firstName">
+                            <input type="text" class="form-control" id="inputEmail4" name="firstName" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputEmail4"><strong>Last Name</strong></label>
-                            <input type="text" class="form-control" id="inputEmail4" name="lastName">
+                            <input type="text" class="form-control" id="inputEmail4" name="lastName" required>
                         </div>
                     </div>
                     <div class="form-row mt-5">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4"><strong>When would you like to drop off?</strong></label>
-                            <input type="date" class="form-control" id="inputEmail4" name="dropOff">
+                            <input type="date" class="form-control" id="inputEmail4" name="dropOff" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time From</strong></label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeFrom">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeFrom"
+                                required>
                                 <option selected>From</option>
                                 <option value="5:00 PM">5:00 PM</option>
                                 <option value="6:00 PM">6:00 PM</option>
@@ -97,7 +99,8 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time To</strong></label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeTo">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectDropTimeTo"
+                                required>
                                 <option selected>To</option>
                                 <option value="5:00 PM">5:00 PM</option>
                                 <option value="6:00 PM">6:00 PM</option>
@@ -111,11 +114,12 @@
                     <div class="form-row mt-5">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4"><strong>When would you like to pick up?</strong></label>
-                            <input type="date" class="form-control" id="inputEmail4" name="pickUp">
+                            <input type="date" class="form-control" id="inputEmail4" name="pickUp" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time From</strong></label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectPickTimeFrom">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectPickTimeFrom"
+                                required>
                                 <option selected>From</option>
                                 <option value="5:00 PM">5:00 PM</option>
                                 <option value="6:00 PM">6:00 PM</option>
@@ -127,7 +131,8 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Time To</strong></label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectPickTimeTo">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectPickTimeTo"
+                                required>
                                 <option selected>To</option>
                                 <option value="5:00 PM">5:00 PM</option>
                                 <option value="6:00 PM">6:00 PM</option>
@@ -142,7 +147,7 @@
                     <div class="form-row mt-5">
                         <div class="form-group col-md-4">
                             <label for="inputEmail4"><strong>What is your email?</strong></label>
-                            <input type="email" class="form-control" id="inputEmail4" name="userEmail">
+                            <input type="email" class="form-control" id="inputEmail4" name="userEmail" required>
                         </div>
                     </div>
                     <p class="card-text">

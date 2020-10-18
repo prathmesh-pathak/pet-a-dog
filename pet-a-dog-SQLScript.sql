@@ -132,10 +132,62 @@ insert into reviews values
 (220, 'Prathmesh Pathak', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
 (221, 'Prathmesh Pathak', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers');
 
+create table bookings (
+	booking_id int primary key,
+    sitter_name varchar(50),
+    sitter_email varchar(50),
+    service_name varchar(50),
+    service_charge int,
+    user_first_name varchar(50),
+    user_last_name varchar(50),
+    user_email varchar(50),
+    drop_off_date date,
+    drop_off_time_from time,
+    drop_off_time_to time,
+    pick_puck_date date,
+    pick_puck_time_from time,
+    pick_puck_time_to time
+);
 
+create table credit_card_transaction (
+	credit_card_transaction_id int primary key,
+    booking_id int,
+    sitter_name varchar(50),
+    sitter_email varchar(50),
+    service_name varchar(50),
+    service_charge int,
+    user_name varchar(50),
+    user_email varchar(50),
+    payment_method varchar(50),
+    card_number int,
+    expiration_month int,
+    expiration_year int,
+    cvv int
+);
 
+create table paypal_transaction (
+	paypal_transaction_id int primary key,
+	booking_id int,
+    sitter_name varchar(50),
+    sitter_email varchar(50),
+    service_name varchar(50),
+    service_charge int,
+    user_name varchar(50),
+    user_email varchar(50),
+    payment_method varchar(50)
+);
 
-
-
+create table net_banking_transaction (
+	paypal_transaction_id int primary key,
+	booking_id int,
+    sitter_name varchar(50),
+    sitter_email varchar(50),
+    service_name varchar(50),
+    service_charge int,
+    user_name varchar(50),
+    user_email varchar(50),
+    payment_method varchar(50),
+    bank_name varchar(100)
+);
 
 
