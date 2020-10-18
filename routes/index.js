@@ -410,12 +410,12 @@ router.get('/profile/add', checkAuthenticated, (req, res) => {
 });
 
 router.post('/profile/add', checkAuthenticated, (req, res) => {
-    insert_query_dog = "select * from sitter_info";
+    insert_query_dog = "insert into dog values ('" + Date.now().toString() + "', '" + req.body.dogName + "', '" + req.body.weight + "', '" + req.body.dogBreed + "', '" + req.body.ageYears + "', '" + req.body.ageMonths + "', 'sample@gmail.com', '" + req.body.gender + "', '" + req.body.microchipped + "', '" + req.body.cats + "', '" + req.body.nature + "', '" + req.body.children + "', '" + req.body.trained + "')";
     mySqlConnection.query(insert_query_dog, (error, rows, fields) => {
         if (error) {
             console.log(error);
         }
-        console.log(rows[0])
+        console.log("Dog data insertedd succcessfully...")
     });
 
     dog.push({
@@ -470,7 +470,6 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
             }
         }
     });
-    console.log(dogBreed);
     console.log(dogCare);
     res.redirect('/profile');
 });
