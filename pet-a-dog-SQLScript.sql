@@ -66,6 +66,8 @@ create table sitter_info (
     sitter_about varchar(2000)
 );
 
+select * from sitter_info;
+
 insert into sitter_info values 
 (101, 10, 'Kuntal Surwade', 'surwadekun@gmail.com', 'Designer / Project Manager', '../imgs/kuntal.jpeg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
 (102, 20, 'Harivatsav S.R', 'harivatsav36@gmail.com', 'Lead Developer / Product Owner', '../imgs/hari.jpeg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
