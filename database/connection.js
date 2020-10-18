@@ -1,11 +1,11 @@
 const mysql = require('mysql');
 
 const mySqlConnection = mysql.createConnection({
-    host: 'petadog.c7vwszycan78.us-east-1.rds.amazonaws.com',
-    user: 'admin_786',
-    password: 'cSPROJECT#1',
-    database: 'petadog',
-    port: 3306
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    port: process.env.DATABASE_PORT
 });
 
 mySqlConnection.connect((error) => {
