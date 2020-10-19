@@ -10,7 +10,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
-const mySqlConnection = require('../database/connection');
+const db = require('../database/connection');
 const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 
 const users = [];
@@ -58,28 +58,57 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 router.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs');
-
+    res.render('register.ejs', {
+        message: ''
+    });
 })
+
+// router.post('/register', checkNotAuthenticated, async (req, res) => {
+//     try {
+//         const hashedPassword = await bcrypt.hash(req.body.password, 10);
+//         users.push({
+//             id: Date.now().toString(),
+//             firstName: req.body.firstName,
+//             lastName: req.body.lastName,
+//             zipcode: req.body.zip,
+//             email: req.body.email,
+//             password: hashedPassword
+//         })
+//         loginFlag = true;
+//         res.redirect('/login');
+//     }
+//     catch {
+//         res.redirect('/register');
+//     }
+// });
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        users.push({
-            id: Date.now().toString(),
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            zipcode: req.body.zip,
-            email: req.body.email,
-            password: hashedPassword
-        })
-        loginFlag = true;
-        res.redirect('/login');
-    }
-    catch {
-        res.redirect('/register');
-    }
-})
+    const { firstName, lastName, email, userPassword } = req.body;
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    check_user_exist_query = `select email from users where email like '%` + email + `%'`;
+    db.query(check_user_exist_query, (error, results) => {
+        if (error) {
+            console.log(error);
+        }
+        else if (results.length > 0) {
+            return res.render('register.ejs', {
+                message: 'Email already exists. Please use different email.'
+            });
+        }
+        else {
+            insert_user_usery = "insert into users (user_id, first_name, last_name, email, user_password) values" +
+                "('" + Date.now().toString() + "', '" + firstName + "', '" + lastName + "', '" + email + "', '" + hashedPassword + "')";
+            db.query(insert_user_usery, (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    res.redirect('/login');
+                }
+            });
+        }
+    });
+});
 
 router.get('/services', (req, res) => {
     res.render('service.ejs', {
@@ -391,6 +420,7 @@ router.get('/profile', checkAuthenticated, (req, res) => {
         });
     }
     else {
+        console.log(dogCare);
         res.render('profile-dog.ejs', {
             userData: req.user,
             dogData: dog,
@@ -410,13 +440,16 @@ router.get('/profile/add', checkAuthenticated, (req, res) => {
 });
 
 router.post('/profile/add', checkAuthenticated, (req, res) => {
-    insert_query_dog = "insert into dog values ('" + Date.now().toString() + "', '" + req.body.dogName + "', '" + req.body.weight + "', '" + req.body.dogBreed + "', '" + req.body.ageYears + "', '" + req.body.ageMonths + "', 'sample@gmail.com', '" + req.body.gender + "', '" + req.body.microchipped + "', '" + req.body.cats + "', '" + req.body.nature + "', '" + req.body.children + "', '" + req.body.trained + "')";
-    mySqlConnection.query(insert_query_dog, (error, rows, fields) => {
-        if (error) {
-            console.log(error);
-        }
-        console.log("Dog data insertedd succcessfully...")
-    });
+    dogBreed = req.body.dogBreed;
+
+    // insert_query_dog = "insert into dog (dog_id, dog_name, dog_weight, dog_breed, dog_years, dog_months, user_email, dog_gender, dog_isMicrochipped, dog_isWellWithCtas, dog_goWellWithDogs, dog_goWellWithChildrens, dog_isHousetrained)" +
+    //     " values('" + Date.now().toString() + "', '" + req.body.dogName + "', '" + req.body.weight + "', '" + req.body.dogBreed + "', '" + req.body.ageYears + "', '" + req.body.ageMonths + "', 'sample@gmail.com', '" + req.body.gender + "', '" + req.body.microchipped + "', '" + req.body.cats + "', '" + req.body.nature + "', '" + req.body.children + "', '" + req.body.trained + "')";
+    // db.query(insert_query_dog, (error, rows, fields) => {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //     console.log("Dog data insertedd succcessfully...")
+    // });
 
     dog.push({
         id: Date.now().toString(),
@@ -432,6 +465,18 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
         children: req.body.children,
         isTrained: req.body.trained
     });
+
+    // insert_query_housing = "insert into housing_condition (house_id, address_line_1, city, state, address_line_2, house_zipcode, house_condition, house_heating, house_fence) " +
+    //     "values ('" + Date.now().toString() + "', '" + req.body.guestAddress + "', '" + req.body.guestCity + "', '" + req.body.guestState + "', '" + req.body.aptNumber + "', '" + req.body.zipcode + "', '" + req.body.isHouseGood + "', '" + req.body.isVentilated + "', '" + req.body.isFenced + "')";
+    // db.query(insert_query_housing, (error, rows, fields) => {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //     else {
+    //         console.log("Housing data insertedd succcessfully...");
+    //     }
+    // });
+
     housing.push({
         id: Date.now().toString(),
         address: req.body.guestAddress,
@@ -444,33 +489,16 @@ router.post('/profile/add', checkAuthenticated, (req, res) => {
         heating: req.body.isVentilated,
         fenced: req.body.isFenced
     });
-    dogBreed = req.body.dogBreed;
-    fs.readFile('tips.json', (err, data) => {
-        if (err) console.log(err);
-        let tips = JSON.parse(data);
-        for (var i = 0; i < tips.length; i++) {
-            if (tips[i].breed === dogBreed) {
-                dogCare.push({
-                    breed: tips[i].breed,
-                    step1: tips[i].step1,
-                    step2: tips[i].step2,
-                    step3: tips[i].step3,
-                    step4: tips[i].step4,
-                    step5: tips[i].step5,
-                    step6: tips[i].step6,
-                    tip1: tips[i].tip1,
-                    tip2: tips[i].tip2,
-                    tip3: tips[i].tip3,
-                    tip4: tips[i].tip4,
-                    tip5: tips[i].tip5,
-                    tip6: tips[i].tip6,
-                    tip7: tips[i].tip7,
-                    tip8: tips[i].tip8,
-                });
-            }
+
+    select_tips_query = `select * from tips where breed like '%` + dogBreed + `%'`;
+    db.query(select_tips_query, (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            dogCare.push(rows[0]);
         }
     });
-    console.log(dogCare);
     res.redirect('/profile');
 });
 

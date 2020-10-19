@@ -1,7 +1,8 @@
 use petadog;
 
 create table dog (
-	dog_id int primary key,
+	dog_main_id int primary key auto_increment,
+	dog_id int,
     dog_name varchar(50),
     dog_weight int,
     dog_breed varchar(50),
@@ -17,7 +18,7 @@ create table dog (
 );
 
 create table housing_condition(
-	house_main_id int primary key,
+	house_main_id int primary key auto_increment,
     house_id int,
     address_line_1 varchar(300),
     city varchar(300),
@@ -28,6 +29,8 @@ create table housing_condition(
     house_heating varchar(10),
     house_fence varchar(10)
 );
+
+insert into housing_condition values ('1603118627950', '60 Evergreen St.', 'Niagara Falls', 'New York', '5F', '45454', 'No', 'No', 'No');
 
 create table tips (
 	tip_id int primary key,
@@ -187,5 +190,37 @@ create table net_banking_transaction (
     payment_method varchar(50),
     bank_name varchar(100)
 );
+
+create table users (
+	user_main_id int primary key auto_increment,
+    user_id int,
+    first_name varchar(50),
+    last_name varchar(50),
+    email varchar(50),
+    user_password varchar(50),
+    user_confirm_password varchar(50)
+);
+
+select * from users;
+
+insert into user (user_id, first_name, last_name, email, user_password, user_confirm_password) values ();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
