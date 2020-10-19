@@ -16,8 +16,6 @@ create table dog (
     dog_isHousetrained varchar(10)
 );
 
-select * from dog;
-
 create table housing_condition(
 	house_main_id int primary key,
     house_id int,
