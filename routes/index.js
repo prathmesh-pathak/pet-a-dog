@@ -11,6 +11,7 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
 const db = require('../database/connection');
+const jwt = require('jsonwebtoken');
 const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 
 const users = [];
@@ -32,36 +33,74 @@ paypal.configure({
     'client_secret': 'EGowq0c1FaTxjgIgszXymdwW3uaJ7JVZoJJwh71gNZ1mb5mcFbJ9O-tvfTFUttmc1JfCMd3csqI0yz2A'
 });
 
-const initializePassport = require('../passport-config');
-initializePassport(
-    passport,
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id)
-);
+// const initializePassport = require('../passport-config');
+// initializePassport(
+//     passport,
+//     email => users.find(user => user.email === email),
+//     id => users.find(user => user.id === id)
+// );
 
 router.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.firstName });
-})
+});
 
 router.get('/home', checkNotAuthenticated, (req, res) => {
     res.render('home.ejs');
 });
 
 router.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs');
+    res.render('login.ejs', {
+        loginMessage: ''
+    });
 })
 
-router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
+// router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: true
+// }));
+
+router.post('/login', checkNotAuthenticated, (req, res) => {
+    try {
+        const { email, password } = req.body;
+        login_query = `select * from users where email like '%` + email + `%'`;
+        db.query(login_query, async (error, results) => {
+            if (results.length == 0 || password !== results[0].user_password) {
+                res.render('login.ejs', {
+                    loginMessage: 'Invalid username or password. Please try again.'
+                });
+            }
+
+            if (email === results[0].email && password === results[0].user_password) {
+                const id = results[0].user_id;
+                const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN
+                });
+
+                const cookieOptions = {
+                    expires: new Date(
+                        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                    ),
+                    httpOnly: true
+                }
+
+                res.cookie('jwt', token, cookieOptions);
+                res.render('index.ejs', {
+                    name: results[0].first_name
+                });
+            }
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 
 router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs', {
         message: ''
     });
-})
+});
 
 // router.post('/register', checkNotAuthenticated, async (req, res) => {
 //     try {
@@ -84,7 +123,7 @@ router.get('/register', checkNotAuthenticated, (req, res) => {
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     const { firstName, lastName, email, userPassword } = req.body;
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 9);
     check_user_exist_query = `select email from users where email like '%` + email + `%'`;
     db.query(check_user_exist_query, (error, results) => {
         if (error) {
@@ -97,7 +136,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
         }
         else {
             insert_user_usery = "insert into users (user_id, first_name, last_name, email, user_password) values" +
-                "('" + Date.now().toString() + "', '" + firstName + "', '" + lastName + "', '" + email + "', '" + hashedPassword + "')";
+                "('" + Date.now().toString() + "', '" + firstName + "', '" + lastName + "', '" + email + "', '" + req.body.password + "')";
             db.query(insert_user_usery, (err, results) => {
                 if (err) {
                     console.log(err);
@@ -122,7 +161,7 @@ router.delete('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-router.get('/search-sitter', checkAuthenticated, (req, res) => {
+router.get('/search-sitter', (req, res) => {
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -133,7 +172,7 @@ router.get('/search-sitter', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
+router.get('/search-sitter/:name', (req, res) => {
     fs.readFile('sitter_list.json', (err, data) => {
         if (err) console.log(err);
         let sitter = JSON.parse(data);
@@ -150,7 +189,7 @@ router.get('/search-sitter/:name', checkAuthenticated, (req, res) => {
     });
 });
 
-router.get('/:name/contact', checkAuthenticated, (req, res) => {
+router.get('/:name/contact', (req, res) => {
     if (booking.length >= 1) {
         booking.pop();
     }
@@ -172,7 +211,7 @@ router.get('/:name/contact', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/:name/contact', checkAuthenticated, (req, res) => {
+router.post('/:name/contact', (req, res) => {
     const today = new Date();
     booking.push({
         id: Date.now().toString(),
@@ -194,7 +233,7 @@ router.post('/:name/contact', checkAuthenticated, (req, res) => {
     res.redirect('/payment');
 });
 
-router.get('/payment', checkAuthenticated, (req, res) => {
+router.get('/payment', (req, res) => {
     if (cardInfo.length >= 1) {
         cardInfo.pop();
     }
@@ -206,7 +245,7 @@ router.get('/payment', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/credit-card', checkAuthenticated, (req, res) => {
+router.post('/credit-card', (req, res) => {
     userName = booking[0].userFirstName;
     sitterName = booking[0].sitterName;
     userEmail = booking[0].userEmail;
@@ -335,7 +374,7 @@ router.post('/charge', (req, res) => {
         });
 });
 
-router.get('/:name/booking-details', checkAuthenticated, (req, res) => {
+router.get('/:name/booking-details', (req, res) => {
     res.render('booking-confirmed.ejs', {
         bookingDetails: booking
     });
@@ -413,7 +452,7 @@ router.get('/info', (req, res) => {
     });
 });
 
-router.get('/profile', checkAuthenticated, (req, res) => {
+router.get('/profile', (req, res) => {
     if (typeof dog == "undefined" || dog == null || dog.length == 0) {
         res.render('profile.ejs', {
             userData: req.user
@@ -430,7 +469,7 @@ router.get('/profile', checkAuthenticated, (req, res) => {
     }
 });
 
-router.get('/profile/add', checkAuthenticated, (req, res) => {
+router.get('/profile/add', (req, res) => {
     res.render('user-dog.ejs', {
         dogData: dog,
         isLogin: loginFlag,
@@ -439,7 +478,7 @@ router.get('/profile/add', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/profile/add', checkAuthenticated, (req, res) => {
+router.post('/profile/add', (req, res) => {
     dogBreed = req.body.dogBreed;
 
     // insert_query_dog = "insert into dog (dog_id, dog_name, dog_weight, dog_breed, dog_years, dog_months, user_email, dog_gender, dog_isMicrochipped, dog_isWellWithCtas, dog_goWellWithDogs, dog_goWellWithChildrens, dog_isHousetrained)" +

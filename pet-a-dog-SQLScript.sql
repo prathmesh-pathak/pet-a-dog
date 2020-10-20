@@ -203,7 +203,8 @@ create table users (
 
 select * from users;
 
-insert into user (user_id, first_name, last_name, email, user_password, user_confirm_password) values ();
+insert into users (user_id, first_name, last_name, email, user_password, user_confirm_password) values 
+(123456789, 'Prathmesh', 'Pathak', 'prathmeshjp786@gmail.com', '123456', '123456');
 
 
 
