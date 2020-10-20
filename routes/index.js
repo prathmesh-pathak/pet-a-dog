@@ -84,10 +84,7 @@ router.post('/login', (req, res) => {
                     ),
                     httpOnly: true
                 }
-
-                req.headers.authorization = token;
                 setLoginToken(token);
-
                 res.cookie('jwt', token, cookieOptions);
                 res.render('index.ejs', {
                     name: results[0].first_name
