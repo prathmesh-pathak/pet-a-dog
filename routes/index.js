@@ -26,6 +26,7 @@ var sitterEmail = '';
 var dogBreed = '';
 var userName = '';
 var sitterName = '';
+var login_token = '';
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -44,11 +45,11 @@ router.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.firstName });
 });
 
-router.get('/home', checkNotAuthenticated, (req, res) => {
+router.get('/home', (req, res) => {
     res.render('home.ejs');
 });
 
-router.get('/login', checkNotAuthenticated, (req, res) => {
+router.get('/login', (req, res) => {
     res.render('login.ejs', {
         loginMessage: ''
     });
@@ -60,7 +61,7 @@ router.get('/login', checkNotAuthenticated, (req, res) => {
 //     failureFlash: true
 // }));
 
-router.post('/login', checkNotAuthenticated, (req, res) => {
+router.post('/login', (req, res) => {
     try {
         const { email, password } = req.body;
         login_query = `select * from users where email like '%` + email + `%'`;
@@ -84,6 +85,9 @@ router.post('/login', checkNotAuthenticated, (req, res) => {
                     httpOnly: true
                 }
 
+                req.headers.authorization = token;
+                setLoginToken(token);
+
                 res.cookie('jwt', token, cookieOptions);
                 res.render('index.ejs', {
                     name: results[0].first_name
@@ -96,7 +100,15 @@ router.post('/login', checkNotAuthenticated, (req, res) => {
     }
 });
 
-router.get('/register', checkNotAuthenticated, (req, res) => {
+function setLoginToken(token) {
+    login_token = token;
+}
+
+function getLoginToken() {
+    return login_token;
+}
+
+router.get('/register', (req, res) => {
     res.render('register.ejs', {
         message: ''
     });
@@ -121,7 +133,7 @@ router.get('/register', checkNotAuthenticated, (req, res) => {
 //     }
 // });
 
-router.post('/register', checkNotAuthenticated, async (req, res) => {
+router.post('/register', async (req, res) => {
     const { firstName, lastName, email, userPassword } = req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 9);
     check_user_exist_query = `select email from users where email like '%` + email + `%'`;
@@ -157,18 +169,27 @@ router.get('/services', (req, res) => {
 
 router.delete('/logout', (req, res) => {
     loginFlag = false;
+    login_token = '';
     req.logOut();
     res.redirect('/login');
 });
 
 router.get('/search-sitter', (req, res) => {
-    fs.readFile('sitter_list.json', (err, data) => {
-        if (err) console.log(err);
-        let sitter = JSON.parse(data);
-        res.render('sitter.ejs', {
-            userData: req.user,
-            sitterData: sitter
-        });
+    const token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error, authData) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            fs.readFile('sitter_list.json', (err, data) => {
+                if (err) console.log(err);
+                let sitter = JSON.parse(data);
+                res.render('sitter.ejs', {
+                    userData: req.user,
+                    sitterData: sitter
+                });
+            });
+        }
     });
 });
 
