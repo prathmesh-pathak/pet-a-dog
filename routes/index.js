@@ -494,47 +494,56 @@ router.post('/credit-card', (req, res) => {
 
 router.get('/pay', (req, res) => {
     let token = getLoginToken();
+    let currentBookingId = getCurrentBookingId();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
         }
         else {
-            const create_payment_json = {
-                "intent": "sale",
-                "payer": {
-                    "payment_method": "paypal"
-                },
-                "redirect_urls": {
-                    "return_url": "http://localhost:8000/success",
-                    "cancel_url": "http://localhost:8000/cancel"
-                },
-                "transactions": [{
-                    "item_list": {
-                        "items": [{
-                            "name": "Prathmesh Pathak",
-                            "sku": "6541654684613132113132131",
-                            "price": "50.00",
-                            "currency": "USD",
-                            "quantity": 1,
-                        }]
-                    },
-                    "amount": {
-                        "currency": "USD",
-                        "total": "50.00"
-                    },
-                    "description": "Hat for the best team ever"
-                }]
-            };
-
-            paypal.payment.create(create_payment_json, function (error, payment) {
+            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+            db.query(booking_summary_query, (error, booking) => {
                 if (error) {
-                    throw error;
-                } else {
-                    for (let i = 0; i < payment.links.length; i++) {
-                        if (payment.links[i].rel === 'approval_url') {
-                            res.redirect(payment.links[i].href);
+                    console.log(error);
+                }
+                else {
+                    const create_payment_json = {
+                        "intent": "sale",
+                        "payer": {
+                            "payment_method": "paypal"
+                        },
+                        "redirect_urls": {
+                            "return_url": "http://localhost:8000/success",
+                            "cancel_url": "http://localhost:8000/cancel"
+                        },
+                        "transactions": [{
+                            "item_list": {
+                                "items": [{
+                                    "name": "Prathmesh Pathak",
+                                    "sku": "6541654684613132113132131",
+                                    "price": booking[0].service_charge,
+                                    "currency": "USD",
+                                    "quantity": 1,
+                                }]
+                            },
+                            "amount": {
+                                "currency": "USD",
+                                "total": booking[0].service_charge
+                            },
+                            "description": "Hat for the best team ever"
+                        }]
+                    };
+
+                    paypal.payment.create(create_payment_json, function (error, payment) {
+                        if (error) {
+                            throw error;
+                        } else {
+                            for (let i = 0; i < payment.links.length; i++) {
+                                if (payment.links[i].rel === 'approval_url') {
+                                    res.redirect(payment.links[i].href);
+                                }
+                            }
                         }
-                    }
+                    });
                 }
             });
         }
@@ -543,6 +552,7 @@ router.get('/pay', (req, res) => {
 
 router.get('/success', (req, res) => {
     let token = getLoginToken();
+    let currentBookingId = getCurrentBookingId();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
@@ -550,26 +560,45 @@ router.get('/success', (req, res) => {
         else {
             const payerId = req.query.PayerID;
             const paymentId = req.query.paymentId;
-
-            const execute_payment_json = {
-                "payer_id": payerId,
-                "transactions": [{
-                    "amount": {
-                        "currency": "USD",
-                        "total": "50.00"
-                    }
-                }]
-            };
-
-            paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+            db.query(booking_summary_query, (error, booking) => {
                 if (error) {
-                    console.log(error.response);
-                    throw error;
+                    console.log(error);
                 } else {
-                    console.log(JSON.stringify(payment));
-                    sendEmail(req, res);
+                    const execute_payment_json = {
+                        "payer_id": payerId,
+                        "transactions": [{
+                            "amount": {
+                                "currency": "USD",
+                                "total": booking[0].service_charge
+                            }
+                        }]
+                    };
+
+                    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+                        if (error) {
+                            console.log(error.response);
+                            throw error;
+                        } else {
+                            console.log(JSON.stringify(payment));
+                            paypal_insert_query = "insert into paypal_transaction values ('" + req.query.paymentId + "','" + currentBookingId + "', " +
+                                "'" + booking[0].sitter_name + "','" + booking[0].sitter_email + "','" + booking[0].service_name + "','" + booking[0].service_charge + "', " +
+                                "'" + booking[0].user_first_name + "', '" + booking[0].user_email + "', 'PayPal')"
+
+                            db.query(paypal_insert_query, (error, data) => {
+                                if (error) {
+                                    console.log(error);
+                                }
+                                else {
+                                    console.log("Paypal data inserted.");
+                                    sendEmail(req, res, booking[0].user_email, booking[0].sitter_email);
+                                }
+                            });
+                        }
+                    });
                 }
             });
+
         }
     });
 });
@@ -603,13 +632,22 @@ router.post('/charge', (req, res) => {
 
 router.get('/:name/booking-details', (req, res) => {
     let token = getLoginToken();
+    let currentBookingId = getCurrentBookingId();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
         }
         else {
-            res.render('booking-confirmed.ejs', {
-                bookingDetails: booking
+            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+            db.query(booking_summary_query, (error, booking) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    res.render('booking-confirmed.ejs', {
+                        bookingDetails: booking
+                    });
+                }
             });
         }
     });

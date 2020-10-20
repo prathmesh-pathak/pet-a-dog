@@ -167,11 +167,7 @@ create table credit_card_transaction (
     cvv int
 );
 
-select * from credit_card_transaction;
-
-select * from bookings where booking_id = 495629187;
-
-truncate table bookings;
+select * from paypal_transaction;
 create table paypal_transaction (
 	paypal_transaction_id int primary key,
 	booking_id int,
