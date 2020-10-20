@@ -65,17 +65,14 @@ create table sitter_info (
     sitter_profession varchar(50),
     sitter_address varchar(50),
 	sitter_img varchar(500),
-    sitter_about varchar(2000)
+    sitter_about varchar(2000),
+    sitter_description varchar(2000)
 );
 
-insert into sitter_info values 
-(10, 'Kuntal Surwade', 'surwadekun@gmail.com', 'Designer / Project Manager', 'Shiganshina', '../imgs/kuntal.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
-(20, 'Harivatsav S.R', 'harivatsav36@gmail.com', 'Lead Developer / Product Owner', 'Wall Maria', '../imgs/hari.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
-(30, 'Soham Save', 'sohamsave44@gmail.com', 'Backend Developer / Lead Quality Analyst', 'Shinjuku', '../imgs/soham.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
-(40, 'Khalid Francis', 'Omari.slr69@gmail.com', 'Team Lead / Database Administrator', 'New York', '../imgs/khalid2.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
-(50, 'Aditya Aduri', 'springcsproject1@gmail.com', 'Frontend Developer / Lead Tester', 'New York', '../imgs/aditya.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
-(60, 'Bhakti Shastri', 'bhaktishastri2021@gmail.com', 'Security Engineer / Lead Business Analyst', 'Ikebukuro', '../imgs/bhakti.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
-(70, 'Prathmesh Pathak', 'pp61021n@gmail.com', 'Clerk / Cleaner', 'Imagination', '../imgs/prathmesh.jpg', '');
+select sitter_name as name, sitter_img as img, sitter_address as address, 
+		sitter_profession as about, sitter_description as aboutSitter
+from sitter_info 
+where sitter_name like '%Prathmesh%';
 
 create table services (
 	service_main_id int primary key,
@@ -86,6 +83,35 @@ create table services (
     sitter_preference_1 varchar(200),
 	sitter_preference_2 varchar(200)
 );
+
+create table reviews (
+	review_id int primary key,
+    sitter_name varchar(50),
+	customer_name varchar(2000),
+    review_date varchar(200),
+    review_comment varchar(2000)
+);
+
+select customer_name as userName, review_date as date, review_comment as comment
+from reviews;
+
+select sitter.sitter_name as name, sitter.sitter_img as img, sitter.sitter_address as address, 
+		sitter.sitter_profession as about, ss.service_name as serviceName, ss.service_charge as serviceCharge,
+        sitter.sitter_description as aboutSitter, ss.sitter_preference_1 as preferences, ss.sitter_preference_2 as preferences1,
+        reviews.customer_name as userName, reviews.review_date as date, reviews.review_comment as comment
+from sitter_info as sitter join services as ss 
+on sitter.sitter_id = ss.sitter_id join reviews
+on sitter.sitter_name = reviews.sitter_name
+where sitter.sitter_name like '%Prathmesh%';
+
+insert into sitter_info values 
+(10, 'Kuntal Surwade', 'surwadekun@gmail.com', 'Designer / Project Manager', 'Shiganshina', '../imgs/kuntal.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
+(20, 'Harivatsav S.R', 'harivatsav36@gmail.com', 'Lead Developer / Product Owner', 'Wall Maria', '../imgs/hari.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
+(30, 'Soham Save', 'sohamsave44@gmail.com', 'Backend Developer / Lead Quality Analyst', 'Shinjuku', '../imgs/soham.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
+(40, 'Khalid Francis', 'Omari.slr69@gmail.com', 'Team Lead / Database Administrator', 'New York', '../imgs/khalid2.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
+(50, 'Aditya Aduri', 'springcsproject1@gmail.com', 'Frontend Developer / Lead Tester', 'New York', '../imgs/aditya.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
+(60, 'Bhakti Shastri', 'bhaktishastri2021@gmail.com', 'Security Engineer / Lead Business Analyst', 'Ikebukuro', '../imgs/bhakti.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
+(70, 'Prathmesh Pathak', 'pp61021n@gmail.com', 'Clerk / Cleaner', 'Imagination', '../imgs/prathmesh.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.');
 
 insert into services values
 (1001, 10, 'Kuntal Surwade', 'Dog Walking', 30, '41 - 100', '16 - 40'),
@@ -100,16 +126,8 @@ insert into services values
 (1010, 500, 'Aditya Aduri', 'Dog Walking', 55, '0 - 15', '16 - 40'),
 (1011, 60, 'Bhakti Shastri', 'Dog Boarding', 50, '16 - 40', '16 - 40'),
 (1012, 60, 'Bhakti Shastri', 'House Sitting', 45, '16 - 40', '16 - 40'),
-(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 0.5, '', '16 - 40'),
-(1014, 70, 'Prathmesh Pathak', 'House Sitting', 1, '', '16 - 40');
-
-create table reviews (
-	review_id int primary key,
-    sitter_name varchar(50),
-	customer_name varchar(2000),
-    review_date varchar(200),
-    review_comment varchar(2000)
-);
+(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 0.5, '0 - 15', '16 - 40'),
+(1014, 70, 'Prathmesh Pathak', 'House Sitting', 1, '0 - 15', '16 - 40');
 
 insert into reviews values 
 (201, 'Kuntal Surwade', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
