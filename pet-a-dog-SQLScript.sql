@@ -30,8 +30,6 @@ create table housing_condition(
     house_fence varchar(10)
 );
 
-insert into housing_condition values ('1603118627950', '60 Evergreen St.', 'Niagara Falls', 'New York', '5F', '45454', 'No', 'No', 'No');
-
 create table tips (
 	tip_id int primary key,
 	breed varchar(50),
