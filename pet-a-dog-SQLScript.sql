@@ -63,18 +63,19 @@ create table sitter_info (
     sitter_name varchar(50),
     sitter_email varchar(50),
     sitter_profession varchar(50),
+    sitter_address varchar(50),
 	sitter_img varchar(500),
     sitter_about varchar(2000)
 );
 
 insert into sitter_info values 
-(10, 'Kuntal Surwade', 'surwadekun@gmail.com', 'Designer / Project Manager', '../imgs/kuntal.jpeg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
-(20, 'Harivatsav S.R', 'harivatsav36@gmail.com', 'Lead Developer / Product Owner', '../imgs/hari.jpeg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
-(30, 'Soham Save', 'sohamsave44@gmail.com', 'Backend Developer / Lead Quality Analyst', '../imgs/soham.jpg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
-(40, 'Khalid Francis', 'Omari.slr69@gmail.com', 'Team Lead / Database Administrator', '../imgs/khalid2.jpeg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
-(50, 'Aditya Aduri', 'springcsproject1@gmail.com', 'Frontend Developer / Lead Tester', '../imgs/aditya.jpg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
-(60, 'Bhakti Shastri', 'bhaktishastri2021@gmail.com', 'Security Engineer / Lead Business Analyst', '../imgs/bhakti.jpeg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
-(70, 'Prathmesh Pathak', 'pp61021n@gmail.com', 'Clerk / Cleaner', '../imgs/prathmesh.jpg', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.');
+(10, 'Kuntal Surwade', 'surwadekun@gmail.com', 'Designer / Project Manager', 'Shiganshina', '../imgs/kuntal.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+(20, 'Harivatsav S.R', 'harivatsav36@gmail.com', 'Lead Developer / Product Owner', 'Wall Maria', '../imgs/hari.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+(30, 'Soham Save', 'sohamsave44@gmail.com', 'Backend Developer / Lead Quality Analyst', 'Shinjuku', '../imgs/soham.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+(40, 'Khalid Francis', 'Omari.slr69@gmail.com', 'Team Lead / Database Administrator', 'New York', '../imgs/khalid2.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+(50, 'Aditya Aduri', 'springcsproject1@gmail.com', 'Frontend Developer / Lead Tester', 'New York', '../imgs/aditya.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+(60, 'Bhakti Shastri', 'bhaktishastri2021@gmail.com', 'Security Engineer / Lead Business Analyst', 'Ikebukuro', '../imgs/bhakti.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+(70, 'Prathmesh Pathak', 'pp61021n@gmail.com', 'Clerk / Cleaner', 'Imagination', '../imgs/prathmesh.jpg', '');
 
 create table services (
 	service_main_id int primary key,
@@ -201,11 +202,11 @@ create table users (
     user_confirm_password varchar(50)
 );
 
-select * from users;
-
 insert into users (user_id, first_name, last_name, email, user_password, user_confirm_password) values 
 (123456789, 'Prathmesh', 'Pathak', 'prathmeshjp786@gmail.com', '123456', '123456');
 
+select * from sitter_info;
+	
 
 
 

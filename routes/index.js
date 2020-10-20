@@ -179,13 +179,17 @@ router.get('/search-sitter', (req, res) => {
             res.redirect('/login');
         }
         else {
-            fs.readFile('sitter_list.json', (err, data) => {
-                if (err) console.log(err);
-                let sitter = JSON.parse(data);
-                res.render('sitter.ejs', {
-                    userData: req.user,
-                    sitterData: sitter
-                });
+            sitter_list_query = 'select * from sitter_info';
+            db.query(sitter_list_query, (error, results) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    console.log(results);
+                    res.render('sitter.ejs', {
+                        sitterData: results
+                    });
+                }
             });
         }
     });
