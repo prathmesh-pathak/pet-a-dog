@@ -69,11 +69,6 @@ create table sitter_info (
     sitter_description varchar(2000)
 );
 
-select sitter_name as name, sitter_img as img, sitter_address as address, 
-		sitter_profession as about, sitter_description as aboutSitter
-from sitter_info 
-where sitter_name like '%Prathmesh%';
-
 create table services (
 	service_main_id int primary key,
     sitter_id int,
@@ -91,18 +86,6 @@ create table reviews (
     review_date varchar(200),
     review_comment varchar(2000)
 );
-
-select customer_name as userName, review_date as date, review_comment as comment
-from reviews;
-
-select sitter.sitter_name as name, sitter.sitter_img as img, sitter.sitter_address as address, 
-		sitter.sitter_profession as about, ss.service_name as serviceName, ss.service_charge as serviceCharge,
-        sitter.sitter_description as aboutSitter, ss.sitter_preference_1 as preferences, ss.sitter_preference_2 as preferences1,
-        reviews.customer_name as userName, reviews.review_date as date, reviews.review_comment as comment
-from sitter_info as sitter join services as ss 
-on sitter.sitter_id = ss.sitter_id join reviews
-on sitter.sitter_name = reviews.sitter_name
-where sitter.sitter_name like '%Prathmesh%';
 
 insert into sitter_info values 
 (10, 'Kuntal Surwade', 'surwadekun@gmail.com', 'Designer / Project Manager', 'Shiganshina', '../imgs/kuntal.jpeg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.'),
