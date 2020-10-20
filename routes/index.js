@@ -28,6 +28,7 @@ var dogBreed = '';
 var userName = '';
 var sitterName = '';
 var login_token = '';
+var bookingID = '';
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -104,6 +105,14 @@ function setLoginToken(token) {
 
 function getLoginToken() {
     return login_token;
+}
+
+function setCurrentBookingId(booking_id) {
+    bookingID = booking_id;
+}
+
+function getCurrentBookingId() {
+    return bookingID;
 }
 
 router.get('/register', (req, res) => {
@@ -308,6 +317,8 @@ router.get('/:name/contact', (req, res) => {
 
 router.post('/:name/contact', (req, res) => {
     let token = getLoginToken();
+    uniqueID = Math.floor(100000000 + Math.random() * 900000000);
+    setCurrentBookingId(uniqueID);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
@@ -333,11 +344,11 @@ router.post('/:name/contact', (req, res) => {
                             console.log(error);
                         }
                         else {
-                            booking_insert_query = "insert into bookings values ('" + Date.now().toString() + "', '" + req.params.name + "', '" + sitter[0].email + "', " +
+                            booking_insert_query = "insert into bookings values ('" + uniqueID + "', '" + req.params.name + "', '" + sitter[0].email + "', " +
                                 "'" + req.body.selectedService + "','" + service[0].serviceCharge + "','" + req.body.firstName + "', " +
-                                "'" + req.body.lastName + "','" + req.body.userEmail + "','" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
-                                "'" + req.body.selectDropTimeTo + "','" + req.body.pickUp + "','" + req.body.selectPickTimeFrom + "','" + req.body.selectPickTimeTo + "')";
-
+                                "'" + req.body.lastName + "','" + req.body.userEmail + "', '" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
+                                "'" + req.body.selectDropTimeTo + "','" + req.body.pickUp + "','" + req.body.selectPickTimeFrom + "','" + req.body.selectPickTimeTo + "', " +
+                                "'" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + "')";
                             db.query(booking_insert_query, (error, rows, fields) => {
                                 if (error) {
                                     console.log(error);
@@ -352,7 +363,7 @@ router.post('/:name/contact', (req, res) => {
             });
 
             booking.push({
-                id: Date.now().toString(),
+                id: uniqueID,
                 userFirstName: req.body.firstName,
                 userLastName: req.body.lastName,
                 sitterName: req.params.name,
@@ -368,13 +379,19 @@ router.post('/:name/contact', (req, res) => {
                 pets: dog
             });
 
-            res.redirect('/payment');
+            setTimeout(redirectFunction, 3000);
+            function redirectFunction() {
+                res.redirect('/payment');
+            }
         }
+
     });
 });
 
 router.get('/payment', (req, res) => {
     let token = getLoginToken();
+    let currentBookingId = getCurrentBookingId();
+    console.log(currentBookingId);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
@@ -384,10 +401,18 @@ router.get('/payment', (req, res) => {
                 cardInfo.pop();
             }
 
-            res.render('payment.ejs', {
-                bookingDetails: booking[0],
-                cardDetailsErrorFlag: false,
-                cardDetailsErrorMessage: ""
+            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+            db.query(booking_summary_query, (error, results) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    res.render('payment.ejs', {
+                        bookingDetails: results[0],
+                        cardDetailsErrorFlag: false,
+                        cardDetailsErrorMessage: ""
+                    });
+                }
             });
         }
     });
@@ -395,50 +420,72 @@ router.get('/payment', (req, res) => {
 
 router.post('/credit-card', (req, res) => {
     let token = getLoginToken();
+    let currentBookingId = getCurrentBookingId();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
         }
         else {
-            userName = booking[0].userFirstName;
-            sitterName = booking[0].sitterName;
-            userEmail = booking[0].userEmail;
-
-            cardInfo.push({
-                paymentMethod: req.body.paymentMethod,
-                userName: req.body.username,
-                cardNumber: req.body.cardNumber,
-                expiration_month: req.body.exp_month,
-                expiration_year: req.body.exp_year,
-                cvv: req.body.cvv
-            });
-
-            fs.readFile('cardInfo.json', (err, data) => {
-                if (err) {
-                    console.log(err);
+            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+            db.query(booking_summary_query, (error, booking) => {
+                if (error) {
+                    console.log(error);
                 }
-                let cardDetails = JSON.parse(data);
-                let flag = -1;
-                for (let i = 0; i < cardDetails.length; i++) {
-                    for (let j = 0; j < cardInfo.length; j++) {
-                        if (cardDetails[i].name_on_card == cardInfo[j].userName &&
-                            cardDetails[i].card_number == cardInfo[j].cardNumber &&
-                            cardDetails[i].expiration_month == cardInfo[j].expiration_month &&
-                            cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
-                            cardDetails[i].cvv == cardInfo[j].cvv &&
-                            cardDetails[i].amount > 30) {
-                            flag = 1;
+                else {
+                    userName = booking[0].user_first_name;
+                    sitterName = booking[0].sitter_name;
+                    userEmail = booking[0].user_email;
+                    sitterEmail = booking[0].sitter_email;
+                    cardInfo.push({
+                        paymentMethod: req.body.creditCardMethod,
+                        userName: req.body.username,
+                        cardNumber: req.body.cardNumber,
+                        expiration_month: req.body.exp_month,
+                        expiration_year: req.body.exp_year,
+                        cvv: req.body.cvv
+                    });
+                    fs.readFile('cardInfo.json', (err, data) => {
+                        if (err) {
+                            console.log(err);
                         }
-                        else {
-                            flag = 0;
+                        let cardDetails = JSON.parse(data);
+                        let flag = -1;
+                        for (let i = 0; i < cardDetails.length; i++) {
+                            for (let j = 0; j < cardInfo.length; j++) {
+                                if (cardDetails[i].name_on_card == cardInfo[j].userName &&
+                                    cardDetails[i].card_number == cardInfo[j].cardNumber &&
+                                    cardDetails[i].expiration_month == cardInfo[j].expiration_month &&
+                                    cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
+                                    cardDetails[i].cvv == cardInfo[j].cvv &&
+                                    cardDetails[i].amount > 30) {
+                                    flag = 1;
+                                }
+                                else {
+                                    flag = 0;
+                                }
+                            }
                         }
-                    }
-                }
-                if (flag == 1) {
-                    sendEmail(req, res);
-                }
-                if (flag == 0) {
-                    sendError(req, res);
+                        if (flag == 1) {
+                            credit_insert_query = "insert into credit_card_transaction (booking_id, sitter_name, sitter_email, service_name, service_charge, user_name, " +
+                                "user_email, payment_method, card_number, expiration_month, expiration_year, cvv) values ('" + booking[0].booking_id + "', " +
+                                "'" + booking[0].sitter_name + "','" + booking[0].sitter_email + "','" + booking[0].service_name + "','" + booking[0].service_charge + "', " +
+                                "'" + req.body.username + "', '" + booking[0].user_email + "', '" + req.body.creditCardMethod + "', '" + req.body.cardNumber + "', " +
+                                "'" + req.body.exp_month + "', '" + req.body.exp_year + "', '" + req.body.cvv + "')";
+                            db.query(credit_insert_query, (error, data) => {
+                                if (error) {
+                                    console.log(error);
+                                }
+                                else {
+                                    console.log("Credit Card data inserted successfully.");
+                                    sendEmail(req, res, userEmail, sitterEmail);
+                                }
+                            });
+                        }
+                        if (flag == 0) {
+                            sendError(req, res);
+                        }
+                    });
+
                 }
             });
         }
@@ -746,8 +793,8 @@ router.post('/profile/add', (req, res) => {
 });
 
 
-sendEmail = (req, res) => {
-    userEmail = booking[0].userEmail;
+sendEmail = (req, res, userEmail, sitterEmail) => {
+    //userEmail = booking[0].userEmail;
     userName = booking[0].userFirstName;
     sitterName = booking[0].sitterName;
 

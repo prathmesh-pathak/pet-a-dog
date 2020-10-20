@@ -96,6 +96,7 @@
                                             <div class="input-group">
                                                 <input type="text" name="cardNumber" placeholder="Your card number"
                                                     class="form-control" required>
+                                                <input type="hidden" value="Credit Card" name="creditCardMethod">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text text-muted">
                                                         <i class="fa fa-cc-visa mx-1"></i>
@@ -160,7 +161,7 @@
                                     <form action="/charge" method="POST">
                                         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                             data-key="pk_test_51Hb90tLQHcwjWBjS0IbR09uJTrqHbvxC1qvm5xlsS2eI2RG3yDO2GzKuIKU7GUFcjUrnw5CtVnCKsX93AG3jfDWW00uhs4iBJB"
-                                            data-amount="4500" data-name="<%= bookingDetails.serviceSelected %>"
+                                            data-amount="4500" data-name="<%= bookingDetails.service_name %>"
                                             data-image="/imgs/marketplace.png" data-locale="auto">
                                             </script>
                                         <script>
@@ -233,7 +234,7 @@
                                 <p class="h2">Booking ID: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h2"><%= bookingDetails.id %></p>
+                                <p class="h2"><%= bookingDetails.booking_id %></p>
                             </div>
                         </div>
 
@@ -242,8 +243,8 @@
                                 <p class="h4">Customer Name: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.userFirstName %>
-                                    <%= bookingDetails.userLastName %></p>
+                                <p class="h4"><%= bookingDetails.user_first_name %>
+                                    <%= bookingDetails.user_last_name %></p>
                             </div>
                         </div>
 
@@ -252,7 +253,7 @@
                                 <p class="h4">Sitter Name: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.sitterName %></p>
+                                <p class="h4"><%= bookingDetails.sitter_name %></p>
                             </div>
                         </div>
 
@@ -261,7 +262,7 @@
                                 <p class="h4">Service Selected: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.serviceSelected %> </p>
+                                <p class="h4"><%= bookingDetails.service_name %> </p>
                             </div>
                         </div>
 
@@ -270,7 +271,7 @@
                                 <p class="h4">Date of Booking: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.bookingDate %> </p>
+                                <p class="h4"><%= bookingDetails.booking_date %> </p>
                             </div>
                         </div>
 
@@ -279,7 +280,7 @@
                                 <p class="h4">Drop Off Date: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.dropOffDate %> </p>
+                                <p class="h4"><%= bookingDetails.drop_off_date %> </p>
                             </div>
                         </div>
 
@@ -288,7 +289,7 @@
                                 <p class="h4">Drop off Time: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.dropOffTimeFrom %> </p>
+                                <p class="h4"><%= bookingDetails.drop_off_time_from %> </p>
                             </div>
                         </div>
 
@@ -297,7 +298,7 @@
                                 <p class="h4">Pick up Date: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.pickUpDate %> </p>
+                                <p class="h4"><%= bookingDetails.pick_puck_date %> </p>
                             </div>
                         </div>
 
@@ -306,7 +307,7 @@
                                 <p class="h4">Pick up Time: </p>
                             </div>
                             <div class="col-md">
-                                <p class="h4"><%= bookingDetails.pickUpTimeFrom %> </p>
+                                <p class="h4"><%= bookingDetails.pick_puck_time_from %> </p>
                             </div>
                         </div>
                     </div>

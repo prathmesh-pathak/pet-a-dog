@@ -147,11 +147,12 @@ create table bookings (
     drop_off_time_to time,
     pick_puck_date date,
     pick_puck_time_from time,
-    pick_puck_time_to time
+    pick_puck_time_to time,
+    booking_date date
 );
 
 create table credit_card_transaction (
-	credit_card_transaction_id int primary key,
+	credit_card_transaction_id int primary key auto_increment,
     booking_id int,
     sitter_name varchar(50),
     sitter_email varchar(50),
@@ -166,6 +167,11 @@ create table credit_card_transaction (
     cvv int
 );
 
+select * from credit_card_transaction;
+
+select * from bookings where booking_id = 495629187;
+
+truncate table bookings;
 create table paypal_transaction (
 	paypal_transaction_id int primary key,
 	booking_id int,
