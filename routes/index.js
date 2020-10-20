@@ -12,6 +12,7 @@ const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
 const db = require('../database/connection');
 const jwt = require('jsonwebtoken');
+const e = require('express');
 const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 
 const users = [];
@@ -191,184 +192,240 @@ router.get('/search-sitter', (req, res) => {
 });
 
 router.get('/search-sitter/:name', (req, res) => {
-    fs.readFile('sitter_list.json', (err, data) => {
-        if (err) console.log(err);
-        let sitter = JSON.parse(data);
-        for (var i = 0; i < sitter.length; i++) {
-            if (sitter[i].name === req.params.name) {
-                sitterEmail = sitter[i].sitterEmail;
-                res.render('sitter-detail.ejs', {
-                    sitterData: sitter[i],
-                    feedback: sitter[i].feedback,
-                    services: sitter[i].services
-                });
-            }
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            fs.readFile('sitter_list.json', (err, data) => {
+                if (err) console.log(err);
+                let sitter = JSON.parse(data);
+                for (var i = 0; i < sitter.length; i++) {
+                    if (sitter[i].name === req.params.name) {
+                        sitterEmail = sitter[i].sitterEmail;
+                        res.render('sitter-detail.ejs', {
+                            sitterData: sitter[i],
+                            feedback: sitter[i].feedback,
+                            services: sitter[i].services
+                        });
+                    }
+                }
+            });
         }
     });
 });
 
 router.get('/:name/contact', (req, res) => {
-    if (booking.length >= 1) {
-        booking.pop();
-    }
-    fs.readFile('sitter_list.json', (err, data) => {
-        if (err) console.log(err);
-        let sitter = JSON.parse(data);
-        for (var i = 0; i < sitter.length; i++) {
-            if (sitter[i].name === req.params.name) {
-                res.render('contact-sitter.ejs', {
-                    sitterData: sitter[i],
-                    feedback: sitter[i].feedback,
-                    services: sitter[i].services,
-                    dogData: dog,
-                    cardDetailsErrorFlag: false,
-                    cardDetailsErrorMessage: ""
-                });
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            if (booking.length >= 1) {
+                booking.pop();
             }
+            fs.readFile('sitter_list.json', (err, data) => {
+                if (err) console.log(err);
+                let sitter = JSON.parse(data);
+                for (var i = 0; i < sitter.length; i++) {
+                    if (sitter[i].name === req.params.name) {
+                        res.render('contact-sitter.ejs', {
+                            sitterData: sitter[i],
+                            feedback: sitter[i].feedback,
+                            services: sitter[i].services,
+                            dogData: dog,
+                            cardDetailsErrorFlag: false,
+                            cardDetailsErrorMessage: ""
+                        });
+                    }
+                }
+            });
         }
     });
 });
 
 router.post('/:name/contact', (req, res) => {
-    const today = new Date();
-    booking.push({
-        id: Date.now().toString(),
-        userFirstName: req.body.firstName,
-        userLastName: req.body.lastName,
-        sitterName: req.params.name,
-        bookingDate: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-        serviceSelected: req.body.selectedService,
-        dropOffDate: req.body.dropOff,
-        dropOffTimeFrom: req.body.selectDropTimeFrom,
-        dropOffTimeTo: req.body.selectDropTimeTo,
-        pickUpDate: req.body.pickUp,
-        pickUpTimeFrom: req.body.selectPickTimeFrom,
-        pickUpTimeTo: req.body.selectPickTimeTo,
-        userEmail: req.body.userEmail,
-        pets: dog
-    });
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            const today = new Date();
+            booking.push({
+                id: Date.now().toString(),
+                userFirstName: req.body.firstName,
+                userLastName: req.body.lastName,
+                sitterName: req.params.name,
+                bookingDate: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+                serviceSelected: req.body.selectedService,
+                dropOffDate: req.body.dropOff,
+                dropOffTimeFrom: req.body.selectDropTimeFrom,
+                dropOffTimeTo: req.body.selectDropTimeTo,
+                pickUpDate: req.body.pickUp,
+                pickUpTimeFrom: req.body.selectPickTimeFrom,
+                pickUpTimeTo: req.body.selectPickTimeTo,
+                userEmail: req.body.userEmail,
+                pets: dog
+            });
 
-    res.redirect('/payment');
+            res.redirect('/payment');
+        }
+    });
 });
 
 router.get('/payment', (req, res) => {
-    if (cardInfo.length >= 1) {
-        cardInfo.pop();
-    }
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            if (cardInfo.length >= 1) {
+                cardInfo.pop();
+            }
 
-    res.render('payment.ejs', {
-        bookingDetails: booking[0],
-        cardDetailsErrorFlag: false,
-        cardDetailsErrorMessage: ""
+            res.render('payment.ejs', {
+                bookingDetails: booking[0],
+                cardDetailsErrorFlag: false,
+                cardDetailsErrorMessage: ""
+            });
+        }
     });
 });
 
 router.post('/credit-card', (req, res) => {
-    userName = booking[0].userFirstName;
-    sitterName = booking[0].sitterName;
-    userEmail = booking[0].userEmail;
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            userName = booking[0].userFirstName;
+            sitterName = booking[0].sitterName;
+            userEmail = booking[0].userEmail;
 
-    cardInfo.push({
-        paymentMethod: req.body.paymentMethod,
-        userName: req.body.username,
-        cardNumber: req.body.cardNumber,
-        expiration_month: req.body.exp_month,
-        expiration_year: req.body.exp_year,
-        cvv: req.body.cvv
-    });
+            cardInfo.push({
+                paymentMethod: req.body.paymentMethod,
+                userName: req.body.username,
+                cardNumber: req.body.cardNumber,
+                expiration_month: req.body.exp_month,
+                expiration_year: req.body.exp_year,
+                cvv: req.body.cvv
+            });
 
-    fs.readFile('cardInfo.json', (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        let cardDetails = JSON.parse(data);
-        let flag = -1;
-        for (let i = 0; i < cardDetails.length; i++) {
-            for (let j = 0; j < cardInfo.length; j++) {
-                if (cardDetails[i].name_on_card == cardInfo[j].userName &&
-                    cardDetails[i].card_number == cardInfo[j].cardNumber &&
-                    cardDetails[i].expiration_month == cardInfo[j].expiration_month &&
-                    cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
-                    cardDetails[i].cvv == cardInfo[j].cvv &&
-                    cardDetails[i].amount > 30) {
-                    flag = 1;
+            fs.readFile('cardInfo.json', (err, data) => {
+                if (err) {
+                    console.log(err);
                 }
-                else {
-                    flag = 0;
+                let cardDetails = JSON.parse(data);
+                let flag = -1;
+                for (let i = 0; i < cardDetails.length; i++) {
+                    for (let j = 0; j < cardInfo.length; j++) {
+                        if (cardDetails[i].name_on_card == cardInfo[j].userName &&
+                            cardDetails[i].card_number == cardInfo[j].cardNumber &&
+                            cardDetails[i].expiration_month == cardInfo[j].expiration_month &&
+                            cardDetails[i].expiration_year == cardInfo[j].expiration_year &&
+                            cardDetails[i].cvv == cardInfo[j].cvv &&
+                            cardDetails[i].amount > 30) {
+                            flag = 1;
+                        }
+                        else {
+                            flag = 0;
+                        }
+                    }
                 }
-            }
-        }
-        if (flag == 1) {
-            sendEmail(req, res);
-        }
-        if (flag == 0) {
-            sendError(req, res);
+                if (flag == 1) {
+                    sendEmail(req, res);
+                }
+                if (flag == 0) {
+                    sendError(req, res);
+                }
+            });
         }
     });
 });
 
 router.get('/pay', (req, res) => {
-    const create_payment_json = {
-        "intent": "sale",
-        "payer": {
-            "payment_method": "paypal"
-        },
-        "redirect_urls": {
-            "return_url": "http://localhost:8000/success",
-            "cancel_url": "http://localhost:8000/cancel"
-        },
-        "transactions": [{
-            "item_list": {
-                "items": [{
-                    "name": "Prathmesh Pathak",
-                    "sku": "6541654684613132113132131",
-                    "price": "50.00",
-                    "currency": "USD",
-                    "quantity": 1,
-                }]
-            },
-            "amount": {
-                "currency": "USD",
-                "total": "50.00"
-            },
-            "description": "Hat for the best team ever"
-        }]
-    };
-
-    paypal.payment.create(create_payment_json, function (error, payment) {
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
-            throw error;
-        } else {
-            for (let i = 0; i < payment.links.length; i++) {
-                if (payment.links[i].rel === 'approval_url') {
-                    res.redirect(payment.links[i].href);
+            res.redirect('/login');
+        }
+        else {
+            const create_payment_json = {
+                "intent": "sale",
+                "payer": {
+                    "payment_method": "paypal"
+                },
+                "redirect_urls": {
+                    "return_url": "http://localhost:8000/success",
+                    "cancel_url": "http://localhost:8000/cancel"
+                },
+                "transactions": [{
+                    "item_list": {
+                        "items": [{
+                            "name": "Prathmesh Pathak",
+                            "sku": "6541654684613132113132131",
+                            "price": "50.00",
+                            "currency": "USD",
+                            "quantity": 1,
+                        }]
+                    },
+                    "amount": {
+                        "currency": "USD",
+                        "total": "50.00"
+                    },
+                    "description": "Hat for the best team ever"
+                }]
+            };
+
+            paypal.payment.create(create_payment_json, function (error, payment) {
+                if (error) {
+                    throw error;
+                } else {
+                    for (let i = 0; i < payment.links.length; i++) {
+                        if (payment.links[i].rel === 'approval_url') {
+                            res.redirect(payment.links[i].href);
+                        }
+                    }
                 }
-            }
+            });
         }
     });
 });
 
 router.get('/success', (req, res) => {
-    const payerId = req.query.PayerID;
-    const paymentId = req.query.paymentId;
-
-    const execute_payment_json = {
-        "payer_id": payerId,
-        "transactions": [{
-            "amount": {
-                "currency": "USD",
-                "total": "50.00"
-            }
-        }]
-    };
-
-    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
-            console.log(error.response);
-            throw error;
-        } else {
-            console.log(JSON.stringify(payment));
-            sendEmail(req, res);
+            res.redirect('/login');
+        }
+        else {
+            const payerId = req.query.PayerID;
+            const paymentId = req.query.paymentId;
+
+            const execute_payment_json = {
+                "payer_id": payerId,
+                "transactions": [{
+                    "amount": {
+                        "currency": "USD",
+                        "total": "50.00"
+                    }
+                }]
+            };
+
+            paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+                if (error) {
+                    console.log(error.response);
+                    throw error;
+                } else {
+                    console.log(JSON.stringify(payment));
+                    sendEmail(req, res);
+                }
+            });
         }
     });
 });
@@ -376,25 +433,41 @@ router.get('/success', (req, res) => {
 router.get('/cancel', (req, res) => res.send('Cancelled'));
 
 router.post('/charge', (req, res) => {
-    amount = 4500;
-    stripe.customers.create({
-        email: req.body.stripeEmail,
-        source: req.body.stripeToken
-    })
-        .then(customer => stripe.charges.create({
-            amount,
-            description: booking[0].serviceSelected,
-            currency: 'usd',
-            customer: customer.id
-        }))
-        .then(charge => {
-            sendEmail(req, res);
-        });
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            amount = 4500;
+            stripe.customers.create({
+                email: req.body.stripeEmail,
+                source: req.body.stripeToken
+            })
+                .then(customer => stripe.charges.create({
+                    amount,
+                    description: booking[0].serviceSelected,
+                    currency: 'usd',
+                    customer: customer.id
+                }))
+                .then(charge => {
+                    sendEmail(req, res);
+                });
+        }
+    });
 });
 
 router.get('/:name/booking-details', (req, res) => {
-    res.render('booking-confirmed.ejs', {
-        bookingDetails: booking
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            res.render('booking-confirmed.ejs', {
+                bookingDetails: booking
+            });
+        }
     });
 });
 
@@ -471,28 +544,44 @@ router.get('/info', (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-    if (typeof dog == "undefined" || dog == null || dog.length == 0) {
-        res.render('profile.ejs', {
-            userData: req.user
-        });
-    }
-    else {
-        console.log(dogCare);
-        res.render('profile-dog.ejs', {
-            userData: req.user,
-            dogData: dog,
-            tipData: dogCare,
-            housingCondition: housing[0]
-        });
-    }
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            if (typeof dog == "undefined" || dog == null || dog.length == 0) {
+                res.render('profile.ejs', {
+                    userData: req.user
+                });
+            }
+            else {
+                console.log(dogCare);
+                res.render('profile-dog.ejs', {
+                    userData: req.user,
+                    dogData: dog,
+                    tipData: dogCare,
+                    housingCondition: housing[0]
+                });
+            }
+        }
+    });
 });
 
 router.get('/profile/add', (req, res) => {
-    res.render('user-dog.ejs', {
-        dogData: dog,
-        isLogin: loginFlag,
-        tipData: dogCare,
-        housingCondition: housing
+    let token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            res.render('user-dog.ejs', {
+                dogData: dog,
+                isLogin: loginFlag,
+                tipData: dogCare,
+                housingCondition: housing
+            });
+        }
     });
 });
 
