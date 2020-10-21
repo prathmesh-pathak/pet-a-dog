@@ -166,8 +166,6 @@ create table credit_card_transaction (
     cvv int
 );
 
-select * from paypal_transaction;
-
 create table paypal_transaction (
 	paypal_transaction_id int primary key,
 	booking_id int,
@@ -203,8 +201,6 @@ create table users (
     user_confirm_password varchar(50)
 );
 
-select * from guest_dog;
-
 create table guest_dog(
 	dog_id int primary key,
     dog_name varchar(50),
@@ -219,8 +215,6 @@ create table guest_dog(
     dog_children varchar(50),
     dog_trained varchar(50)
 );
-
-select * from dog where user_email like 'pratham%';
 
 create table guest_housing (
     house_id int primary key,
