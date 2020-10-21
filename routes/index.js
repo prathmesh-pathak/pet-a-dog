@@ -464,7 +464,7 @@ router.post('/credit-card', (req, res) => {
                                 }
                                 else {
                                     console.log("Credit Card data inserted successfully.");
-                                    sendEmail(req, res, userEmail, sitterEmail);
+                                    sendEmail(req, res, userEmail, booking[0].user_first_name, sitterEmail, booking[0].sitter_name);
                                 }
                             });
                         }
@@ -578,7 +578,7 @@ router.get('/success', (req, res) => {
                                 }
                                 else {
                                     console.log("Paypal data inserted.");
-                                    sendEmail(req, res, booking[0].user_email, booking[0].sitter_email);
+                                    sendEmail(req, res, userEmail, booking[0].user_first_name, sitterEmail, booking[0].sitter_name);
                                 }
                             });
                         }
@@ -628,7 +628,7 @@ router.post('/charge', (req, res) => {
                                 }
                                 else {
                                     console.log("Net banking data inserted.");
-                                    sendEmail(req, res, booking[0].user_email, booking[0].sitter_email);
+                                    sendEmail(req, res, userEmail, booking[0].user_first_name, sitterEmail, booking[0].sitter_name);
                                 }
                             });
                         });
@@ -762,20 +762,6 @@ router.get('/profile', (req, res) => {
                     });
                 }
             });
-            // if (typeof dog == "undefined" || dog == null || dog.length == 0) {
-            //     res.render('profile.ejs', {
-            //         userData: req.user
-            //     });
-            // }
-            // else {
-            //     console.log(dogCare);
-            //     res.render('profile-dog.ejs', {
-            //         userData: req.user,
-            //         dogData: dog,
-            //         tipData: dogCare,
-            //         housingCondition: housing[0]
-            //     });
-            // }
         }
     });
 });
@@ -822,21 +808,6 @@ router.post('/profile/add', (req, res) => {
         }
     });
 
-    // dog.push({
-    //     id: Date.now().toString(),
-    //     name: req.body.dogName,
-    //     weight: req.body.weight,
-    //     breed: req.body.dogBreed,
-    //     ageYears: req.body.ageYears,
-    //     ageMonths: req.body.ageMonths,
-    //     gender: req.body.gender,
-    //     cats: req.body.cats,
-    //     isMicrochipped: req.body.microchipped,
-    //     nature: req.body.nature,
-    //     children: req.body.children,
-    //     isTrained: req.body.trained
-    // });
-
     insert_query_housing = "insert into housing_condition () values ('" + Math.floor(100000000 + Math.random() * 900000000) + "', '" + user_email + "', '" + req.body.guestAddress + "', " +
         "'" + req.body.guestCity + "', '" + req.body.guestState + "', '" + req.body.aptNumber + "', '" + req.body.zipcode + "', '" + req.body.isHouseGood + "', " +
         "'" + req.body.isVentilated + "', '" + req.body.isFenced + "')";
@@ -851,19 +822,6 @@ router.post('/profile/add', (req, res) => {
         }
     });
 
-    // housing.push({
-    //     id: Date.now().toString(),
-    //     address: req.body.guestAddress,
-    //     city: req.body.guestCity,
-    //     state: req.body.guestState,
-    //     aptNumber: req.body.aptNumber,
-    //     zipcode: req.body.zipcode,
-    //     houseCondition: req.body.isHouseGood,
-    //     living: req.body.isLivingQuater,
-    //     heating: req.body.isVentilated,
-    //     fenced: req.body.isFenced
-    // });
-
     select_tips_query = `select * from tips where breed like '%` + dogBreed + `%'`;
     db.query(select_tips_query, (error, rows, fields) => {
         if (error) {
@@ -877,10 +835,9 @@ router.post('/profile/add', (req, res) => {
 });
 
 
-sendEmail = (req, res, userEmail, sitterEmail) => {
-    //userEmail = booking[0].userEmail;
-    userName = booking[0].userFirstName;
-    sitterName = booking[0].sitterName;
+sendEmail = (req, res, userEmail, userName, sitterEmail, sitterName) => {
+    userName = userName;
+    sitterName = sitterName;
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',

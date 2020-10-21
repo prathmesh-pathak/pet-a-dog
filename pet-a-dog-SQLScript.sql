@@ -75,7 +75,7 @@ create table services (
     sitter_preference_1 varchar(200),
 	sitter_preference_2 varchar(200)
 );
-
+select * from bookings;
 create table reviews (
 	review_id int primary key,
     sitter_name varchar(50),
