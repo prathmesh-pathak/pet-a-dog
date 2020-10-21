@@ -87,6 +87,7 @@ router.post('/login', (req, res) => {
                     httpOnly: true
                 }
                 setLoginToken(token);
+                setUserEmail(email);
                 res.cookie('jwt', token, cookieOptions);
                 res.render('index.ejs', {
                     name: results[0].first_name
@@ -98,6 +99,14 @@ router.post('/login', (req, res) => {
         console.log(error);
     }
 });
+
+function setUserEmail(userEmail) {
+    userEmail = userEmail;
+}
+
+function getUserEmail() {
+    return userEmail;
+}
 
 function setLoginToken(token) {
     login_token = token;
@@ -607,25 +616,46 @@ router.get('/cancel', (req, res) => res.send('Cancelled'));
 
 router.post('/charge', (req, res) => {
     let token = getLoginToken();
+    let currentBookingId = getCurrentBookingId();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
         }
         else {
-            amount = 4500;
-            stripe.customers.create({
-                email: req.body.stripeEmail,
-                source: req.body.stripeToken
-            })
-                .then(customer => stripe.charges.create({
-                    amount,
-                    description: booking[0].serviceSelected,
-                    currency: 'usd',
-                    customer: customer.id
-                }))
-                .then(charge => {
-                    sendEmail(req, res);
-                });
+            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+            db.query(booking_summary_query, (error, booking) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    amount = booking[0].service_charge * 100;
+                    stripe.customers.create({
+                        email: req.body.stripeEmail,
+                        source: req.body.stripeToken
+                    })
+                        .then(customer => stripe.charges.create({
+                            amount,
+                            description: booking[0].serviceSelected,
+                            currency: 'usd',
+                            customer: customer.id
+                        }))
+                        .then(charge => {
+                            net_bank_insert_query = "insert into net_banking_transaction values ('" + Math.floor(100000000 + Math.random() * 900000000) + "','" + currentBookingId + "', " +
+                                "'" + booking[0].sitter_name + "','" + booking[0].sitter_email + "','" + booking[0].service_name + "','" + booking[0].service_charge + "', " +
+                                "'" + booking[0].user_first_name + "', '" + booking[0].user_email + "', 'Net Banking', '" + req.body.selectedBank + "')"
+
+                            db.query(net_bank_insert_query, (error, data) => {
+                                if (error) {
+                                    console.log(error);
+                                }
+                                else {
+                                    console.log("Net banking data inserted.");
+                                    sendEmail(req, res, booking[0].user_email, booking[0].sitter_email);
+                                }
+                            });
+                        });
+                }
+            });
         }
     });
 });
@@ -656,7 +686,6 @@ router.get('/:name/booking-details', (req, res) => {
 router.get('/dog-care', (req, res) => {
     res.render('dog-care.ejs', {
         isLogin: loginFlag,
-        userData: req.user,
         housingCondition: housing
     });
 });

@@ -167,7 +167,6 @@ create table credit_card_transaction (
     cvv int
 );
 
-select * from paypal_transaction;
 create table paypal_transaction (
 	paypal_transaction_id int primary key,
 	booking_id int,
@@ -181,7 +180,7 @@ create table paypal_transaction (
 );
 
 create table net_banking_transaction (
-	paypal_transaction_id int primary key,
+	net_banking_transaction_id int primary key,
 	booking_id int,
     sitter_name varchar(50),
     sitter_email varchar(50),
@@ -203,10 +202,32 @@ create table users (
     user_confirm_password varchar(50)
 );
 
-insert into users (user_id, first_name, last_name, email, user_password, user_confirm_password) values 
-(123456789, 'Prathmesh', 'Pathak', 'prathmeshjp786@gmail.com', '123456', '123456');
+create table guest_dog(
+	dog_id int primary key,
+    dog_name varchar(50),
+    dog_weight int,
+    dog_breed varchar(50),
+    dog_age_years int,
+    dog_age_months int,
+    dog_gender varchar(50),
+    dog_cats varchar(50),
+    dog_micropchipped varchar(50),
+    dog_nature varchar(50),
+    dog_children varchar(50),
+    dog_trained varchar(50)
+);
 
-select * from sitter_info;
+create table guest_housing (
+    house_id int primary key,
+    address_line_1 varchar(300),
+    city varchar(300),
+    state varchar(300),
+    address_line_2 varchar(300),
+    house_zipcode int,
+    house_condition varchar(10),
+    house_heating varchar(10),
+    house_fence varchar(10)
+);
 	
 
 
