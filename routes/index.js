@@ -22,13 +22,14 @@ const dogCare = [];
 const housing = [];
 const cardInfo = [];
 var loginFlag = false;
-var userEmail = '';
+var currentUserEmail = '';
 var sitterEmail = '';
 var dogBreed = '';
 var userName = '';
 var sitterName = '';
 var login_token = '';
 var bookingID = '';
+var tip = [];
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -36,15 +37,25 @@ paypal.configure({
     'client_secret': 'EGowq0c1FaTxjgIgszXymdwW3uaJ7JVZoJJwh71gNZ1mb5mcFbJ9O-tvfTFUttmc1JfCMd3csqI0yz2A'
 });
 
-// const initializePassport = require('../passport-config');
-// initializePassport(
-//     passport,
-//     email => users.find(user => user.email === email),
-//     id => users.find(user => user.id === id)
-// );
-
-router.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', { name: req.user.firstName });
+router.get('/', (req, res) => {
+    const token = getLoginToken();
+    const currentUserEmail = getUserEmail();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            user_query = `select * from users where email like '%` + currentUserEmail + `%'`;
+            db.query(user_query, (error, user) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    res.render('index.ejs', { name: user[0].first_name });
+                }
+            });
+        }
+    });
 });
 
 router.get('/home', (req, res) => {
@@ -57,15 +68,10 @@ router.get('/login', (req, res) => {
     });
 })
 
-// router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-// }));
-
 router.post('/login', (req, res) => {
     try {
         const { email, password } = req.body;
+        setUserEmail(req.body.email);
         login_query = `select * from users where email like '%` + email + `%'`;
         db.query(login_query, async (error, results) => {
             if (results.length == 0 || password !== results[0].user_password) {
@@ -87,7 +93,6 @@ router.post('/login', (req, res) => {
                     httpOnly: true
                 }
                 setLoginToken(token);
-                setUserEmail(email);
                 res.cookie('jwt', token, cookieOptions);
                 res.render('index.ejs', {
                     name: results[0].first_name
@@ -101,11 +106,11 @@ router.post('/login', (req, res) => {
 });
 
 function setUserEmail(userEmail) {
-    userEmail = userEmail;
+    currentUserEmail = userEmail;
 }
 
 function getUserEmail() {
-    return userEmail;
+    return currentUserEmail;
 }
 
 function setLoginToken(token) {
@@ -129,25 +134,6 @@ router.get('/register', (req, res) => {
         message: ''
     });
 });
-
-// router.post('/register', checkNotAuthenticated, async (req, res) => {
-//     try {
-//         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-//         users.push({
-//             id: Date.now().toString(),
-//             firstName: req.body.firstName,
-//             lastName: req.body.lastName,
-//             zipcode: req.body.zip,
-//             email: req.body.email,
-//             password: hashedPassword
-//         })
-//         loginFlag = true;
-//         res.redirect('/login');
-//     }
-//     catch {
-//         res.redirect('/register');
-//     }
-// });
 
 router.post('/register', async (req, res) => {
     const { firstName, lastName, email, userPassword } = req.body;
@@ -268,6 +254,7 @@ router.get('/search-sitter/:name', (req, res) => {
 
 router.get('/:name/contact', (req, res) => {
     let token = getLoginToken();
+    let currentUserEmail = getUserEmail();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
@@ -308,11 +295,19 @@ router.get('/:name/contact', (req, res) => {
                                 }
                                 else {
                                     const feedback = results;
-                                    res.render('contact-sitter.ejs', {
-                                        sitterData: sitter[0],
-                                        feedback: feedback,
-                                        services: services,
-                                        dogData: dog
+                                    user_dog_query = `select * from dog where user_email like '%` + currentUserEmail + `%'`;
+                                    db.query(user_dog_query, (error, dog) => {
+                                        if (error) {
+                                            console.log(error);
+                                        }
+                                        else {
+                                            res.render('contact-sitter.ejs', {
+                                                sitterData: sitter[0],
+                                                feedback: feedback,
+                                                services: services,
+                                                dogData: dog
+                                            });
+                                        }
                                     });
                                 }
                             });
@@ -691,57 +686,41 @@ router.get('/dog-care', (req, res) => {
 });
 
 router.post('/dog-care/add', (req, res) => {
-    dog.push({
-        id: Date.now().toString(),
-        name: req.body.guestGogName,
-        weight: req.body.guestWeight,
-        breed: req.body.guestDogBreed,
-        ageYears: req.body.guestAgeYears,
-        ageMonths: req.body.guestAgeMonths,
-        gender: req.body.guestGender,
-        cats: req.body.guestCats,
-        isMicrochipped: req.body.guestMicrochipped,
-        nature: req.body.guestNature,
-        children: req.body.guestChildren,
-        isTrained: req.body.guestTrained
+
+    guest_dog_insert_query = "insert into guest_dog values ('" + Math.floor(100000000 + Math.random() * 900000000) + "','" + req.body.guestGogName + "','" + req.body.guestWeight + "', " +
+        "'" + req.body.guestDogBreed + "', '" + req.body.guestAgeYears + "', '" + req.body.guestAgeMonths + "', '" + req.body.guestGender + "', '" + req.body.guestCats + "', " +
+        "'" + req.body.guestMicrochipped + "', '" + req.body.guestNature + "', '" + req.body.guestChildren + "', '" + req.body.guestTrained + "')";
+
+    db.query(guest_dog_insert_query, (error, results) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log("Guest Dog data inserted.");
+        }
     });
-    housing.push({
-        id: Date.now().toString(),
-        address: req.body.guestAddress,
-        city: req.body.guestCity,
-        state: req.body.guestState,
-        aptNumber: req.body.aptNumber,
-        zipcode: req.body.zipcode,
-        houseCondition: req.body.isHouseGood,
-        living: req.body.isLivingQuater,
-        heating: req.body.isVentilated,
-        fenced: req.body.isFenced
+
+    guest_house_insert_query = "insert into guest_housing values ('" + Math.floor(100000000 + Math.random() * 900000000) + "','" + req.body.guestAddress + "'," +
+        "'" + req.body.guestCity + "', '" + req.body.guestState + "', '" + req.body.aptNumber + "', '" + req.body.zipcode + "', '" + req.body.isHouseGood + "', " +
+        "'" + req.body.isVentilated + "', '" + req.body.isFenced + "')";
+
+    db.query(guest_house_insert_query, (error, results) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log("Guest housing condition data inserted.");
+        }
     });
     dogBreed = req.body.guestDogBreed;
-    fs.readFile('tips.json', (err, data) => {
-        if (err) console.log(err);
-        let tips = JSON.parse(data);
-        for (var i = 0; i < tips.length; i++) {
-            if (tips[i].breed === dogBreed) {
-                dogCare.push({
-                    breed: tips[i].breed,
-                    step1: tips[i].step1,
-                    step2: tips[i].step2,
-                    step3: tips[i].step3,
-                    step4: tips[i].step4,
-                    step5: tips[i].step5,
-                    step6: tips[i].step6,
-                    tip1: tips[i].tip1,
-                    tip2: tips[i].tip2,
-                    tip3: tips[i].tip3,
-                    tip4: tips[i].tip4,
-                    tip5: tips[i].tip5,
-                    tip6: tips[i].tip6,
-                    tip7: tips[i].tip7,
-                    tip8: tips[i].tip8,
-                });
-                res.redirect('/info');
-            }
+    select_tips_query = `select * from tips where breed like '%` + dogBreed + `%'`;
+    db.query(select_tips_query, (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            dogCare.push(rows[0]);
+            res.redirect('/info');
         }
     });
 });
@@ -756,41 +735,87 @@ router.get('/info', (req, res) => {
 
 router.get('/profile', (req, res) => {
     let token = getLoginToken();
+    let user_email = getUserEmail();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
         }
         else {
-            if (typeof dog == "undefined" || dog == null || dog.length == 0) {
-                res.render('profile.ejs', {
-                    userData: req.user
-                });
-            }
-            else {
-                console.log(dogCare);
-                res.render('profile-dog.ejs', {
-                    userData: req.user,
-                    dogData: dog,
-                    tipData: dogCare,
-                    housingCondition: housing[0]
-                });
-            }
+            user_query = `select * from users where email like '%` + user_email + `%'`;
+            db.query(user_query, (error, user) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    user_dog_query = `select * from dog where user_email like '%` + user_email + `%'`;
+                    db.query(user_dog_query, (error, dog) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (dog.length == 0) {
+                                res.render('profile.ejs', {
+                                    userData: user[0]
+                                });
+                            }
+                            else {
+                                user_house_query = `select * from housing_condition where user_email like '%` + user_email + `%'`;
+                                db.query(user_house_query, (error, house) => {
+                                    if (error) {
+                                        console.log(error);
+                                    }
+                                    else {
+                                        console.log(dogCare);
+                                        res.render('profile-dog.ejs', {
+                                            userData: user[0],
+                                            dogData: dog,
+                                            tipData: dogCare,
+                                            housingCondition: house[0]
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+            // if (typeof dog == "undefined" || dog == null || dog.length == 0) {
+            //     res.render('profile.ejs', {
+            //         userData: req.user
+            //     });
+            // }
+            // else {
+            //     console.log(dogCare);
+            //     res.render('profile-dog.ejs', {
+            //         userData: req.user,
+            //         dogData: dog,
+            //         tipData: dogCare,
+            //         housingCondition: housing[0]
+            //     });
+            // }
         }
     });
 });
 
 router.get('/profile/add', (req, res) => {
     let token = getLoginToken();
+    let currentUserEmail = getUserEmail();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
         }
         else {
-            res.render('user-dog.ejs', {
-                dogData: dog,
-                isLogin: loginFlag,
-                tipData: dogCare,
-                housingCondition: housing
+            user_house_query = `select * from housing_condition where user_email like '%` + currentUserEmail + `%'`;
+            db.query(user_house_query, (error, house) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    res.render('user-dog.ejs', {
+                        isLogin: loginFlag,
+                        housingCondition: house
+                    });
+                }
             });
         }
     });
@@ -798,54 +823,63 @@ router.get('/profile/add', (req, res) => {
 
 router.post('/profile/add', (req, res) => {
     dogBreed = req.body.dogBreed;
+    let user_email = getUserEmail();
 
-    // insert_query_dog = "insert into dog (dog_id, dog_name, dog_weight, dog_breed, dog_years, dog_months, user_email, dog_gender, dog_isMicrochipped, dog_isWellWithCtas, dog_goWellWithDogs, dog_goWellWithChildrens, dog_isHousetrained)" +
-    //     " values('" + Date.now().toString() + "', '" + req.body.dogName + "', '" + req.body.weight + "', '" + req.body.dogBreed + "', '" + req.body.ageYears + "', '" + req.body.ageMonths + "', 'sample@gmail.com', '" + req.body.gender + "', '" + req.body.microchipped + "', '" + req.body.cats + "', '" + req.body.nature + "', '" + req.body.children + "', '" + req.body.trained + "')";
-    // db.query(insert_query_dog, (error, rows, fields) => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    //     console.log("Dog data insertedd succcessfully...")
-    // });
+    insert_query_dog = "insert into dog () values('" + Math.floor(100000000 + Math.random() * 900000000) + "', '" + req.body.dogName + "', '" + req.body.weight + "', '" + req.body.dogBreed + "', " +
+        "'" + req.body.ageYears + "', '" + req.body.ageMonths + "', '" + user_email + "', '" + req.body.gender + "', '" + req.body.microchipped + "', '" + req.body.cats + "', " +
+        "'" + req.body.nature + "', '" + req.body.children + "', '" + req.body.trained + "')";
 
-    dog.push({
-        id: Date.now().toString(),
-        name: req.body.dogName,
-        weight: req.body.weight,
-        breed: req.body.dogBreed,
-        ageYears: req.body.ageYears,
-        ageMonths: req.body.ageMonths,
-        gender: req.body.gender,
-        cats: req.body.cats,
-        isMicrochipped: req.body.microchipped,
-        nature: req.body.nature,
-        children: req.body.children,
-        isTrained: req.body.trained
+    db.query(insert_query_dog, (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            dog.push(rows[0]);
+            console.log("Dog data insertedd succcessfully...")
+        }
     });
 
-    // insert_query_housing = "insert into housing_condition (house_id, address_line_1, city, state, address_line_2, house_zipcode, house_condition, house_heating, house_fence) " +
-    //     "values ('" + Date.now().toString() + "', '" + req.body.guestAddress + "', '" + req.body.guestCity + "', '" + req.body.guestState + "', '" + req.body.aptNumber + "', '" + req.body.zipcode + "', '" + req.body.isHouseGood + "', '" + req.body.isVentilated + "', '" + req.body.isFenced + "')";
-    // db.query(insert_query_housing, (error, rows, fields) => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    //     else {
-    //         console.log("Housing data insertedd succcessfully...");
-    //     }
+    // dog.push({
+    //     id: Date.now().toString(),
+    //     name: req.body.dogName,
+    //     weight: req.body.weight,
+    //     breed: req.body.dogBreed,
+    //     ageYears: req.body.ageYears,
+    //     ageMonths: req.body.ageMonths,
+    //     gender: req.body.gender,
+    //     cats: req.body.cats,
+    //     isMicrochipped: req.body.microchipped,
+    //     nature: req.body.nature,
+    //     children: req.body.children,
+    //     isTrained: req.body.trained
     // });
 
-    housing.push({
-        id: Date.now().toString(),
-        address: req.body.guestAddress,
-        city: req.body.guestCity,
-        state: req.body.guestState,
-        aptNumber: req.body.aptNumber,
-        zipcode: req.body.zipcode,
-        houseCondition: req.body.isHouseGood,
-        living: req.body.isLivingQuater,
-        heating: req.body.isVentilated,
-        fenced: req.body.isFenced
+    insert_query_housing = "insert into housing_condition () values ('" + Math.floor(100000000 + Math.random() * 900000000) + "', '" + user_email + "', '" + req.body.guestAddress + "', " +
+        "'" + req.body.guestCity + "', '" + req.body.guestState + "', '" + req.body.aptNumber + "', '" + req.body.zipcode + "', '" + req.body.isHouseGood + "', " +
+        "'" + req.body.isVentilated + "', '" + req.body.isFenced + "')";
+
+    db.query(insert_query_housing, (error, rows, fields) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            housing.push(rows[0]);
+            console.log("Housing data insertedd succcessfully...");
+        }
     });
+
+    // housing.push({
+    //     id: Date.now().toString(),
+    //     address: req.body.guestAddress,
+    //     city: req.body.guestCity,
+    //     state: req.body.guestState,
+    //     aptNumber: req.body.aptNumber,
+    //     zipcode: req.body.zipcode,
+    //     houseCondition: req.body.isHouseGood,
+    //     living: req.body.isLivingQuater,
+    //     heating: req.body.isVentilated,
+    //     fenced: req.body.isFenced
+    // });
 
     select_tips_query = `select * from tips where breed like '%` + dogBreed + `%'`;
     db.query(select_tips_query, (error, rows, fields) => {
@@ -920,18 +954,18 @@ sendError = (req, res) => {
     });
 }
 
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
+// function checkAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) {
+//         return next();
+//     }
+//     res.redirect('/login');
+// }
 
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/');
-    }
-    next();
-}
+// function checkNotAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) {
+//         return res.redirect('/');
+//     }
+//     next();
+// }
 
 module.exports = router;

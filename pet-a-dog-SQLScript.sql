@@ -1,8 +1,7 @@
 use petadog;
 
 create table dog (
-	dog_main_id int primary key auto_increment,
-	dog_id int,
+	dog_id int primary key,
     dog_name varchar(50),
     dog_weight int,
     dog_breed varchar(50),
@@ -18,8 +17,8 @@ create table dog (
 );
 
 create table housing_condition(
-	house_main_id int primary key auto_increment,
-    house_id int,
+    house_id int primary key,
+    user_email varchar(50),
     address_line_1 varchar(300),
     city varchar(300),
     state varchar(300),
@@ -202,6 +201,8 @@ create table users (
     user_confirm_password varchar(50)
 );
 
+select * from guest_dog;
+
 create table guest_dog(
 	dog_id int primary key,
     dog_name varchar(50),
@@ -217,6 +218,8 @@ create table guest_dog(
     dog_trained varchar(50)
 );
 
+select * from dog where user_email like 'pratham%';
+
 create table guest_housing (
     house_id int primary key,
     address_line_1 varchar(300),
@@ -228,6 +231,7 @@ create table guest_housing (
     house_heating varchar(10),
     house_fence varchar(10)
 );
+
 	
 
 
