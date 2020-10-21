@@ -892,10 +892,19 @@ sendEmail = (req, res, userEmail, userName, sitterEmail, sitterName) => {
 }
 
 sendError = (req, res) => {
-    res.render('payment.ejs', {
-        bookingDetails: booking[0],
-        cardDetailsErrorFlag: true,
-        cardDetailsErrorMessage: "Invalid card details."
+    let currentBookingId = getCurrentBookingId();
+    email_query = `select * from bookings where booking_id =` + currentBookingId;
+    db.query(email_query, (error, booking) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.render('payment.ejs', {
+                bookingDetails: booking[0],
+                cardDetailsErrorFlag: true,
+                cardDetailsErrorMessage: "Invalid card details."
+            });
+        }
     });
 }
 
