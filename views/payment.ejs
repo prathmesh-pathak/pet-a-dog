@@ -162,7 +162,7 @@
                                     <form action="/charge" method="POST">
                                         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                             data-key="pk_test_51Hb90tLQHcwjWBjS0IbR09uJTrqHbvxC1qvm5xlsS2eI2RG3yDO2GzKuIKU7GUFcjUrnw5CtVnCKsX93AG3jfDWW00uhs4iBJB"
-                                            data-amount="<%= bookingDetails.service_charge %> * 100"
+                                            data-amount="<%= bookingDetails.service_charge * 100 %>"
                                             data-name="<%= bookingDetails.service_name %>"
                                             data-image="/imgs/marketplace.png" data-locale="auto">
                                             </script>
