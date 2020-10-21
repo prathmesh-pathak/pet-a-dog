@@ -75,7 +75,7 @@ create table services (
     sitter_preference_1 varchar(200),
 	sitter_preference_2 varchar(200)
 );
-select * from bookings;
+select * from dog where user_email like 'pratham%';
 create table reviews (
 	review_id int primary key,
     sitter_name varchar(50),
@@ -165,6 +165,8 @@ create table credit_card_transaction (
     expiration_year int,
     cvv int
 );
+
+select * from paypal_transaction;
 
 create table paypal_transaction (
 	paypal_transaction_id int primary key,

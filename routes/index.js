@@ -99,35 +99,31 @@ router.post('/login', (req, res) => {
                 });
             }
         });
+        truncate_guest_dog = "truncate table guest_dog";
+        truncate_guest_house = "truncate table guest_housing";
+        db.query(truncate_guest_dog, (error, results) => {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log("Guest dog data truncated.");
+            }
+        });
+
+        db.query(truncate_guest_house, (error, results) => {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log("Guest house data truncated.");
+            }
+        });
     }
     catch (error) {
         console.log(error);
     }
 });
 
-function setUserEmail(userEmail) {
-    currentUserEmail = userEmail;
-}
-
-function getUserEmail() {
-    return currentUserEmail;
-}
-
-function setLoginToken(token) {
-    login_token = token;
-}
-
-function getLoginToken() {
-    return login_token;
-}
-
-function setCurrentBookingId(booking_id) {
-    bookingID = booking_id;
-}
-
-function getCurrentBookingId() {
-    return bookingID;
-}
 
 router.get('/register', (req, res) => {
     res.render('register.ejs', {
@@ -568,7 +564,7 @@ router.get('/success', (req, res) => {
                             throw error;
                         } else {
                             console.log(JSON.stringify(payment));
-                            paypal_insert_query = "insert into paypal_transaction values ('" + req.query.paymentId + "','" + currentBookingId + "', " +
+                            paypal_insert_query = "insert into paypal_transaction values ('" + Math.floor(100000000 + Math.random() * 900000000) + "','" + currentBookingId + "', " +
                                 "'" + booking[0].sitter_name + "','" + booking[0].sitter_email + "','" + booking[0].service_name + "','" + booking[0].service_charge + "', " +
                                 "'" + booking[0].user_first_name + "', '" + booking[0].user_email + "', 'PayPal')"
 
@@ -578,7 +574,7 @@ router.get('/success', (req, res) => {
                                 }
                                 else {
                                     console.log("Paypal data inserted.");
-                                    sendEmail(req, res, userEmail, booking[0].user_first_name, sitterEmail, booking[0].sitter_name);
+                                    sendEmail(req, res, booking[0].user_email, booking[0].user_first_name, booking[0].sitter_email, booking[0].sitter_name);
                                 }
                             });
                         }
@@ -838,51 +834,60 @@ router.post('/profile/add', (req, res) => {
 sendEmail = (req, res, userEmail, userName, sitterEmail, sitterName) => {
     userName = userName;
     sitterName = sitterName;
-
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'petadogapp@gmail.com',
-            pass: 'cSPROJECT#1'
+    let currentUserEmail = getUserEmail();
+    let currentBookingId = getCurrentBookingId();
+    email_query = `select * from bookings where booking_id =` + currentBookingId;
+    db.query(email_query, (error, booking) => {
+        if (error) {
+            console.log(error);
         }
-    });
+        else {
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'petadogapp@gmail.com',
+                    pass: 'cSPROJECT#1'
+                }
+            });
 
-    ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
-        let mailOtions = {
-            from: 'petadogapp@gmail.com',
-            to: sitterEmail,
-            subject: 'Booking confirmation from Pet a Dog',
-            html: data
-        }
-        transporter.sendMail(mailOtions, (err, data) => {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-            else {
-                console.log("Email Sent to sitter");
-                res.redirect('/:name/booking-details');
-            }
-        });
-    });
+            ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
+                let mailOtions = {
+                    from: 'petadogapp@gmail.com',
+                    to: sitterEmail,
+                    subject: 'Booking confirmation from Pet a Dog',
+                    html: data
+                }
+                transporter.sendMail(mailOtions, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else {
+                        console.log("Email Sent to sitter");
+                        res.redirect('/:name/booking-details');
+                    }
+                });
+            });
 
-    ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
-        let mailOtions = {
-            from: 'petadogapp@gmail.com',
-            to: userEmail,
-            subject: 'Booking confirmation from Pet a Dog',
-            html: data
+            ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
+                let mailOtions = {
+                    from: 'petadogapp@gmail.com',
+                    to: userEmail,
+                    subject: 'Booking confirmation from Pet a Dog',
+                    html: data
+                }
+                transporter.sendMail(mailOtions, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else {
+                        console.log("Email Sent to user");
+                        res.redirect('/:name/booking-details');
+                    }
+                });
+            });
         }
-        transporter.sendMail(mailOtions, (err, data) => {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-            else {
-                console.log("Email Sent to user");
-                res.redirect('/:name/booking-details');
-            }
-        });
     });
 }
 
@@ -894,18 +899,28 @@ sendError = (req, res) => {
     });
 }
 
-// function checkAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         return next();
-//     }
-//     res.redirect('/login');
-// }
+function setUserEmail(userEmail) {
+    currentUserEmail = userEmail;
+}
 
-// function checkNotAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         return res.redirect('/');
-//     }
-//     next();
-// }
+function getUserEmail() {
+    return currentUserEmail;
+}
+
+function setLoginToken(token) {
+    login_token = token;
+}
+
+function getLoginToken() {
+    return login_token;
+}
+
+function setCurrentBookingId(booking_id) {
+    bookingID = booking_id;
+}
+
+function getCurrentBookingId() {
+    return bookingID;
+}
 
 module.exports = router;
