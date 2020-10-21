@@ -366,23 +366,6 @@ router.post('/:name/contact', (req, res) => {
                 }
             });
 
-            booking.push({
-                id: uniqueID,
-                userFirstName: req.body.firstName,
-                userLastName: req.body.lastName,
-                sitterName: req.params.name,
-                bookingDate: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-                serviceSelected: req.body.selectedService,
-                dropOffDate: req.body.dropOff,
-                dropOffTimeFrom: req.body.selectDropTimeFrom,
-                dropOffTimeTo: req.body.selectDropTimeTo,
-                pickUpDate: req.body.pickUp,
-                pickUpTimeFrom: req.body.selectPickTimeFrom,
-                pickUpTimeTo: req.body.selectPickTimeTo,
-                userEmail: req.body.userEmail,
-                pets: dog
-            });
-
             setTimeout(redirectFunction, 3000);
             function redirectFunction() {
                 res.redirect('/payment');
