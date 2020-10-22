@@ -152,6 +152,7 @@ router.post('/register', async (req, res) => {
                     console.log(err);
                 }
                 else {
+                    console.log("User Data inserted.");
                     res.redirect('/login');
                 }
             });
