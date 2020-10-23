@@ -127,7 +127,8 @@ router.post('/login', (req, res) => {
 
 router.get('/register', (req, res) => {
     res.render('register.ejs', {
-        message: ''
+        message: '',
+        registerMessage: ''
     });
 });
 
@@ -146,7 +147,7 @@ router.post('/register', async (req, res) => {
         }
         else {
             insert_user_usery = "insert into users (user_id, first_name, last_name, email, user_password) values" +
-                "('" + Date.now().toString() + "', '" + firstName + "', '" + lastName + "', '" + email + "', '" + req.body.password + "')";
+                "('" + Math.floor(100000000 + Math.random() * 900000000) + "', '" + firstName + "', '" + lastName + "', '" + email + "', '" + req.body.password + "')";
             db.query(insert_user_usery, (err, results) => {
                 if (err) {
                     console.log(err);
@@ -362,7 +363,6 @@ router.post('/:name/contact', (req, res) => {
                     });
                 }
             });
-
             setTimeout(redirectFunction, 3000);
             function redirectFunction() {
                 res.redirect('/payment');

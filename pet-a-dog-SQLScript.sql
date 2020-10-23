@@ -75,7 +75,7 @@ create table services (
     sitter_preference_1 varchar(200),
 	sitter_preference_2 varchar(200)
 );
-select * from dog where user_email like 'pratham%';
+
 create table reviews (
 	review_id int primary key,
     sitter_name varchar(50),
@@ -228,7 +228,13 @@ create table guest_housing (
     house_fence varchar(10)
 );
 
-	
+select * from users;
+
+select * from sitter_info;
+
+select * from bookings;
+
+select * from credit_card_transaction;
 
 
 
