@@ -4,19 +4,28 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const app = express();
+// const flash = require('express-flash');
+// const session = require('express-session');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const indexRouter = require('./routes/index');
-const sitterRouter = require('./routes/sitterRouter');
+// const passport = require('passport');
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(flash());
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(express.static("public"));
 
 app.use('/', indexRouter);
-//app.use('/sitter', sitterRouter);
 
 const port = 8000;
 app.listen(port, () => {

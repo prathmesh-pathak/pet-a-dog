@@ -228,14 +228,6 @@ create table guest_housing (
     house_fence varchar(10)
 );
 
-select * from users;
-
-select * from sitter_info;
-
-select * from bookings;
-
-select * from credit_card_transaction;
-
 
 
 
