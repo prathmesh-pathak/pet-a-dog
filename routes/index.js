@@ -5,14 +5,13 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const passport = require('passport');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
 const db = require('../database/connection');
 const jwt = require('jsonwebtoken');
-const e = require('express');
+const { setUserEmail, getUserEmail, setLoginToken, getLoginToken, setCurrentBookingId, getCurrentBookingId } = require('./functions');
 const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 
 const dog = [];
@@ -906,30 +905,6 @@ sendError = (req, res) => {
             });
         }
     });
-}
-
-function setUserEmail(userEmail) {
-    currentUserEmail = userEmail;
-}
-
-function getUserEmail() {
-    return currentUserEmail;
-}
-
-function setLoginToken(token) {
-    login_token = token;
-}
-
-function getLoginToken() {
-    return login_token;
-}
-
-function setCurrentBookingId(booking_id) {
-    bookingID = booking_id;
-}
-
-function getCurrentBookingId() {
-    return bookingID;
 }
 
 module.exports = router;
