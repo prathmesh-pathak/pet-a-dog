@@ -5,7 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const passport = require('passport');
 const fs = require('fs');
 const paypal = require('paypal-rest-sdk');
 const db = require('../database/connection');
