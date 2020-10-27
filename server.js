@@ -18,7 +18,7 @@ app.use(methodOverride('_method'));
 app.use(express.static("public"));
 
 app.use('/', indexRouter);
-app.use('/sitter', sitterRouter);
+//app.use('/sitter', sitterRouter);
 
 const port = 8000;
 app.listen(port, () => {
