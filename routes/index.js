@@ -167,7 +167,6 @@ router.delete('/logout', (req, res) => {
 
 router.get('/search-sitter', (req, res) => {
     const token = getLoginToken();
-    console.log(token);
     jwt.verify(token, process.env.JWT_SECRET, (error, authData) => {
         if (error) {
             res.redirect('/login');

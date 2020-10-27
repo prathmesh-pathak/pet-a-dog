@@ -12,7 +12,6 @@ module.exports = {
     },
 
     setLoginToken: setLoginToken = (token) => {
-        console.log(token);
         this.login_token = token;
     },
 
