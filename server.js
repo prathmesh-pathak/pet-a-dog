@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const indexRouter = require('./routes/index');
 const passport = require('passport');
+const sitterRouter = require('./routes/sitterRouter');
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
@@ -17,6 +18,7 @@ app.use(methodOverride('_method'));
 app.use(express.static("public"));
 
 app.use('/', indexRouter);
+app.use('/sitter', sitterRouter);
 
 const port = 8000;
 app.listen(port, () => {

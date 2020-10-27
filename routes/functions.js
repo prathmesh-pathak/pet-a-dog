@@ -87,7 +87,6 @@ module.exports = {
         });
     },
 
-
     sendError: sendError = (req, res) => {
         let currentBookingId = getCurrentBookingId();
         email_query = `select * from bookings where booking_id =` + currentBookingId;

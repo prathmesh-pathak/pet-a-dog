@@ -3,9 +3,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const router = express.Router();
+const sitterRouter = express.Router();
 
-router.get('/', (req, res) => {
+sitterRouter.get('/', (req, res) => {
     const token = getLoginToken();
     jwt.verify(token, process.env.JWT_SECRET, (error, authData) => {
         if (error) {
@@ -27,4 +27,4 @@ router.get('/', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = sitterRouter;
