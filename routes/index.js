@@ -657,7 +657,6 @@ router.post('/:sitterName/comment', (req, res) => {
         }
         else {
             const today = new Date();
-            console.log(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate());
             user_query = `select * from users where email like '%` + user_email + `%'`;
             db.query(user_query, (error, user) => {
                 if (error) {
