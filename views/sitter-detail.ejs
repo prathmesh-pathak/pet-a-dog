@@ -132,11 +132,32 @@
                             <%= sitterData.name %> can host up to 2 dogs per night.
                         </p>
                     </div>
+                    <div class="card-body">
+                        <h5 class="card-title">About <%= sitterData.name %>'s Home</h5>
+                        <div class="row">
+                            <div class="col">
+                                <li class="list-group-item list-group-item-light">Lives in a House
+                                </li>
+                                <li class="list-group-item list-group-item-light">Non-Smoking Household
+                                </li>
+                                <li class="list-group-item list-group-item-light">No Children Present
+                                </li>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <li class="list-group-item list-group-item-light">Has a Fenced Yard
+                                </li>
+                                <li class="list-group-item list-group-item-light">Has No Dogs
+                                </li>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-8">
                 <div class="card" style="width: 100%;">
-                    <img src="../imgs/dog-review.jpg" class="card-img-top img-fluid" style="margin: 1rem;">
+                    <img src="../imgs/dog-review.jpg" class="card-img-top img-fluid">
                     <div class="card-body">
                         <h4 class="card-title mb-3">Reviews</h4>
                         <% for (var review of feedback) { %>
@@ -162,6 +183,16 @@
                         <% } %>
                     </div>
                     <div class="card-body">
+                        <form action="/<%= sitterData.name %>/comment" method="POST">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Comment</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="card-body">
                         <h5 class="card-title">About <%= sitterData.name %></h5>
                         <h6 class="card-title mt-4">I’ll give your dog love</h6>
                         <p class="card-text" style="margin: 1rem;">
@@ -174,26 +205,6 @@
                             have no preferences as to breeds.
                         </p>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">About <%= sitterData.name %>'s Home</h5>
-                        <div class="row">
-                            <div class="col">
-                                <li class="list-group-item list-group-item-light">Lives in a House
-                                </li>
-                                <li class="list-group-item list-group-item-light">Non-Smoking Household
-                                </li>
-                                <li class="list-group-item list-group-item-light">No Children Present
-                                </li>
-                            </div>
-                            <div class="col">
-                                <li class="list-group-item list-group-item-light">Has a Fenced Yard
-                                </li>
-                                <li class="list-group-item list-group-item-light">Has No Dogs
-                                </li>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>

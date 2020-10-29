@@ -648,6 +648,43 @@ router.get('/:name/booking-details', (req, res) => {
     });
 });
 
+router.post('/:sitterName/comment', (req, res) => {
+    let token = getLoginToken();
+    let user_email = getUserEmail();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            const today = new Date();
+            console.log(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate());
+            user_query = `select * from users where email like '%` + user_email + `%'`;
+            db.query(user_query, (error, user) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    comment_insert_query = "insert into reviews values ('" + Math.floor(100000000 + Math.random() * 900000000) + "', '" + req.params.sitterName + "', " +
+                        "'" + user[0].first_name + " " + user[0].last_name + "', '" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + "', " +
+                        "'" + req.body.comment + "')";
+                    db.query(comment_insert_query, (error, results) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            console.log("Comment inserted successfully.");
+                            setTimeout(redirectFunction, 2000);
+                            function redirectFunction() {
+                                res.redirect('/search-sitter/' + req.params.sitterName);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
 router.get('/dog-care', (req, res) => {
     res.render('dog-care.ejs', {
         isLogin: loginFlag,
