@@ -14,6 +14,22 @@
             margin-right: auto;
             width: 50%;
         }
+
+        #more {
+            display: none;
+        }
+
+        .read-more-button {
+            background: none !important;
+            border: none;
+            padding: 0 !important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -176,7 +192,33 @@
                             </div>
                         </div>
                         <p class="card-text mt-2" style="margin: 1rem">
-                            <%= review.comment %>
+                            <% if (review.comment.length > 100) { %>
+                            <% str1 = review.comment.substring(0, 100) %>
+                            <% str2 = review.comment.substring(101, review.comment.length) %>
+                            <%= str1 %> <span id="dots">...</span><span id="more">
+                                <%= str2 %></span>
+                        <p><button class="read-more-button" href="#" onclick="myFunction()" id="myBtn">Read
+                                more</button></p>
+                        <script>
+                            function myFunction() {
+                                var dots = document.getElementById("dots");
+                                var moreText = document.getElementById("more");
+                                var btnText = document.getElementById("myBtn");
+
+                                if (dots.style.display === "none") {
+                                    dots.style.display = "inline";
+                                    btnText.innerHTML = "Read more";
+                                    moreText.style.display = "none";
+                                } else {
+                                    dots.style.display = "none";
+                                    btnText.innerHTML = "Read less";
+                                    moreText.style.display = "inline";
+                                }
+                            }
+                        </script>
+                        <% } else { %>
+                        <%= review.comment %>
+                        <% } %>
                         </p>
                         <a href="#" class="card-link">Know More</a>
                         <a href="#" class="card-link">Was this review helpful ?</a>
@@ -189,7 +231,7 @@
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"
                                     required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Add Comment</button>
                         </form>
                     </div>
                     <div class="card-body">
