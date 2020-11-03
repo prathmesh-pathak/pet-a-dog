@@ -80,19 +80,19 @@
                         <img class="card-img-top center img-thumbnail" src="<%= service.sitter_img %>"
                             alt="Card image cap" style="width:  20rem; height: 20rem; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the
-                                card's content.</p>
+                            <h5 class="card-title"><%= service.sitter_name %></h5>
+                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                industry.ged.sheets containing Lorem Ipsum passages.</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <li class="list-group-item"><strong>Service Name: </strong><%= service.service_name %></li>
+                            <li class="list-group-item"><strong>Service Charge: </strong>$<%= service.service_charge %>
+                            </li>
+                            <li class="list-group-item"><strong>Preference: </strong> <%= service.sitter_preference_1 %>
+                            </li>
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
                         </div>
                     </div>
                 </div>

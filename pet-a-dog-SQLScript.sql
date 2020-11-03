@@ -1,6 +1,6 @@
 use petadog;
 
-select distinct service_name from services;
+select * from services;
 
 create table dog (
 	dog_id int primary key,
@@ -110,8 +110,9 @@ insert into services values
 (1010, 500, 'Aditya Aduri', 'Dog Walking', 'springcsproject1@gmail.com', '../imgs/aditya.jpg', 55, '0 - 15', '16 - 40'),
 (1011, 60, 'Bhakti Shastri', 'Dog Boarding', 'bhaktishastri2021@gmail.com', '../imgs/bhakti.jpeg', 50, '16 - 40', '16 - 40'),
 (1012, 60, 'Bhakti Shastri', 'House Sitting', 'bhaktishastri2021@gmail.com', '../imgs/bhakti.jpeg', 45, '16 - 40', '16 - 40'),
-(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 0.5, '0 - 15', '16 - 40'),
-(1014, 70, 'Prathmesh Pathak', 'House Sitting', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 1, '0 - 15', '16 - 40');
+(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 10, '0 - 15', '16 - 40'),
+(1014, 70, 'Prathmesh Pathak', 'House Sitting', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 20, '0 - 15', '16 - 40'),
+(1015, 70, 'Prathmesh Pathak', 'Doggy Day Care', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 30, '0 - 15', '16 - 40');
 
 create table bookings (
 	booking_id int primary key,
