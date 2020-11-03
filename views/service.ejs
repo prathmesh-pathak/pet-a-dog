@@ -53,26 +53,82 @@
             </div>
         </div>
     </nav>
-    <div class="container" style="margin-top: 5rem;">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+    <div class="container" style="margin-top: 6rem;">
+        <form action="/filter-service" method="POST">
+            <div class=" form-row">
+                <div class="col-8">
+                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="selectService"
+                        style="margin-top: 1rem;">
+                        <option>Select Service</option>
+                        <option>Dog Walking</option>
+                        <option>Dog Boarding</option>
+                        <option>House Sitting</option>
+                        <option>Doggy Day Care</option>
+                        <option>Drop-In Visits</option>
+                    </select>
+                </div>
+                <div class="col pl-5 mt-3">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Filter</button>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+        </form>
+        <div class="card mb-5" style="margin-top: 2rem;">
+            <div class="row">
+                <% for (var service of service_data) { %>
+                <div class="col">
+                    <div class="card mt-5 mb-1 ml-3" style="width: 20rem;">
+                        <img class="card-img-top center img-thumbnail" src="<%= service.sitter_img %>"
+                            alt="Card image cap" style="width:  20rem; height: 20rem; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the
+                                card's content.</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Cras justo odio</li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
             </div>
         </div>
     </div>
 
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-2">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
