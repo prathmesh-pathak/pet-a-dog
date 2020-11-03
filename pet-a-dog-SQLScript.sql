@@ -71,6 +71,8 @@ create table services (
     sitter_id int,
     sitter_name varchar (50),
     service_name varchar(50),
+    sitter_email varchar(50),
+    sitter_img varchar(500),
     service_charge int,
     sitter_preference_1 varchar(200),
 	sitter_preference_2 varchar(200)
@@ -94,45 +96,20 @@ insert into sitter_info values
 (70, 'Prathmesh Pathak', 'pp61021n@gmail.com', 'Clerk / Cleaner', 'Imagination', '../imgs/prathmesh.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.ged.sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'I will walk your dog several times per day if they are up for it and the weather is cooperating. I will exercise your dog with toys in my yard as well. Your dog needs a vacation too! I’ll make sure they are happy and that their day is full. Think of my home as your pets resort. Like a resort, check-in is after 2:00pm and check-out is before 11:00am. Sometimes travel plans dictate your arrival and departure times, early check-in’s and late check-outs may be possible if it doesn’t interfere with another dogs booking.');
 
 insert into services values
-(1001, 10, 'Kuntal Surwade', 'Dog Walking', 30, '41 - 100', '16 - 40'),
-(1002, 10, 'Kuntal Surwade', 'Dog Boarding', 50, '41 - 100', '16 - 40'),
-(1003, 20, 'Harivatsav S.R', 'House Sitting', 45, '0 - 15', '16 - 40'),
-(1004, 20, 'Harivatsav S.R', 'Doggy Day Care', 39, '0 - 15', '16 - 40'),
-(1005, 30, 'Soham Save', 'Drop-In Visits', 50, '16 - 40', '16 - 40'),
-(1006, 30, 'Soham Save', 'House Sitting', 55, '16 - 40', '16 - 40'),
-(1007, 40, 'Khalid Francis', 'Dog Boarding', 40, '41 - 100', '16 - 40'),
-(1008, 40, 'Khalid Francis', 'Dog Walking', 45, '41 - 100', '16 - 40'),
-(1009, 50, 'Aditya Aduri', 'House Sitting', 50, '0 - 15', '16 - 40'),
-(1010, 500, 'Aditya Aduri', 'Dog Walking', 55, '0 - 15', '16 - 40'),
-(1011, 60, 'Bhakti Shastri', 'Dog Boarding', 50, '16 - 40', '16 - 40'),
-(1012, 60, 'Bhakti Shastri', 'House Sitting', 45, '16 - 40', '16 - 40'),
-(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 0.5, '0 - 15', '16 - 40'),
-(1014, 70, 'Prathmesh Pathak', 'House Sitting', 1, '0 - 15', '16 - 40');
-
-select * from reviews;
-
-insert into reviews values 
-(201, 'Kuntal Surwade', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(202, 'Kuntal Surwade', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(203, 'Kuntal Surwade', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
-(204, 'Harivatsav S.R', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(205, 'Harivatsav S.R', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(206, 'Harivatsav S.R', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
-(207, 'Soham Save', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(208, 'Soham Save', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(209, 'Soham Save', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
-(210, 'Khalid Francis', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(211, 'Khalid Francis', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(212, 'Khalid Francis', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
-(213, 'Aditya Aduri', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(214, 'Aditya Aduri', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(215, 'Aditya Aduri', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
-(216, 'Bhakti Shastri', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(217, 'Bhakti Shastri', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(218, 'Bhakti Shastri', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers'),
-(219, 'Prathmesh Pathak', 'Tom', 'Nov 26, 2019', 'Michelle watched my mothers dog Fozzie for a week. She sent updates and pictures and treated him like he was her own. I am so thankful to have found Michelle to watch our pups!'),
-(220, 'Prathmesh Pathak', 'Jerry', 'Nov 26, 2019', 'Michelle is awesome!! Our Brady is well taken care of and likes going there. We could not be happier with Michelle. Highly recommend leaving your dog with her. Just the best!!'),
-(221, 'Prathmesh Pathak', 'Mr. Bean', 'Nov 26, 2019', 'Michelle took great care of our dog, as usual!. So glad we discovered Michelle, Harley loves having sleepovers');
+(1001, 10, 'Kuntal Surwade', 'Dog Walking', 'surwadekun@gmail.com', '../imgs/kuntal.jpeg', 30, '41 - 100', '16 - 40'),
+(1002, 10, 'Kuntal Surwade', 'Dog Boarding', 'surwadekun@gmail.com', '../imgs/kuntal.jpeg', 50, '41 - 100', '16 - 40'),
+(1003, 20, 'Harivatsav S.R', 'House Sitting', 'harivatsav36@gmail.com', '../imgs/hari.jpeg', 45, '0 - 15', '16 - 40'),
+(1004, 20, 'Harivatsav S.R', 'Doggy Day Care', 'harivatsav36@gmail.com', '../imgs/hari.jpeg', 39, '0 - 15', '16 - 40'),
+(1005, 30, 'Soham Save', 'Drop-In Visits', 'sohamsave44@gmail.com', '../imgs/soham.jpg', 50, '16 - 40', '16 - 40'),
+(1006, 30, 'Soham Save', 'House Sitting', 'sohamsave44@gmail.com', '../imgs/soham.jpg', 55, '16 - 40', '16 - 40'),
+(1007, 40, 'Khalid Francis', 'Dog Boarding', 'Omari.slr69@gmail.com', '../imgs/khalid2.jpeg', 40, '41 - 100', '16 - 40'),
+(1008, 40, 'Khalid Francis', 'Dog Walking', 'Omari.slr69@gmail.com', '../imgs/khalid2.jpeg', 45, '41 - 100', '16 - 40'),
+(1009, 50, 'Aditya Aduri', 'House Sitting', 'springcsproject1@gmail.com', '../imgs/aditya.jpg', 50, '0 - 15', '16 - 40'),
+(1010, 500, 'Aditya Aduri', 'Dog Walking', 'springcsproject1@gmail.com', '../imgs/aditya.jpg', 55, '0 - 15', '16 - 40'),
+(1011, 60, 'Bhakti Shastri', 'Dog Boarding', 'bhaktishastri2021@gmail.com', '../imgs/bhakti.jpeg', 50, '16 - 40', '16 - 40'),
+(1012, 60, 'Bhakti Shastri', 'House Sitting', 'bhaktishastri2021@gmail.com', '../imgs/bhakti.jpeg', 45, '16 - 40', '16 - 40'),
+(1013, 70, 'Prathmesh Pathak', 'Dog Boarding', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 0.5, '0 - 15', '16 - 40'),
+(1014, 70, 'Prathmesh Pathak', 'House Sitting', 'pp61021n@gmail.com', '../imgs/prathmesh.jpg', 1, '0 - 15', '16 - 40');
 
 create table bookings (
 	booking_id int primary key,

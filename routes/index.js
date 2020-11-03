@@ -152,8 +152,25 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/services', (req, res) => {
-    res.render('service.ejs', {
-        isLogin: loginFlag
+    const token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            service_query = "select * from services";
+            db.query(service_query, (error, services) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    console.log(services);
+                    res.render('service.ejs', {
+                        isLogin: loginFlag
+                    });
+                }
+            });
+        }
     });
 });
 
