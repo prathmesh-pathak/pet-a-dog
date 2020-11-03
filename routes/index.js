@@ -164,7 +164,6 @@ router.get('/services', (req, res) => {
                     console.log(error);
                 }
                 else {
-                    console.log(services);
                     res.render('service.ejs', {
                         isLogin: loginFlag,
                         service_data: services
