@@ -215,6 +215,14 @@
                                     moreText.style.display = "inline";
                                 }
                             }
+
+                            function checkCommentLength() {
+                                var comment = document.getElementById('sitterComment').value;
+                                if (comment.length > 500) {
+                                    document.getElementById('sitterComment').style.borderWidth = "3px";
+                                    document.getElementById('sitterComment').style.borderColor = "red";
+                                }
+                            }
                         </script>
                         <% } else { %>
                         <%= review.comment %>
@@ -228,8 +236,9 @@
                         <form action="/<%= sitterData.name %>/comment" method="POST">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Comment</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"
-                                    required></textarea>
+                                <textarea class="form-control" id="sitterComment" rows="3" name="comment"
+                                    onkeydown="checkCommentLength()" required></textarea>
+
                             </div>
                             <button type="submit" class="btn btn-primary">Add Comment</button>
                         </form>

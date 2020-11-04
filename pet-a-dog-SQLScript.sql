@@ -1,7 +1,6 @@
 use petadog;
 
 select * from services;
-
 create table dog (
 	dog_id int primary key,
     dog_name varchar(50),
