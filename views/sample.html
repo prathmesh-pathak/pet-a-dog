@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/d3fe7c8d04.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="../public/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        .stars-outer {
+            position: relative;
+            display: inline;
+        }
+
+        .stars-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+        }
+
+        .stars-outer::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f005 \f005 \f005 \f005 \f005";
+        }
+
+        .stars-inner::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f005 \f005 \f005 \f005 \f005";
+            color: #f8ce0b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="form-group">
+            <select name="" id="product-select" class="form-control custom-select">
+                <option value="0" disabled>Select Product</option>
+                <option value="sony">Sony 4K TV</option>
+                <option value="samsung">Samsung 4K TV</option>
+                <option value="vizio">Vizio 4K TV</option>
+                <option value="panasonic">Panasonic 4K TV</option>
+            </select>
+            <input type="text" id="rating-control" class="form-control mt-5" step="0.1" max="5" placeholder="Rate 1 - 5"
+                disabled>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>4K TV</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="sony">
+                    <td>Sony 4K TV</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner">
+
+                            </div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="samsung">
+                    <td>Samsung 4K TV</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner">
+
+                            </div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="vizio">
+                    <td>Vizio 4K TV</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner">
+
+                            </div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="panasonic">
+                    <td>Panasonic 4K TV</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner">
+
+                            </div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const ratings = {
+            sony: 4.7,
+            samsung: 3.5,
+            vizio: 2.5,
+            panasonic: 4.1
+        }
+
+        const starsTotal = 5;
+
+        document.addEventListener('DOMContentLoaded', getRatings);
+
+        const productSelect = document.getElementById('product-select');
+        const ratingControl = document.getElementById('rating-control');
+
+        let product;
+
+        productSelect.addEventListener('change', (e) => {
+            product = e.target.value;
+            ratingControl.disabled = false;
+            ratingControl.value = ratings[product];
+        });
+
+        ratingControl.addEventListener('blur', (e) => {
+            const rating = e.target.value;
+            if (rating > 5) {
+                alert("Please rate 1 through 5");
+                return;
+            }
+
+            ratings[product] = rating;
+            getRatings();
+        });
+
+        function getRatings() {
+            for (let rating in ratings) {
+                const starPercentage = (ratings[rating] / starsTotal) * 100;
+                const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+                document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+                document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
+            }
+        }
+    </script>
+</body>
+
+</html>
