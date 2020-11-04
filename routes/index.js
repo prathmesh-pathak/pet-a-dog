@@ -166,7 +166,34 @@ router.get('/services', (req, res) => {
                 else {
                     res.render('service.ejs', {
                         isLogin: loginFlag,
-                        service_data: services
+                        service_data: services,
+                        selected_service: ''
+                    });
+                }
+            });
+        }
+    });
+});
+
+router.post('/filter-service', (req, res) => {
+    const token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            selected_service = req.body.selectedService;
+            filter_query = `select * from services where service_name like '%` + selected_service + `%'`;
+            db.query(filter_query, (error, services) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    console.log(services);
+                    res.render('service.ejs', {
+                        isLogin: loginFlag,
+                        service_data: services,
+                        selected_service: selected_service
                     });
                 }
             });

@@ -57,14 +57,14 @@
         <form action="/filter-service" method="POST">
             <div class=" form-row">
                 <div class="col-8">
-                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="selectService"
-                        style="margin-top: 1rem; width: 100%;">
-                        <option>Select Service</option>
-                        <option>Dog Walking</option>
-                        <option>Dog Boarding</option>
-                        <option>House Sitting</option>
-                        <option>Doggy Day Care</option>
-                        <option>Drop-In Visits</option>
+                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="selectedService"
+                        style="margin-top: 1rem; width: 100%;" required>
+                        <option value="">Select Service</option>
+                        <option value="Dog Walking">Dog Walking</option>
+                        <option value="Dog Boarding">Dog Boarding</option>
+                        <option value="House Sitting">House Sitting</option>
+                        <option value="Doggy Day Care">Doggy Day Care</option>
+                        <option value="Drop-In Visits">Drop-In Visits</option>
                     </select>
                 </div>
                 <div class="col pl-5 mt-3">
@@ -73,16 +73,21 @@
             </div>
         </form>
         <div class="card mb-5" style="margin-top: 2rem;">
+            <% if (selected_service == '') { %>
+            <% } else { %>
+            <p class="h3 mt-4" style="text-align: center;">Filtering Sitters by Service Name: <%= selected_service %>
+            </p>
+            <% } %>
             <div class="row">
                 <% for (var service of service_data) { %>
                 <div class="col">
-                    <div class="card mt-5 mb-1 ml-3" style="width: 20rem;">
+                    <div class="card mt-4 mb-1 ml-3" style="width: 20rem;">
                         <img class="card-img-top center img-thumbnail" src="<%= service.sitter_img %>"
                             alt="Card image cap" style="width:  20rem; height: 20rem; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title"><%= service.sitter_name %></h5>
                             <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                                industry.ged.sheets containing Lorem Ipsum passages.</p>
+                                industry ged sheets containing Lorem Ipsum passages.</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Service Name: </strong><%= service.service_name %></li>
@@ -92,7 +97,7 @@
                             </li>
                         </ul>
                         <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Select this Service</a>
                         </div>
                     </div>
                 </div>
