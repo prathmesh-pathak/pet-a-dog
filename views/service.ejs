@@ -94,10 +94,12 @@
                             <li class="list-group-item"><strong>Service Charge: </strong>$<%= service.service_charge %>
                             </li>
                             <li class="list-group-item"><strong>Preference: </strong> <%= service.sitter_preference_1 %>
+                                lbs
                             </li>
                         </ul>
                         <div class="card-body">
-                            <a href="#" class="card-link">Select this Service</a>
+                            <a href="/<%= service.sitter_name %>/<%= service.service_name %>/contact"
+                                class="card-link">Select this Service</a>
                         </div>
                     </div>
                 </div>

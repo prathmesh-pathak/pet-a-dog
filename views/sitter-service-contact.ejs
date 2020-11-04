@@ -57,16 +57,13 @@
     <div class="container" style="max-width: 80%;">
         <div class="card" style="width: 100%; margin-top: 6rem;">
             <div class="card-body">
-                <h4 class="card-title">Contact <%= sitterData.name %></h4>
-                <form action="/<%= sitterData.name %>/contact" class="mt-4" method="POST">
+                <h4 class="card-title">Contact <%= sitterData %></h4>
+                <form action="/<%= sitterData %>/<%= selectedService %>/contact" class="mt-4" method="POST">
                     <div class="form-group">
                         <label for="inputAddress2"><strong>Select Service</strong></label>
                         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="selectedService"
-                            required>
-                            <option selected value="">Select</option>
-                            <% for (var service of services) { %>
-                            <option value="<%= service.serviceName %>"><%= service.serviceName %></option>
-                            <% } %>
+                            disabled>
+                            <option selected value="<%= selectedService %>"><%= selectedService %></option>
                         </select>
                     </div>
                     <div class="form-row mt-5">

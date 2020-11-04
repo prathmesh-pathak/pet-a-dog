@@ -201,6 +201,88 @@ router.post('/filter-service', (req, res) => {
     });
 });
 
+router.get('/:sitterName/:sitterService/contact', (req, res) => {
+    let token = getLoginToken();
+    let user_email = getUserEmail();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            sitter_name = req.params.sitterName;
+            sitter_service = req.params.sitterService;
+            user_dog_query = `select * from dog where user_email like '%` + user_email + `%'`;
+            db.query(user_dog_query, (error, dog) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    res.render('sitter-service-contact.ejs', {
+                        sitterData: sitter_name,
+                        selectedService: sitter_service,
+                        dogData: dog
+                    });
+                }
+            });
+        }
+    });
+});
+
+router.post('/:sitterName/:sitterService/contact', (req, res) => {
+    let token = getLoginToken();
+    uniqueID = Math.floor(100000000 + Math.random() * 900000000);
+    setCurrentBookingId(uniqueID);
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            const today = new Date();
+            sitter_query = `select sitter.sitter_name as name, sitter.sitter_img as img, sitter.sitter_address as address, sitter.sitter_email as email,
+                                sitter.sitter_profession as about, sitter.sitter_description as aboutSitter
+                            from sitter_info as sitter
+                            where sitter.sitter_name like '%` + req.params.sitterName + `%'`;
+
+            db.query(sitter_query, (error, sitter) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    sitter_service_query = `select ss.service_name as serviceName, ss.service_charge as serviceCharge, ss.sitter_preference_1 as preferences, 
+                                                ss.sitter_preference_2 as preferences1 from services as ss
+                                            where ss.sitter_name like '%` + req.params.sitterName + `%' and ss.service_name like '%` + req.params.sitterService + `%'`;
+
+                    db.query(sitter_service_query, (error, service) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            booking_insert_query = "insert into bookings values ('" + uniqueID + "', '" + req.params.sitterName + "', '" + sitter[0].email + "', " +
+                                "'" + req.params.sitterService + "','" + service[0].serviceCharge + "','" + req.body.firstName + "', " +
+                                "'" + req.body.lastName + "','" + req.body.userEmail + "', '" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
+                                "'" + req.body.selectDropTimeTo + "','" + req.body.pickUp + "','" + req.body.selectPickTimeFrom + "','" + req.body.selectPickTimeTo + "', " +
+                                "'" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + "')";
+                            db.query(booking_insert_query, (error, rows, fields) => {
+                                if (error) {
+                                    console.log(error);
+                                }
+                                else {
+                                    console.log("Booking Data inserted succesfully...");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            setTimeout(redirectFunction, 3000);
+            function redirectFunction() {
+                res.redirect('/payment');
+            }
+        }
+
+    });
+});
+
 router.delete('/logout', (req, res) => {
     loginFlag = false;
     setLoginToken('');
@@ -287,6 +369,7 @@ router.get('/search-sitter/:name', (req, res) => {
 router.get('/:name/contact', (req, res) => {
     let token = getLoginToken();
     let currentUserEmail = getUserEmail();
+    console.log(req.body.selectedService);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
@@ -335,7 +418,6 @@ router.get('/:name/contact', (req, res) => {
                                         else {
                                             res.render('contact-sitter.ejs', {
                                                 sitterData: sitter[0],
-                                                feedback: feedback,
                                                 services: services,
                                                 dogData: dog
                                             });
@@ -353,6 +435,7 @@ router.get('/:name/contact', (req, res) => {
 
 router.post('/:name/contact', (req, res) => {
     let token = getLoginToken();
+    console.log(req.body.selectedService);
     uniqueID = Math.floor(100000000 + Math.random() * 900000000);
     setCurrentBookingId(uniqueID);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
