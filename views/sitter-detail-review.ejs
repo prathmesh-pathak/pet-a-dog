@@ -187,7 +187,7 @@
                                 </a>
                             </div>
                         </div>
-                        <% for (var review of feedback) { %>
+                        <% for (var review of ratings) { %>
                         <div class="row mt-4">
                             <div class="col-2">
                                 <img src="../imgs/review.png" class="img-thumbnail ml-3"
@@ -195,17 +195,20 @@
                             </div>
                             <div class="col">
                                 <p class="card-text mt-1">
-                                    <%= review.userName %>
+                                    <%= review.user_name %>
                                 </p>
                                 <p>
-                                    <%= review.date %>
+                                    <%= review.review_date %>
+                                </p>
+                                <p>
+                                    <strong>Rating out of 5: </strong><%= review.rating %>
                                 </p>
                             </div>
                         </div>
                         <p class="card-text mt-2" style="margin: 1rem">
-                            <% if (review.comment.length > 100) { %>
-                            <% str1 = review.comment.substring(0, 100) %>
-                            <% str2 = review.comment.substring(101, review.comment.length) %>
+                            <% if (review.review_comment.length > 100) { %>
+                            <% str1 = review.review_comment.substring(0, 100) %>
+                            <% str2 = review.review_comment.substring(101, review.review_comment.length) %>
                             <%= str1 %> <span id="dots">...</span><span id="more">
                                 <%= str2 %></span>
                         <p><button class="read-more-button" href="#" onclick="myFunction()" id="myBtn">Read
@@ -228,7 +231,7 @@
                             }
                         </script>
                         <% } else { %>
-                        <%= review.comment %>
+                        <%= review.review_comment %>
                         <% } %>
                         </p>
                         <a href="#" class="card-link">Know More</a>

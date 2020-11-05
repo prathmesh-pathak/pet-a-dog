@@ -374,7 +374,7 @@
                     <button data-toggle="modal" data-target="#myModal" class="btn btn-primary dropbtn"
                         title="<%= booking.sitter_name %>" sitter-name="<%= booking.sitter_name %>"
                         service-selected="<%= booking.service_name %>"
-                        service-charge="$<%= booking.service_charge %>">Rate this service
+                        service-charge="<%= booking.service_charge %>">Rate this service
                     </button>
                     <div id="myModal" class="modal fade" style="width: 100%;">
                         <div class="modal-dialog modal-dialog-centered">
@@ -437,7 +437,7 @@
                                     <script>
                                         function checkCommentLength() {
                                             var comment = document.getElementById('sitterComment').value;
-                                            if (comment.length > 10) {
+                                            if (comment.length > 100) {
                                                 document.getElementById('sitterComment').style.borderWidth = "3px";
                                                 document.getElementById('sitterComment').style.borderColor = "red";
                                                 document.getElementById('review-button').disabled = true;
