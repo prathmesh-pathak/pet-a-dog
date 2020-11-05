@@ -1,5 +1,15 @@
 use petadog;
 
+create table ratings (
+	rating_id int primary key,
+    sitter_name varchar(50),
+    sitter_email varchar(50),
+    service_charge int,
+    user_name varchar(50),
+    user_email varchar(50),
+    rating double
+);
+
 create table dog (
 	dog_id int primary key,
     dog_name varchar(50),

@@ -5,9 +5,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet a Dog | User Profile</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d3fe7c8d04.js" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script>
+        const ratings = {
+            sony: 4.7
+        }
+
+        const starsTotal = 5;
+
+        document.addEventListener('DOMContentLoaded', getRatings);
+
+        const productSelect = document.getElementById('product-select');
+        const ratingControl = document.getElementById('rating-control');
+
+        let product;
+
+        productSelect.addEventListener('change', (e) => {
+            product = e.target.value;
+            ratingControl.disabled = false;
+            ratingControl.value = ratings[product];
+        });
+
+        ratingControl.addEventListener('blur', (e) => {
+            const rating = e.target.value;
+            if (rating > 5) {
+                alert("Please rate 1 through 5");
+                return;
+            }
+
+            ratings[product] = rating;
+            getRatings();
+        });
+
+        function getRatings() {
+            for (let rating in ratings) {
+                const starPercentage = (ratings[rating] / starsTotal) * 100;
+                const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+                document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+                document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
+            }
+        }
+    </script>
+    <style>
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .stars-outer {
+            position: relative;
+            display: inline;
+        }
+
+        .stars-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+        }
+
+        .stars-outer::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f005 \f005 \f005 \f005 \f005";
+        }
+
+        .stars-inner::before {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f005 \f005 \f005 \f005 \f005";
+            color: #f8ce0b;
+        }
+    </style>
 </head>
 
 <body style="background-color: rgb(244, 245, 246);">
@@ -267,9 +372,9 @@
                     <p class="card-text"><strong>Service Name: </strong><%= booking.service_name %></p>
                     <p class="card-text"><strong>Service Charge: </strong>$<%= booking.service_charge %></p>
                     <button data-toggle="modal" data-target="#myModal" class="btn btn-primary dropbtn"
-                        title="<%= booking.service_name %>">Rate this service
+                        title="<%= booking.sitter_name %>">Rate this service
                     </button>
-                    <div id="myModal" class="modal fade">
+                    <div id="myModal" class="modal fade" style="width: 100%;">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -278,10 +383,43 @@
                                         aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Do you want to delete the data ?</p>
+                                    <!-- <p>Do you want to delete the data ?</p>
                                     <p class="text-warning"><small>If you sure to delete, please write some
                                             comments.</small></p>
-                                    <input type="text" size="50"></input>
+                                    <input type="text" size="50"></input> -->
+                                    <div class="slidecontainer">
+                                        <input type="range" min="0.1" max="5" value="50" class="slider" id="myRange"
+                                            step="0.1">
+                                        <p>Value: <span id="demo"></span></p>
+                                    </div>
+                                    <script>
+                                        var slider = document.getElementById("myRange");
+                                        var output = document.getElementById("demo");
+                                        output.innerHTML = slider.value;
+
+                                        slider.oninput = function () {
+                                            output.innerHTML = this.value;
+                                        }
+                                    </script>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Service Name</th>
+                                                <th>Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="sony">
+                                                <td><%= booking.service_name %></td>
+                                                <td>
+                                                    <div class="stars-outer">
+                                                        <div class="stars-inner"></div>
+                                                    </div>
+                                                    <span class="number-rating"></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="button" class="btn btn-default"
@@ -297,11 +435,10 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $('.dropbtn').click(function () {
-                                var title = $('.dropbtn').attr('title')
+                                var title = $(this).attr('title')
                                 $('.hiddenValue').val(title);
-
                             })
-                        })
+                        }) 
                     </script>
                 </div>
                 <% } %>
