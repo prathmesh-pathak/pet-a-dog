@@ -446,12 +446,15 @@ router.get('/:name/review', (req, res) => {
                                         if (error) {
                                             console.log(error);
                                         }
-                                        res.render('sitter-detail.ejs', {
-                                            sitterData: sitter[0],
-                                            feedback: feedback,
-                                            services: services,
-                                            ratings: ratings
-                                        });
+                                        else {
+                                            res.render('sitter-detail-review.ejs', {
+                                                sitterData: sitter[0],
+                                                feedback: feedback,
+                                                services: services,
+                                                ratings: ratings,
+                                                stars: ratings[0].rating
+                                            });
+                                        }
                                     });
                                 }
                             });
@@ -1001,12 +1004,21 @@ router.get('/profile', (req, res) => {
                                                 console.log(error);
                                             }
                                             else {
-                                                res.render('profile-dog.ejs', {
-                                                    userData: user[0],
-                                                    dogData: dog,
-                                                    tipData: dogCare,
-                                                    housingCondition: house[0],
-                                                    bookingData: bookings
+                                                rating_query = `select * from ratings where user_email like '%` + user_email + `%'`;
+                                                db.query(rating_query, (error, ratings) => {
+                                                    if (error) {
+                                                        console.log(error);
+                                                    }
+                                                    else {
+                                                        res.render('profile-dog.ejs', {
+                                                            userData: user[0],
+                                                            dogData: dog,
+                                                            tipData: dogCare,
+                                                            housingCondition: house[0],
+                                                            bookingData: bookings,
+                                                            stars: ratings[0].rating
+                                                        });
+                                                    }
                                                 });
                                             }
                                         });

@@ -27,7 +27,7 @@ create table dog (
     dog_goWellWithChildrens varchar(10),
     dog_isHousetrained varchar(10)
 );
-
+select * from ratings;
 create table housing_condition(
     house_id int primary key,
     user_email varchar(50),

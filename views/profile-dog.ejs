@@ -11,11 +11,10 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script>
         const ratings = {
-            sony: 4.1
+            sony: `<%= stars %>`
         }
 
         const starsTotal = 5;
-
         document.addEventListener('DOMContentLoaded', getRatings);
 
         const productSelect = document.getElementById('product-select');
@@ -116,7 +115,7 @@
 </head>
 
 <body style="background-color: rgb(244, 245, 246);">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" onload="setRating()">
         <div class="container">
             <a class="navbar-brand" href="/home">
                 <img src="../imgs/pet-a-dog.png" alt="" style="width: 30px;">
@@ -162,7 +161,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><%= userData.first_name %> <%= userData.last_name %></h5>
-                        <div class="row">
+                        <div class=" row">
                             <div class="col-2">
                                 <p class="card-text">Email</p>
                             </div>
@@ -374,7 +373,8 @@
                     <button data-toggle="modal" data-target="#myModal" class="btn btn-primary dropbtn"
                         title="<%= booking.sitter_name %>" sitter-name="<%= booking.sitter_name %>"
                         service-selected="<%= booking.service_name %>"
-                        service-charge="<%= booking.service_charge %>">Rate this service
+                        service-charge="<%= booking.service_charge %>">Rate
+                        this service
                     </button>
                     <div id="myModal" class="modal fade" style="width: 100%;">
                         <div class="modal-dialog modal-dialog-centered">
@@ -385,10 +385,6 @@
                                         aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- <p>Do you want to delete the data ?</p>
-                                    <p class="text-warning"><small>If you sure to delete, please write some
-                                            comments.</small></p>
-                                    <input type="text" size="50"></input> -->
                                     <script>
                                         var slider = document.getElementById("myRange");
                                         var output = document.getElementById("demo");
@@ -449,9 +445,6 @@
                                             }
                                         }
                                     </script>
-                                </div>
-                                <div class="modal-footer">
-
                                 </div>
                             </div>
                         </div>
