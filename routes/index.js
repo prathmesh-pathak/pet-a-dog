@@ -898,12 +898,20 @@ router.get('/profile', (req, res) => {
                                         console.log(error);
                                     }
                                     else {
-                                        console.log(dogCare);
-                                        res.render('profile-dog.ejs', {
-                                            userData: user[0],
-                                            dogData: dog,
-                                            tipData: dogCare,
-                                            housingCondition: house[0]
+                                        booking_query = `select * from bookings where user_email like '%` + user_email + `%'`;
+                                        db.query(booking_query, (error, bookings) => {
+                                            if (error) {
+                                                console.log(error);
+                                            }
+                                            else {
+                                                res.render('profile-dog.ejs', {
+                                                    userData: user[0],
+                                                    dogData: dog,
+                                                    tipData: dogCare,
+                                                    housingCondition: house[0],
+                                                    bookingData: bookings
+                                                });
+                                            }
                                         });
                                     }
                                 });

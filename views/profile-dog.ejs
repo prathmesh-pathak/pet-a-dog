@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet a Dog | User Profile</title>
-    <link rel="stylesheet" href="../public/css/all.css">
+    <script src="https://kit.fontawesome.com/d3fe7c8d04.js" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -253,6 +253,62 @@
         </div>
         <% } %>
     </div>
+
+    <% if (bookingData.length == 0) { %>
+
+    <% } else { %>
+    <div class="container">
+        <div class="card">
+            <h5 class="card-header">Recently Used Services</h5>
+            <div class="row">
+                <% for (var booking of bookingData) { %>
+                <div class="card-body ml-3">
+                    <h5 class="card-title"><%= booking.sitter_name %></h5>
+                    <p class="card-text"><strong>Service Name: </strong><%= booking.service_name %></p>
+                    <p class="card-text"><strong>Service Charge: </strong>$<%= booking.service_charge %></p>
+                    <button data-toggle="modal" data-target="#myModal" class="btn btn-primary dropbtn"
+                        title="<%= booking.service_name %>">Rate this service
+                    </button>
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Rate <%= booking.sitter_name %>'s service</h4>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you want to delete the data ?</p>
+                                    <p class="text-warning"><small>If you sure to delete, please write some
+                                            comments.</small></p>
+                                    <input type="text" size="50"></input>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" class="btn btn-default"
+                                        data-dismiss="modal">Close</button><br><br>
+                                    <form action="/delProInfo/del" method="POST" novalidate>
+                                        <input type="hidden" name="Id" class="hiddenValue" value="" />
+                                        <button class="btn btn-primary">Sure to Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('.dropbtn').click(function () {
+                                var title = $('.dropbtn').attr('title')
+                                $('.hiddenValue').val(title);
+
+                            })
+                        })
+                    </script>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <% } %>
 
     <footer class="container-fluid page-footer font-small bg-info pt-4 mt-4">
         <div class="container text-center text-md-left">
