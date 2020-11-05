@@ -202,6 +202,18 @@ router.post('/filter-service', (req, res) => {
     });
 });
 
+router.post('/:sitterName/:serviceSelected/review', (req, res) => {
+    const token = getLoginToken();
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
+        if (error) {
+            res.redirect('/login');
+        }
+        else {
+            review_query = "insert into ratings";
+        }
+    });
+});
+
 router.get('/:sitterName/:sitterService/contact', (req, res) => {
     let token = getLoginToken();
     let user_email = getUserEmail();

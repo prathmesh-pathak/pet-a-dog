@@ -11,7 +11,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script>
         const ratings = {
-            sony: 4.7
+            sony: 4.1
         }
 
         const starsTotal = 5;
@@ -372,7 +372,9 @@
                     <p class="card-text"><strong>Service Name: </strong><%= booking.service_name %></p>
                     <p class="card-text"><strong>Service Charge: </strong>$<%= booking.service_charge %></p>
                     <button data-toggle="modal" data-target="#myModal" class="btn btn-primary dropbtn"
-                        title="<%= booking.sitter_name %>">Rate this service
+                        title="<%= booking.sitter_name %>" sitter-name="<%= booking.sitter_name %>"
+                        service-selected="<%= booking.service_name %>"
+                        service-charge="$<%= booking.service_charge %>">Rate this service
                     </button>
                     <div id="myModal" class="modal fade" style="width: 100%;">
                         <div class="modal-dialog modal-dialog-centered">
@@ -387,11 +389,6 @@
                                     <p class="text-warning"><small>If you sure to delete, please write some
                                             comments.</small></p>
                                     <input type="text" size="50"></input> -->
-                                    <div class="slidecontainer">
-                                        <input type="range" min="0.1" max="5" value="50" class="slider" id="myRange"
-                                            step="0.1">
-                                        <p>Value: <span id="demo"></span></p>
-                                    </div>
                                     <script>
                                         var slider = document.getElementById("myRange");
                                         var output = document.getElementById("demo");
@@ -420,14 +417,41 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <form action="/<%= booking.sitter_name %>/<%= booking.service_name %>/review"
+                                        method="POST">
+                                        <!-- <input type="hidden" name="Id" class="hiddenValue" value="" /> -->
+                                        <div class="slidecontainer">
+                                            <input name="sitterRating" type="range" min="0.1" max="5" value="50"
+                                                class="slider" id="myRange" step="0.1">
+                                            <p>Rating: <span id="demo"></span></p>
+                                        </div>
+                                        <input type="hidden" name="sitterName" class="hiddenSitterName" value="" />
+                                        <input type="hidden" name="serviceSelected" class="hiddenServiceSelected"
+                                            value="" />
+                                        <input type="hidden" name="serviceCharge" class="hiddenServiceCharge"
+                                            value="" />
+                                        <textarea class="form-control" id="sitterComment" rows="3" name="comment"
+                                            onkeydown="checkCommentLength()" required></textarea>
+                                        <button class="btn btn-primary mt-4" id="review-button">Submit</button>
+                                    </form>
+                                    <script>
+                                        function checkCommentLength() {
+                                            var comment = document.getElementById('sitterComment').value;
+                                            if (comment.length > 10) {
+                                                document.getElementById('sitterComment').style.borderWidth = "3px";
+                                                document.getElementById('sitterComment').style.borderColor = "red";
+                                                document.getElementById('review-button').disabled = true;
+                                            }
+                                            else {
+                                                document.getElementById('sitterComment').style.borderWidth = "1px";
+                                                document.getElementById('sitterComment').style.borderColor = "white";
+                                                document.getElementById('review-button').disabled = false;
+                                            }
+                                        }
+                                    </script>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" type="button" class="btn btn-default"
-                                        data-dismiss="modal">Close</button><br><br>
-                                    <form action="/delProInfo/del" method="POST" novalidate>
-                                        <input type="hidden" name="Id" class="hiddenValue" value="" />
-                                        <button class="btn btn-primary">Sure to Delete</button>
-                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -435,8 +459,14 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $('.dropbtn').click(function () {
-                                var title = $(this).attr('title')
-                                $('.hiddenValue').val(title);
+                                //var title = $(this).attr('title');
+                                //$('.hiddenValue').val(title);
+                                var sitterName = $(this).attr('sitter-name');
+                                var serviceSelected = $(this).attr('service-selected');
+                                var serviceCharge = $(this).attr('service-charge');
+                                $('.hiddenSitterName').val(sitterName);
+                                $('.hiddenServiceSelected').val(serviceSelected);
+                                $('.hiddenServiceCharge').val(serviceCharge);
                             })
                         }) 
                     </script>
