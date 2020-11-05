@@ -447,13 +447,24 @@ router.get('/:name/review', (req, res) => {
                                             console.log(error);
                                         }
                                         else {
-                                            res.render('sitter-detail-review.ejs', {
-                                                sitterData: sitter[0],
-                                                feedback: feedback,
-                                                services: services,
-                                                ratings: ratings,
-                                                stars: ratings[0].rating
-                                            });
+                                            if (ratings.length == 0) {
+                                                res.render('sitter-detail-review.ejs', {
+                                                    sitterData: sitter[0],
+                                                    feedback: feedback,
+                                                    services: services,
+                                                    ratings: ratings,
+                                                    stars: 2.0
+                                                });
+                                            }
+                                            else {
+                                                res.render('sitter-detail-review.ejs', {
+                                                    sitterData: sitter[0],
+                                                    feedback: feedback,
+                                                    services: services,
+                                                    ratings: ratings,
+                                                    stars: ratings[0].rating
+                                                });
+                                            }
                                         }
                                     });
                                 }
@@ -1010,14 +1021,26 @@ router.get('/profile', (req, res) => {
                                                         console.log(error);
                                                     }
                                                     else {
-                                                        res.render('profile-dog.ejs', {
-                                                            userData: user[0],
-                                                            dogData: dog,
-                                                            tipData: dogCare,
-                                                            housingCondition: house[0],
-                                                            bookingData: bookings,
-                                                            stars: ratings[0].rating
-                                                        });
+                                                        if (ratings.length == 0) {
+                                                            res.render('profile-dog.ejs', {
+                                                                userData: user[0],
+                                                                dogData: dog,
+                                                                tipData: dogCare,
+                                                                housingCondition: house[0],
+                                                                bookingData: bookings,
+                                                                stars: 2.0
+                                                            });
+                                                        }
+                                                        else {
+                                                            res.render('profile-dog.ejs', {
+                                                                userData: user[0],
+                                                                dogData: dog,
+                                                                tipData: dogCare,
+                                                                housingCondition: house[0],
+                                                                bookingData: bookings,
+                                                                stars: ratings[0].rating
+                                                            });
+                                                        }
                                                     }
                                                 });
                                             }
