@@ -1124,4 +1124,28 @@ router.post('/profile/add', (req, res) => {
     res.redirect('/profile');
 });
 
+router.get('/tracking', (req, res) => {
+    let user_email = getUserEmail();
+    housing_query = "select * from housing_condition where user_email like '%harivatsav36@gmail.com%'";
+    db.query(housing_query, (error, housing) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            sitter_query = "select * from sitter_info where sitter_name like '%Prathmesh Pathak%'";
+            db.query(sitter_query, (error, sitter) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    res.render('tracking.ejs', {
+                        sitterDetail: sitter[0],
+                        housingDetail: housing[0]
+                    });
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;

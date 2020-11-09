@@ -41,6 +41,8 @@ create table housing_condition(
     house_fence varchar(10)
 );
 
+select * from housing_condition;
+
 create table tips (
 	tip_id int primary key,
 	breed varchar(50),
