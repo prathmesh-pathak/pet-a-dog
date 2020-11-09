@@ -17,28 +17,6 @@
         const starsTotal = 5;
         document.addEventListener('DOMContentLoaded', getRatings);
 
-        const productSelect = document.getElementById('product-select');
-        const ratingControl = document.getElementById('rating-control');
-
-        let product;
-
-        productSelect.addEventListener('change', (e) => {
-            product = e.target.value;
-            ratingControl.disabled = false;
-            ratingControl.value = ratings[product];
-        });
-
-        ratingControl.addEventListener('blur', (e) => {
-            const rating = e.target.value;
-            if (rating > 5) {
-                alert("Please rate 1 through 5");
-                return;
-            }
-
-            ratings[product] = rating;
-            getRatings();
-        });
-
         function getRatings() {
             for (let rating in ratings) {
                 const starPercentage = (ratings[rating] / starsTotal) * 100;
@@ -385,15 +363,6 @@
                                         aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <script>
-                                        var slider = document.getElementById("myRange");
-                                        var output = document.getElementById("demo");
-                                        output.innerHTML = slider.value;
-
-                                        slider.oninput = function () {
-                                            output.innerHTML = this.value;
-                                        }
-                                    </script>
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -430,6 +399,15 @@
                                             onkeydown="checkCommentLength()" required></textarea>
                                         <button class="btn btn-primary mt-4" id="review-button">Submit</button>
                                     </form>
+                                    <script>
+                                        var slider = document.getElementById("myRange");
+                                        var output = document.getElementById("demo");
+                                        output.innerHTML = slider.value;
+
+                                        slider.oninput = function () {
+                                            output.innerHTML = this.value;
+                                        }
+                                    </script>
                                     <script>
                                         function checkCommentLength() {
                                             var comment = document.getElementById('sitterComment').value;

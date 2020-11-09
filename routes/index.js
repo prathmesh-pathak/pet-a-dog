@@ -853,7 +853,7 @@ router.post('/charge', (req, res) => {
                                 }
                                 else {
                                     console.log("Net banking data inserted.");
-                                    sendEmail(req, res, userEmail, booking[0].user_first_name, sitterEmail, booking[0].sitter_name);
+                                    sendEmail(req, res, booking[0].user_email, booking[0].user_first_name, booking[0].sitter_email, booking[0].sitter_name);
                                 }
                             });
                         });
