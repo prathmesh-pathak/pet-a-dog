@@ -5,14 +5,21 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Directions Service</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/d3fe7c8d04.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
         /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
         #map {
-            height: 50%;
+            margin-top: 3rem;
+            height: 70%;
+            border: 3px solid black;
+        }
+
+        .placeholder {
+            height: 500px;
         }
 
         /* Optional: Makes the sample page fill the window. */
@@ -20,55 +27,132 @@
         body {
             height: 100%;
         }
-
-        #floating-panel {
-            position: absolute;
-            top: 10px;
-            left: 25%;
-            z-index: 5;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #999;
-            text-align: center;
-            font-family: 'Roboto', 'sans-serif';
-            line-height: 30px;
-            padding-left: 10px;
-        }
     </style>
 </head>
 
-<body onload="initMap()">
-    <div id="floating-panel">
-        <b>Start: </b>
-        <select id="start">
-            <option value="chicago, il">Chicago</option>
-            <option value="st louis, mo">St Louis</option>
-            <option value="joplin, mo">Joplin, MO</option>
-            <option value="oklahoma city, ok">Oklahoma City</option>
-            <option value="amarillo, tx">Amarillo</option>
-            <option value="gallup, nm">Gallup, NM</option>
-            <option value="flagstaff, az">Flagstaff, AZ</option>
-            <option value="winona, az">Winona</option>
-            <option value="kingman, az">Kingman</option>
-            <option value="barstow, ca">Barstow</option>
-            <option value="san bernardino, ca">San Bernardino</option>
-            <option value="los angeles, ca">Los Angeles</option>
-        </select>
-        <b>End: </b>
-        <select id="end">
-            <option value="chicago, il">Chicago</option>
-            <option value="st louis, mo">St Louis</option>
-            <option value="joplin, mo">Joplin, MO</option>
-            <option value="oklahoma city, ok">Oklahoma City</option>
-            <option value="amarillo, tx">Amarillo</option>
-            <option value="gallup, nm">Gallup, NM</option>
-            <option value="flagstaff, az">Flagstaff, AZ</option>
-            <option value="winona, az">Winona</option>
-            <option value="kingman, az">Kingman</option>
-            <option value="barstow, ca">Barstow</option>
-            <option value="san bernardino, ca">San Bernardino</option>
-            <option value="los angeles, ca">Los Angeles</option>
-        </select>
+<body style="background-color: rgb(244, 245, 246);">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" onload="setRating()">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="../imgs/pet-a-dog.png" alt="" style="width: 30px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search-sitter">Search a Sitter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Our Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dog-care">Dog Care</a>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <a href="/profile">View Profile</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button id="log-out-btn" class="btn btn-primary ml-4" type="submit">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="margin-top: 5rem;">
+        <h1 class="display-4" style="text-align: center;">Booking Details</h1>
+        <div class="card mt-4" style="width: 100%;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h2">Booking ID: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h2">34165441653431131354154</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Customer Name: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">Prathmesh Pathak</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Sitter Name: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">Kuntal Surwade</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Service Selected: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">Dog Boarding</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Date of Booking: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">09/28/2020</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Drop Off Date: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">10/02/2020 </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Drop off Time: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">6.00 PM</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Pick up Date: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">10/01/2020</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="h4">Pick up Time: </p>
+                    </div>
+                    <div class="col-md">
+                        <p class="h4">8.00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="map" class="container"></div>
     <script>
@@ -76,7 +160,7 @@
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 7,
+                zoom: 8,
                 center: { lat: 41.85, lng: -87.65 }
             });
             directionsDisplay.setMap(map);
@@ -84,8 +168,7 @@
             var onChangeHandler = function () {
                 calculateAndDisplayRoute(directionsService, directionsDisplay);
             };
-            document.getElementById('start').addEventListener('change', onChangeHandler);
-            document.getElementById('end').addEventListener('change', onChangeHandler);
+            onChangeHandler();
         }
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -96,7 +179,6 @@
             }, function (response, status) {
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
-                    document.getElementById('demo').innerHTML = response.routes[0].legs[0].duration.text;
                     console.log(response.routes[0].legs[0].duration.text);
                 } else {
                     window.alert('Directions request failed due to ' + status);
@@ -108,10 +190,35 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnbS5VoTysqU5e79Od7lMZ93Y7iJ5AYKw&callback=initMap">
         </script>
 
-    <div class="container">
-        <h1>Estimated Time of arrival is : </h1>
-        <h2 id="demo" style="margin-top: 6rem;"></h2>
-    </div>
+    <footer class="container-fluid page-footer font-small bg-info pt-4 mt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+                        repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam
+                        recusandae
+                        harum esse fugiat. Itaque, culpa?</p>
+
+                </div>
+
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi
+                        earum
+                        commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam,
+                        aspernatur id
+                        excepturi hic.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid footer-copyright text-center py-3 bg-info">
+            © 2020 A Place for Rover, Inc. All Rights Reserved.
+            711 Capitol Way S., Suite 204, Olympia, WA 98501
+        </div>
+    </footer>
 </body>
 
 </html>

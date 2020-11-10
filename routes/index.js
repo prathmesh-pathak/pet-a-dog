@@ -479,7 +479,7 @@ router.get('/:name/review', (req, res) => {
 
 router.get('/:name/contact', (req, res) => {
     let token = getLoginToken();
-    let currentUserEmail = getUserEmail();
+    let user_email = getUserEmail();
     console.log(req.body.selectedService);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
@@ -521,16 +521,25 @@ router.get('/:name/contact', (req, res) => {
                                 }
                                 else {
                                     const feedback = results;
-                                    user_dog_query = `select * from dog where user_email like '%` + currentUserEmail + `%'`;
+                                    user_dog_query = `select * from dog where user_email like '%` + user_email + `%'`;
                                     db.query(user_dog_query, (error, dog) => {
                                         if (error) {
                                             console.log(error);
                                         }
                                         else {
-                                            res.render('contact-sitter.ejs', {
-                                                sitterData: sitter[0],
-                                                services: services,
-                                                dogData: dog
+                                            housing_query = `select * from housing_condition where user_email like '%` + user_email + `%'`;
+                                            db.query(housing_query, (error, housing) => {
+                                                if (error) {
+                                                    console.log(error);
+                                                }
+                                                else {
+                                                    res.render('contact-sitter.ejs', {
+                                                        sitterData: sitter[0],
+                                                        services: services,
+                                                        dogData: dog,
+                                                        housingDetail: housing[0]
+                                                    });
+                                                }
                                             });
                                         }
                                     });
@@ -1126,22 +1135,67 @@ router.post('/profile/add', (req, res) => {
 
 router.get('/tracking', (req, res) => {
     let user_email = getUserEmail();
-    housing_query = "select * from housing_condition where user_email like '%harivatsav36@gmail.com%'";
-    db.query(housing_query, (error, housing) => {
+    let currentBookingId = getCurrentBookingId();
+    let token = getLoginToken();
+
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
-            console.log(error);
+            res.redirect('/login');
         }
         else {
-            sitter_query = "select * from sitter_info where sitter_name like '%Prathmesh Pathak%'";
-            db.query(sitter_query, (error, sitter) => {
+            housing_query = `select * from housing_condition where user_email like '%` + user_email + `%'`;
+            db.query(housing_query, (error, housing) => {
                 if (error) {
                     console.log(error);
                 }
                 else {
-                    res.render('tracking.ejs', {
-                        sitterDetail: sitter[0],
-                        housingDetail: housing[0]
-                    });
+                    if (currentBookingId === undefined) {
+                        currentBookingId = 106471117;
+                        booking_query = `select * from bookings where booking_id =` + currentBookingId;
+                        db.query(booking_query, (error, bookings) => {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                sitter_query = `select * from sitter_info where sitter_name like '%` + bookings[0].sitter_name + `%'`;
+                                db.query(sitter_query, (error, sitter) => {
+                                    if (error) {
+                                        console.log(error);
+                                    }
+                                    else {
+                                        res.render('tracking.ejs', {
+                                            sitterDetail: sitter[0],
+                                            housingDetail: housing[0],
+                                            bookingDetail: bookings[0]
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        booking_query = `select * from bookings where booking_id =` + currentBookingId;
+                        db.query(booking_query, (error, bookings) => {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                sitter_query = `select * from sitter_info where sitter_name like '%` + bookings[0].sitter_name + `%'`;
+                                db.query(sitter_query, (error, sitter) => {
+                                    if (error) {
+                                        console.log(error);
+                                    }
+                                    else {
+                                        res.render('tracking.ejs', {
+                                            sitterDetail: sitter[0],
+                                            housingDetail: housing[0],
+                                            bookingDetail: bookings[0]
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
             });
         }

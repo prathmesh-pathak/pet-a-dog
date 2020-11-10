@@ -8,6 +8,22 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
+        #map {
+            margin-top: 3rem;
+            height: 70%;
+            border: 3px solid black;
+        }
+
+        .placeholder {
+            height: 500px;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+        }
+
         .center {
             display: block;
             margin-left: auto;
@@ -188,6 +204,51 @@
             </div>
         </div>
     </div>
+
+    <div id="map" class="container"></div>
+    <script>
+        function initMap() {
+            var geocoder = new google.maps.Geocoder();
+            var address = `<%= sitterData.address %>`;
+            var options = {
+                zoom: 14,
+                center: { lat: 40.7178, lng: -74.0431 }
+            }
+            var map = new google.maps.Map(document.getElementById('map'), options);
+
+            const contentString =
+                '<div class="card" style="width: 20rem;">' +
+                '<img class="card-img-top img-thumbnail" src="<%= sitterData.img %>" alt="Card image cap">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title"><%= sitterData.name %></h5>' +
+                '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData.address %></h6>' +
+                "</div>" +
+                "</div>";
+
+
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    var marker = new google.maps.Marker({
+                        position: { lat: latitude, lng: longitude },
+                        map: map
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            });
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnbS5VoTysqU5e79Od7lMZ93Y7iJ5AYKw&callback=initMap">
+        </script>
 
     <footer class="container-fluid page-footer font-small bg-info pt-4" style="margin-top: 2rem;">
         <div class="container text-center text-md-left">
