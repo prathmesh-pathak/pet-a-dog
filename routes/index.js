@@ -480,7 +480,6 @@ router.get('/:name/review', (req, res) => {
 router.get('/:name/contact', (req, res) => {
     let token = getLoginToken();
     let user_email = getUserEmail();
-    console.log(req.body.selectedService);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
