@@ -14,10 +14,6 @@
             border: 3px solid black;
         }
 
-        .placeholder {
-            height: 500px;
-        }
-
         /* Optional: Makes the sample page fill the window. */
         html,
         body {
@@ -205,13 +201,13 @@
         </div>
     </div>
 
-    <div id="map" class="container"></div>
+    <div id="map"></div>
     <script>
         function initMap() {
             var geocoder = new google.maps.Geocoder();
             var address = `<%= sitterData.address %>`;
             var options = {
-                zoom: 14,
+                zoom: 13,
                 center: { lat: 40.7178, lng: -74.0431 }
             }
             var map = new google.maps.Map(document.getElementById('map'), options);
