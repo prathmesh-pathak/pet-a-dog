@@ -14,6 +14,12 @@
             margin-right: auto;
             width: 50%;
         }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 2rem;
+        }
     </style>
 </head>
 
@@ -195,28 +201,6 @@
                                                 <i class="fa fa-paypal mr-2">Proceed to pay</i>
                                             </button>
                                         </p>
-                                        <!-- <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Example select</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div> -->
-                                        <!-- <dl>
-                                            <dt>Bank</dt>
-                                            <dd> THE WORLD BANK</dd>
-                                        </dl>
-                                        <dl>
-                                            <dt>Account number</dt>
-                                            <dd>7775877975</dd>
-                                        </dl>
-                                        <dl>
-                                            <dt>IBAN</dt>
-                                            <dd>CZ7775877975656</dd>
-                                        </dl> -->
                                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                             sed do eiusmod tempor
                                             incididunt ut labore et dolore magna aliqua.
@@ -317,6 +301,80 @@
             </div>
         </div>
     </div>
+
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var geocoder = new google.maps.Geocoder();
+            var sitter_address = `<%= sitterDetail.sitter_address %>`;
+            var user_address = `<%= housingDetail.address_line_1 %>`;
+            // Map options
+            var options = {
+                zoom: 12,
+                center: { lat: 40.7178, lng: -74.0431 }
+            }
+
+            // New map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+
+            const sitter =
+                '<div class="card" style="width: 20rem;">' +
+                '<img class="card-img-top img-thumbnail" src="<%= sitterDetail.sitter_img %>" alt="Card image cap">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title"><%= sitterDetail.sitter_name %></h5>' +
+                '<h6 class="card-subtitle mb-2 text-muted"><%= sitterDetail.sitter_address %></h6>' +
+                "</div>" +
+                "</div>";
+
+            const user =
+                '<div class="card" style="width: 20rem;">' +
+                '<img class="card-img-top img-thumbnail" src="../imgs/profile.png"" alt="Card image cap">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title"><%= userDetail.first_name %> <%= userDetail.last_name %></h5>' +
+                '<h6 class="card-subtitle mb-2 text-muted"><%= housingDetail.address_line_1 %></h6>' +
+                "</div>" +
+                "</div>";
+
+            geocoder.geocode({ 'address': sitter_address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    var marker = new google.maps.Marker({
+                        position: { lat: latitude, lng: longitude },
+                        map: map
+                    });
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: sitter
+                    });
+
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            });
+
+            geocoder.geocode({ 'address': user_address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    var marker = new google.maps.Marker({
+                        position: { lat: latitude, lng: longitude },
+                        map: map
+                    });
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: user
+                    });
+
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            });
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnbS5VoTysqU5e79Od7lMZ93Y7iJ5AYKw&callback=initMap">
+        </script>
 
     <footer class="container-fluid page-footer font-small bg-info pt-4" style="margin-top: 2rem;">
         <div class="container text-center text-md-left">

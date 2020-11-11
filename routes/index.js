@@ -611,6 +611,7 @@ router.post('/:name/contact', (req, res) => {
 router.get('/payment', (req, res) => {
     let token = getLoginToken();
     let currentBookingId = getCurrentBookingId();
+    let user_email = getUserEmail();
     console.log(currentBookingId);
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
@@ -622,15 +623,42 @@ router.get('/payment', (req, res) => {
             }
 
             booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
-            db.query(booking_summary_query, (error, results) => {
+            db.query(booking_summary_query, (error, bookings) => {
                 if (error) {
                     console.log(error);
                 }
                 else {
-                    res.render('payment.ejs', {
-                        bookingDetails: results[0],
-                        cardDetailsErrorFlag: false,
-                        cardDetailsErrorMessage: ""
+                    sitter_query = `select * from sitter_info where sitter_name like '%` + bookings[0].sitter_name + `%'`;
+                    db.query(sitter_query, (error, sitter) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            user_query = `select * from users where email like '%` + user_email + `%'`;
+                            db.query(user_query, (error, user) => {
+                                if (error) {
+                                    console.log(error);
+                                }
+                                else {
+                                    housing_query = `select * from housing_condition where user_email like '%` + user_email + `%'`;
+                                    db.query(housing_query, (error, housing) => {
+                                        if (error) {
+                                            console.log(error);
+                                        }
+                                        else {
+                                            res.render('payment.ejs', {
+                                                bookingDetails: bookings[0],
+                                                sitterDetail: sitter[0],
+                                                userDetail: user[0],
+                                                housingDetail: housing[0],
+                                                cardDetailsErrorFlag: false,
+                                                cardDetailsErrorMessage: ""
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
                     });
                 }
             });

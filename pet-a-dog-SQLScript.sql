@@ -29,7 +29,7 @@ create table dog (
     dog_goWellWithChildrens varchar(10),
     dog_isHousetrained varchar(10)
 );
-select * from ratings;
+select * from users;
 create table housing_condition(
     house_id int primary key,
     user_email varchar(50),
@@ -42,8 +42,6 @@ create table housing_condition(
     house_heating varchar(10),
     house_fence varchar(10)
 );
-
-select * from housing_condition;
 
 create table tips (
 	tip_id int primary key,
