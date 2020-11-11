@@ -29,7 +29,7 @@ create table dog (
     dog_goWellWithChildrens varchar(10),
     dog_isHousetrained varchar(10)
 );
-select * from users;
+select * from housing_condition;
 create table housing_condition(
     house_id int primary key,
     user_email varchar(50),
@@ -142,7 +142,10 @@ create table bookings (
     pick_puck_date date,
     pick_puck_time_from time,
     pick_puck_time_to time,
-    booking_date date
+    booking_date date,
+    user_address varchar(100),
+    sitter_address varchar(100),
+    user_login_email varchar(100)
 );
 
 create table credit_card_transaction (

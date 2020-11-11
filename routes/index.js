@@ -554,9 +554,9 @@ router.get('/:name/contact', (req, res) => {
 
 router.post('/:name/contact', (req, res) => {
     let token = getLoginToken();
-    console.log(req.body.selectedService);
     uniqueID = Math.floor(100000000 + Math.random() * 900000000);
     setCurrentBookingId(uniqueID);
+    let user_email = getUserEmail();
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
         if (error) {
             res.redirect('/login');
@@ -582,17 +582,26 @@ router.post('/:name/contact', (req, res) => {
                             console.log(error);
                         }
                         else {
-                            booking_insert_query = "insert into bookings values ('" + uniqueID + "', '" + req.params.name + "', '" + sitter[0].email + "', " +
-                                "'" + req.body.selectedService + "','" + service[0].serviceCharge + "','" + req.body.firstName + "', " +
-                                "'" + req.body.lastName + "','" + req.body.userEmail + "', '" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
-                                "'" + req.body.selectDropTimeTo + "','" + req.body.pickUp + "','" + req.body.selectPickTimeFrom + "','" + req.body.selectPickTimeTo + "', " +
-                                "'" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + "')";
-                            db.query(booking_insert_query, (error, rows, fields) => {
+                            housing_query = `select * from housing_condition where user_email like '%` + user_email + `%'`;
+                            db.query(housing_query, (error, housing) => {
                                 if (error) {
                                     console.log(error);
                                 }
                                 else {
-                                    console.log("Booking Data inserted succesfully...");
+                                    booking_insert_query = "insert into bookings values ('" + uniqueID + "', '" + req.params.name + "', '" + sitter[0].email + "', " +
+                                        "'" + req.body.selectedService + "','" + service[0].serviceCharge + "','" + req.body.firstName + "', " +
+                                        "'" + req.body.lastName + "','" + req.body.userEmail + "', '" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
+                                        "'" + req.body.selectDropTimeTo + "','" + req.body.pickUp + "','" + req.body.selectPickTimeFrom + "','" + req.body.selectPickTimeTo + "', " +
+                                        "'" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + "', '" + housing[0].address_line_1 + "', " +
+                                        "'" + sitter[0].address + "', '" + user_email + "')";
+                                    db.query(booking_insert_query, (error, rows, fields) => {
+                                        if (error) {
+                                            console.log(error);
+                                        }
+                                        else {
+                                            console.log("Booking Data inserted succesfully...");
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -604,7 +613,6 @@ router.post('/:name/contact', (req, res) => {
                 res.redirect('/payment');
             }
         }
-
     });
 });
 
