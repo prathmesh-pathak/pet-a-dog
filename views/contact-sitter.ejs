@@ -28,7 +28,7 @@
     </style>
 </head>
 
-<body>
+<body onload="sampleFunction()">
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/home">
@@ -192,9 +192,24 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
-                            <button type="submit" class="btn btn-success">Next</button>
+                            <button type="submit" class="btn btn-success" id="contact-submit-btn">Next</button>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="alert alert-primary" role="alert">
+                            Before you proceed make sure you have entered information about your dog.
+                        </div>
+                    </div>
+                    <script>
+                        function sampleFunction() {
+                            dog_lenth = `<%= dogData %>`;
+                            house_length = `<%= housingDetail %>`;
+                            console.log(dog_lenth);
+                            if (dog_lenth == 0 || dog_lenth === undefined || house_length == 0 || house_length === undefined) {
+                                document.getElementById('contact-submit-btn').disabled = true;
+                            }
+                        }
+                    </script>
                 </form>
             </div>
         </div>

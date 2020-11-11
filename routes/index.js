@@ -532,12 +532,22 @@ router.get('/:name/contact', (req, res) => {
                                                     console.log(error);
                                                 }
                                                 else {
-                                                    res.render('contact-sitter.ejs', {
-                                                        sitterData: sitter[0],
-                                                        services: services,
-                                                        dogData: dog,
-                                                        housingDetail: housing[0]
-                                                    });
+                                                    if (housing === undefined || dog === undefined) {
+                                                        res.render('contact-sitter.ejs', {
+                                                            sitterData: sitter[0],
+                                                            services: services,
+                                                            dogData: 0,
+                                                            housingDetail: 0
+                                                        });
+                                                    }
+                                                    else {
+                                                        res.render('contact-sitter.ejs', {
+                                                            sitterData: sitter[0],
+                                                            services: services,
+                                                            dogData: dog,
+                                                            housingDetail: housing[0]
+                                                        });
+                                                    }
                                                 }
                                             });
                                         }
@@ -654,6 +664,7 @@ router.get('/payment', (req, res) => {
                                             console.log(error);
                                         }
                                         else {
+                                            console.log(sitter);
                                             res.render('payment.ejs', {
                                                 bookingDetails: bookings[0],
                                                 sitterDetail: sitter[0],
@@ -907,6 +918,10 @@ router.post('/charge', (req, res) => {
     });
 });
 
+router.get('/tracking', (req, res) => {
+    res.redirect('/:name/booking-details');
+});
+
 router.get('/:name/booking-details', (req, res) => {
     let token = getLoginToken();
     let currentBookingId = getCurrentBookingId();
@@ -915,17 +930,33 @@ router.get('/:name/booking-details', (req, res) => {
             res.redirect('/login');
         }
         else {
-            booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
-            db.query(booking_summary_query, (error, booking) => {
-                if (error) {
-                    console.log(error);
-                }
-                else {
-                    res.render('booking-confirmed.ejs', {
-                        bookingDetails: booking[0]
-                    });
-                }
-            });
+            if (currentBookingId === undefined) {
+                currentBookingId = 807361089;
+                booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+                db.query(booking_summary_query, (error, booking) => {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        res.render('booking-confirmed.ejs', {
+                            bookingDetails: booking[0]
+                        });
+                    }
+                });
+            }
+            else {
+                booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
+                db.query(booking_summary_query, (error, booking) => {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        res.render('booking-confirmed.ejs', {
+                            bookingDetails: booking[0]
+                        });
+                    }
+                });
+            }
         }
     });
 });

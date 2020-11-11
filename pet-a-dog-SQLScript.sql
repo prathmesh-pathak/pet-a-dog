@@ -1,7 +1,5 @@
 use petadog;
 
-select * from bookings;
-
 create table ratings (
 	rating_id int primary key,
     sitter_name varchar(50),
@@ -13,7 +11,7 @@ create table ratings (
     review_comment varchar(100),
     rating double
 );
-
+select * from bookings;
 create table dog (
 	dog_id int primary key,
     dog_name varchar(50),
@@ -29,7 +27,7 @@ create table dog (
     dog_goWellWithChildrens varchar(10),
     dog_isHousetrained varchar(10)
 );
-select * from bookings;
+
 create table housing_condition(
     house_id int primary key,
     user_email varchar(50),
@@ -225,20 +223,4 @@ create table guest_housing (
     house_heating varchar(10),
     house_fence varchar(10)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
