@@ -340,7 +340,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6" style="margin: 0; padding: 0;">
+            <div class="col-5" style="margin: 0; padding: 0;">
                 <% for (var i of sitterData) { %>
                 <a href="/search-sitter/<%= i.sitter_name %>" style="text-decoration: none; color: black">
                     <div class="card mb-3" style="max-width: 100%;" data-toggle="tooltip" data-placement="right"
@@ -369,22 +369,131 @@
                 <script>
                     // Initialize and add the map
                     function initMap() {
-                        // The location of Uluru
-                        var uluru = { lat: -25.344, lng: 131.036 };
-                        // The map, centered at Uluru
-                        var map = new google.maps.Map(
-                            document.getElementById('map'), { zoom: 4, center: uluru });
-                        // The marker, positioned at Uluru
-                        var marker = new google.maps.Marker({ position: uluru, map: map });
+                        var options = {
+                            zoom: 8,
+                            center: { lat: 42.3601, lng: -71.0589 }
+                        }
+                        var map = new google.maps.Map(document.getElementById('map'), options);
+
+                        const Kuntal =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[0].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[0].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[0].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        const Hari =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[1].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[1].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[1].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        const Soham =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[2].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[2].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[2].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        const Khalid =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[3].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[3].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[3].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        const Aditya =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[4].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[4].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[4].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        const Shastri =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[5].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[5].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[5].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        const Prathmesh =
+                            '<div class="card" style="width: 20rem;">' +
+                            '<img class="card-img-top img-thumbnail" src="<%= sitterData[6].sitter_img %>" alt="Card image cap">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title"><%= sitterData[6].sitter_name %></h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted"><%= sitterData[6].sitter_address %></h6>' +
+                            "</div>" +
+                            "</div>";
+
+                        var markers = [
+                            {
+                                coords: { lat: 40.733770, lng: -74.074010 },
+                                content: Kuntal,
+                            },
+                            {
+                                coords: { lat: 40.722920, lng: -74.070640 },
+                                content: Hari
+                            },
+                            {
+                                coords: { lat: 40.740910, lng: -74.048580 },
+                                content: Soham
+                            },
+                            {
+                                coords: { lat: 40.733580, lng: -74.073160 },
+                                content: Khalid
+                            },
+                            {
+                                coords: { lat: 40.732920, lng: -74.077360 },
+                                content: Aditya
+                            },
+                            {
+                                coords: { lat: 40.717475, lng: -74.073862 },
+                                content: Shastri
+                            },
+                            {
+                                coords: { lat: 40.710231, lng: -74.006055 },
+                                content: Prathmesh
+                            }
+                        ];
+
+                        for (var i = 0; i < markers.length; i++) {
+                            addMarker(markers[i]);
+                        }
+
+                        function addMarker(props) {
+                            var marker = new google.maps.Marker({
+                                position: props.coords,
+                                map: map
+                            });
+
+                            // Check content
+                            if (props.content) {
+                                var infoWindow = new google.maps.InfoWindow({
+                                    content: props.content
+                                });
+
+                                marker.addListener('click', function () {
+                                    infoWindow.open(map, marker);
+                                });
+                            }
+                        }
                     }
                 </script>
-                <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
                 <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsq8AWAStG6mvQQt0AEtDNgPc6HMwosx8&callback=initMap">
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnbS5VoTysqU5e79Od7lMZ93Y7iJ5AYKw&callback=initMap">
                     </script>
             </div>
         </div>
