@@ -7,6 +7,20 @@
     <title>Pet a Dog | Booking Confirmed</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+        #map {
+            margin-top: 2rem;
+            height: 70%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,7 +63,6 @@
 
     <div class="container" style="margin-top: 5rem;">
         <h1 class="display-4" style="text-align: center;">Booking Details</h1>
-        <% for (var booking of bookingDetails) { %>
         <div class="card mt-4" style="width: 100%;">
             <div class="card-body">
                 <div class="row">
@@ -57,7 +70,7 @@
                         <p class="h2">Booking ID: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h2"><%= booking.booking_id %></p>
+                        <p class="h2"><%= bookingDetails.booking_id %></p>
                     </div>
                 </div>
 
@@ -66,7 +79,7 @@
                         <p class="h4">Customer Name: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.user_first_name %> <%= booking.user_last_name %></p>
+                        <p class="h4"><%= bookingDetails.user_first_name %> <%= bookingDetails.user_last_name %></p>
                     </div>
                 </div>
 
@@ -75,7 +88,7 @@
                         <p class="h4">Sitter Name: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.sitter_name %></p>
+                        <p class="h4"><%= bookingDetails.sitter_name %></p>
                     </div>
                 </div>
 
@@ -84,7 +97,7 @@
                         <p class="h4">Service Selected: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.service_name %> </p>
+                        <p class="h4"><%= bookingDetails.service_name %> </p>
                     </div>
                 </div>
 
@@ -93,7 +106,7 @@
                         <p class="h4">Date of Booking: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.booking_date %> </p>
+                        <p class="h4"><%= bookingDetails.booking_date %> </p>
                     </div>
                 </div>
 
@@ -102,7 +115,7 @@
                         <p class="h4">Drop Off Date: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.drop_off_date %> </p>
+                        <p class="h4"><%= bookingDetails.drop_off_date %> </p>
                     </div>
                 </div>
 
@@ -111,7 +124,7 @@
                         <p class="h4">Drop off Time: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.drop_off_time_from %> </p>
+                        <p class="h4"><%= bookingDetails.drop_off_time_from %> </p>
                     </div>
                 </div>
 
@@ -120,7 +133,7 @@
                         <p class="h4">Pick up Date: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.pick_puck_date %> </p>
+                        <p class="h4"><%= bookingDetails.pick_puck_date %> </p>
                     </div>
                 </div>
 
@@ -129,13 +142,68 @@
                         <p class="h4">Pick up Time: </p>
                     </div>
                     <div class="col-md">
-                        <p class="h4"><%= booking.pick_puck_time_from %> </p>
+                        <p class="h4"><%= bookingDetails.pick_puck_time_from %> </p>
                     </div>
                 </div>
             </div>
         </div>
-        <% } %>
     </div>
+
+    <div class="container mt-4">
+        <div class="card">
+            <h5 class="card-header">Your request had been made</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <h5 class="card-title"><%= bookingDetails.sitter_name %> will be at your place in</h5>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5 class="card-title">
+                            <p id="time">
+                            </p>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: { lat: 41.85, lng: -87.65 }
+            });
+            directionsDisplay.setMap(map);
+
+            var onChangeHandler = function () {
+                calculateAndDisplayRoute(directionsService, directionsDisplay);
+            };
+            onChangeHandler();
+        }
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+            directionsService.route({
+                origin: `<%= bookingDetails.user_address %>`,
+                destination: `<%= bookingDetails.sitter_address %>`,
+                travelMode: 'DRIVING'
+            }, function (response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                    console.log(response.routes[0].legs[0].duration.text);
+                    document.getElementById('time').innerHTML = response.routes[0].legs[0].duration.text
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnbS5VoTysqU5e79Od7lMZ93Y7iJ5AYKw&callback=initMap">
+        </script>
 
     <footer class="container-fluid page-footer font-small bg-info pt-4" style="margin-top: 2rem;">
         <div class="container text-center text-md-left">

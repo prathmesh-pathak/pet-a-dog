@@ -922,7 +922,7 @@ router.get('/:name/booking-details', (req, res) => {
                 }
                 else {
                     res.render('booking-confirmed.ejs', {
-                        bookingDetails: booking
+                        bookingDetails: booking[0]
                     });
                 }
             });
