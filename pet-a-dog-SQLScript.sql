@@ -12,10 +12,6 @@ create table ratings (
     rating double
 );
 
-select * from ratings;
-
-select * from bookings where user_email like '%prathamjp786%';
-
 create table dog (
 	dog_id int primary key,
     dog_name varchar(50),
