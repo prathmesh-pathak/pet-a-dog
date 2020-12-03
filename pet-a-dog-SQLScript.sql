@@ -11,7 +11,7 @@ create table ratings (
     review_comment varchar(100),
     rating double
 );
-select * from bookings;
+
 create table dog (
 	dog_id int primary key,
     dog_name varchar(50),
@@ -76,7 +76,7 @@ create table sitter_info (
 	sitter_img varchar(500),
     sitter_about varchar(2000),
     sitter_description varchar(2000), 
-    sitter_rating real
+    sitter_rating int
 );
 
 create table services (
@@ -223,4 +223,3 @@ create table guest_housing (
     house_heating varchar(10),
     house_fence varchar(10)
 );
-
