@@ -600,10 +600,10 @@ router.post('/:name/contact', (req, res) => {
                                 else {
                                     booking_insert_query = "insert into bookings values ('" + uniqueID + "', '" + req.params.name + "', '" + sitter[0].email + "', " +
                                         "'" + req.body.selectedService + "','" + service[0].serviceCharge + "','" + req.body.firstName + "', " +
-                                        "'" + req.body.lastName + "','" + req.body.userEmail + "', '" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
+                                        "'" + req.body.lastName + "','" + user_email + "', '" + req.body.dropOff + "','" + req.body.selectDropTimeFrom + "', " +
                                         "'" + req.body.selectDropTimeTo + "','" + req.body.pickUp + "','" + req.body.selectPickTimeFrom + "','" + req.body.selectPickTimeTo + "', " +
                                         "'" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + "', '" + housing[0].address_line_1 + "', " +
-                                        "'" + sitter[0].address + "', '" + user_email + "')";
+                                        "'" + sitter[0].address + "', '" + req.body.userEmail + "')";
                                     db.query(booking_insert_query, (error, rows, fields) => {
                                         if (error) {
                                             console.log(error);
@@ -1097,6 +1097,9 @@ router.get('/profile', (req, res) => {
                                                     }
                                                     else {
                                                         if (ratings.length == 0) {
+                                                            console.log("rating is 0");
+                                                            console.log(user_email);
+                                                            console.log(bookings);
                                                             res.render('profile-dog.ejs', {
                                                                 userData: user[0],
                                                                 dogData: dog,
@@ -1107,6 +1110,7 @@ router.get('/profile', (req, res) => {
                                                             });
                                                         }
                                                         else {
+                                                            console.log(bookings);
                                                             res.render('profile-dog.ejs', {
                                                                 userData: user[0],
                                                                 dogData: dog,
