@@ -931,7 +931,7 @@ router.get('/:name/booking-details', (req, res) => {
         }
         else {
             if (currentBookingId === undefined) {
-                currentBookingId = 807361089;
+                currentBookingId = 700529513;
                 booking_summary_query = `select * from bookings where booking_id =` + currentBookingId;
                 db.query(booking_summary_query, (error, booking) => {
                     if (error) {
