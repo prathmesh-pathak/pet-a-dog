@@ -12,6 +12,7 @@ const jwt = require('jsonwebtoken');
 const { setUserEmail, getUserEmail, setLoginToken, getLoginToken, setCurrentBookingId, getCurrentBookingId, sendEmail, sendError } = require('./functions');
 const stripe = require('stripe')('sk_test_51Hb90tLQHcwjWBjSeIFLML1YbQcJbT7rPyzwmwuZyDYnN6S1K31jGVeW9T2b8DeBrmGRlsHVuSRsSSdR2revTXyX00G98x1gL8');
 const $ = require('jquery');
+require('dotenv').config();
 
 const dog = [];
 const booking = [];
