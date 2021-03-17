@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const db = require('../database/connection');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
@@ -30,7 +32,6 @@ module.exports = {
     sendEmail: sendEmail = (req, res, userEmail, userName, sitterEmail, sitterName) => {
         userName = userName;
         sitterName = sitterName;
-        console.log("USER EMAIL : " + userEmail);
         let currentUserEmail = getUserEmail();
         let currentBookingId = getCurrentBookingId();
         email_query = `select * from bookings where booking_id =` + currentBookingId;
@@ -42,14 +43,14 @@ module.exports = {
                 let transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'petadogapp@gmail.com',
-                        pass: 'cSPROJECT#1'
+                        user: process.env.EMAIL,
+                        pass: process.env.PASSWORD
                     }
                 });
 
                 ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
                     let mailOtions = {
-                        from: 'petadogapp@gmail.com',
+                        from: process.env.EMAIL,
                         to: sitterEmail,
                         subject: 'Booking confirmation from Pet a Dog',
                         html: data
@@ -68,7 +69,7 @@ module.exports = {
 
                 ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
                     let mailOtions = {
-                        from: 'petadogapp@gmail.com',
+                        from: process.env.EMAIL,
                         to: userEmail,
                         subject: 'Booking confirmation from Pet a Dog',
                         html: data
