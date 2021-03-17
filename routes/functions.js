@@ -11,7 +11,7 @@ module.exports = {
         return this.currentUserEmail;
     },
 
-    setLoginToken: setLoginToken = (token) => {
+    setLoginToken: setLoginToken = (token) => { 
         this.login_token = token;
     },
 
@@ -30,6 +30,7 @@ module.exports = {
     sendEmail: sendEmail = (req, res, userEmail, userName, sitterEmail, sitterName) => {
         userName = userName;
         sitterName = sitterName;
+        console.log("USER EMAIL : " + userEmail);
         let currentUserEmail = getUserEmail();
         let currentBookingId = getCurrentBookingId();
         email_query = `select * from bookings where booking_id =` + currentBookingId;
