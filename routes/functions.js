@@ -43,14 +43,14 @@ module.exports = {
                 let transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: process.env.EMAIL,
-                        pass: process.env.PASSWORD
+                        user: 'petadogapp@gmail.com',
+                        pass: 'cSPROJECT#1'
                     }
                 });
 
                 ejs.renderFile(__dirname + '\\order-details.ejs', { bookingDetails: booking, user: userName }, (err, data) => {
                     let mailOtions = {
-                        from: process.env.EMAIL,
+                        from: 'petadogapp@gmail.com',
                         to: sitterEmail,
                         subject: 'Booking confirmation from Pet a Dog',
                         html: data
@@ -69,7 +69,7 @@ module.exports = {
 
                 ejs.renderFile(__dirname + '\\customer-order-details.ejs', { bookingDetails: booking, sitter: sitterName }, (err, data) => {
                     let mailOtions = {
-                        from: process.env.EMAIL,
+                        from: 'petadogapp@gmail.com',
                         to: userEmail,
                         subject: 'Booking confirmation from Pet a Dog',
                         html: data
