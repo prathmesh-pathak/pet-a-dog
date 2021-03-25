@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 app.use('/', indexRouter);
 
-const port = 8000;
+const port = proces.env.PORT || 8000;
 app.listen(port, () => {
     console.log(`Server started on ${port}`);
 });
