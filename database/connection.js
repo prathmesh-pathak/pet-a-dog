@@ -11,6 +11,7 @@ const mySqlConnection = mysql.createConnection({
 mySqlConnection.connect((error) => {
     if (error) {
         console.log(error);
+        console.log(process.env.HOST);
     }
     console.log("Connected to the database...");
 });
