@@ -14,6 +14,7 @@ mySqlConnection.connect((error) => {
         console.log(process.env.HOST);
     }
     console.log("Connected to the database...");
+    console.log(process.env.HOST);
 });
 
 module.exports = mySqlConnection;
